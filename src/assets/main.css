@@ -225,7 +225,6 @@ body {
   flex-shrink: 0;
   width: 300px; /* Adjust width as needed */
   background-color: #1e1e1e;
-  padding: 1.5rem;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   color: #fff;

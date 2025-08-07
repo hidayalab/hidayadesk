@@ -77,7 +77,7 @@
       </div>
       <div class="widget-area">
         <quran-widget v-if="activeWidget === 'quran'"></quran-widget>
-        <note-taking-widget v-if="activeWidget === 'notes'"></note-taking-widget>
+        <note-taking-widget v-if="activeWidget === 'notes'" :theme="selectedTheme"></note-taking-widget>
       </div>
     </main>
 
@@ -113,6 +113,7 @@ import yaml from 'js-yaml';
 import NoteTakingWidget from './components/NoteTakingWidget.vue';
 import QuranWidget from './components/QuranWidget.vue';
 import './components/styles/quranwidget.css';
+import './components/styles/notetakingwidget.css';
 
 export default {
   components: {
