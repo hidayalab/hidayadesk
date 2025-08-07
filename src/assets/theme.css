@@ -1,0 +1,386 @@
+/* Theme-specific styles only - base styles are in main.css */
+
+/* GLOW THEME */
+.Glow {
+  background-color: #0a0a0a;
+  color: #0f0;
+}
+
+.Glow .section {
+  background-color: rgba(0, 255, 0, 0.1);
+  border: 1px solid #0f0;
+  box-shadow: 0 0 10px #0f0;
+}
+
+
+
+.Glow .item-link {
+  background-color: rgba(0, 255, 0, 0.05);
+  border-color: #0f0;
+  box-shadow: 0 0 5px #0f0;
+}
+
+.Glow .item-link:hover {
+  background-color: #1a1a1a;
+  box-shadow: 0 0 15px #0f0, inset 0 0 3px #0f0;
+  border-color: #0f0;
+}
+
+.Glow .quran-widget {
+  background-color: rgba(0, 255, 0, 0.1);
+  border: 1px solid #0f0;
+  box-shadow: 0 0 10px #0f0;
+}
+
+.Glow .quran-widget h3 {
+  color: #0f0;
+  /* text-shadow: 0 0 5px #0f0, 0 0 10px #0f0; */
+}
+
+.Glow .quran-widget .verse-text {
+  color: #fff;
+}
+
+.Glow .quran-widget .verse-meaning {
+  color: #ccc;
+}
+
+.Glow .quran-widget .verse-info {
+  color: #aaa;
+}
+
+.Glow .nav-links a,
+.Glow .theme-selector select,
+.Glow .layout-selector select {
+  color: #0f0;
+  border-color: #0f0;
+  background-color: #0a0a0a;
+  box-shadow: 0 0 5px #0f0;
+}
+
+.Glow .theme-selector select option,
+.Glow .layout-selector select option {
+  background-color: #0a0a0a;
+  color: #0f0;
+}
+
+/* CARD THEME */
+.Card {
+  background-color: #0a0a0a;
+  color: #0ff;
+  text-shadow: none;
+}
+
+.Card .section {
+  background-color: rgba(0, 255, 255, 0.1);
+  border: 1px solid #0ff;
+  box-shadow: 0 0 10px #0ff;
+}
+
+.Card .item-link {
+  background-color: rgba(0, 255, 255, 0.05);
+  border-color: #0ff;
+  box-shadow: 0 0 5px #0ff;
+}
+
+.Card .item-link:hover {
+  background-color: #1a1a1a;
+  box-shadow: 0 0 15px #0ff, inset 0 0 3px #0ff;
+  border-color: #0ff;
+}
+
+
+
+.Card .title,
+.Card .section-title {
+  color: #0ff;
+  text-shadow: 0 0 5px #0ff, 0 0 10px #0ff;
+}
+
+.Card .quran-widget {
+  background-color: rgba(0, 255, 255, 0.1);
+  border: 1px solid #0ff;
+  box-shadow: 0 0 10px #0ff;
+}
+
+.Card .quran-widget h3 {
+  color: #0ff;
+  text-shadow: 0 0 5px #0ff, 0 0 10px #0ff;
+}
+
+.Card .quran-widget .verse-text {
+  color: #fff;
+}
+
+.Card .quran-widget .verse-meaning {
+  color: #ccc;
+}
+
+.Card .quran-widget .verse-info {
+  color: #aaa;
+}
+
+.Card .nav-links a,
+.Card .theme-selector select,
+.Card .layout-selector select {
+  color: #0ff;
+  border-color: #0ff;
+  background-color: #0a0a0a;
+  box-shadow: 0 0 5px #0ff;
+}
+
+.Card .theme-selector select option,
+.Card .layout-selector select option {
+  background-color: #0a0a0a;
+  color: #0ff;
+}
+
+/* FIRE THEME */
+.Fire {
+  background-color: #1a0505;
+  color: #f0f0f0;
+  text-shadow: none;
+}
+
+.Fire .section {
+  background-color: rgba(255, 69, 0, 0.15);
+  border: 1px solid #ff6347;
+  box-shadow: 0 0 8px rgba(255, 99, 71, 0.7), inset 0 0 3px rgba(255, 140, 0, 0.5);
+}
+
+.Fire .item-link {
+  background-color: rgba(255, 69, 0, 0.1);
+  border-color: #ff7f50;
+  box-shadow: 0 0 5px rgba(255, 99, 71, 0.5), inset 0 0 2px rgba(255, 140, 0, 0.3);
+}
+
+.Fire .item-link:hover {
+  background-color: rgba(255, 69, 0, 0.25);
+  box-shadow: 0 0 15px rgba(255, 99, 71, 0.9), inset 0 0 3px rgba(255, 140, 0, 0.7);
+  border-color: #ff6347;
+}
+
+.Fire .item-link .icon {
+  color: #ffa07a;
+}
+
+.Fire .item-title {
+  color: #f0f0f0;
+}
+
+.Fire .title,
+.Fire .section-title {
+  color: #ffdab9;
+  text-shadow: 0 0 4px rgba(255, 99, 71, 0.8), 0 0 8px rgba(255, 140, 0, 0.6);
+}
+
+.Fire .quran-widget {
+  background-color: rgba(255, 69, 0, 0.15);
+  border: 1px solid #ff6347;
+  box-shadow: 0 0 8px rgba(255, 99, 71, 0.7), inset 0 0 3px rgba(255, 140, 0, 0.5);
+}
+
+.Fire .quran-widget h3 {
+  color: #ffdab9;
+  text-shadow: 0 0 4px rgba(255, 99, 71, 0.8), 0 0 8px rgba(255, 140, 0, 0.6);
+}
+
+.Fire .quran-widget .verse-text {
+  color: #f0f0f0;
+}
+
+.Fire .quran-widget .verse-meaning {
+  color: #ccc;
+}
+
+.Fire .quran-widget .verse-info {
+  color: #aaa;
+}
+
+.Fire .nav-links a,
+.Fire .theme-selector select,
+.Fire .layout-selector select {
+  color: #ffdab9;
+  border-color: #ff7f50;
+  background-color: #1a0505;
+  box-shadow: 0 0 5px rgba(255, 99, 71, 0.6);
+}
+
+.Fire .theme-selector select option,
+.Fire .layout-selector select option {
+  background-color: #1a0505;
+  color: #ffdab9;
+}
+
+/* MONOFIRE THEME */
+.MonoFire {
+  background-color: #000;
+  color: #fff;
+  text-shadow: none;
+}
+
+.MonoFire .section {
+  background-color: rgba(255, 255, 255, 0.1);
+  border: 1px solid #ccc;
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.3), inset 0 0 3px rgba(255, 255, 255, 0.2);
+}
+
+.MonoFire .item-link {
+  border-color: #333;
+}
+
+.MonoFire .item-link:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.7), inset 0 0 4px rgba(255, 255, 255, 0.5);
+  border-color: #ccc;
+}
+
+.MonoFire .item-link .icon {
+  color: #eee;
+}
+
+.MonoFire .item-title {
+  color: #fff;
+}
+
+.MonoFire .title,
+.MonoFire .section-title {
+  color: #fff;
+  text-shadow: none;
+}
+
+.MonoFire .quran-widget {
+  background-color: rgba(255, 255, 255, 0.1);
+  border: 1px solid #ccc;
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.3), inset 0 0 3px rgba(255, 255, 255, 0.2);
+}
+
+.MonoFire .quran-widget h3 {
+  color: #fff;
+  text-shadow: none;
+}
+
+.MonoFire .quran-widget .verse-text {
+  color: #fff;
+}
+
+.MonoFire .quran-widget .verse-meaning {
+  color: #ccc;
+}
+
+.MonoFire .quran-widget .verse-info {
+  color: #aaa;
+}
+
+.MonoFire .nav-links a,
+.MonoFire .theme-selector select,
+.MonoFire .layout-selector select {
+  color: #fff;
+  border-color: #aaa;
+  background-color: #000;
+  box-shadow: 0 0 5px rgba(255, 255, 255, 0.2);
+}
+
+.MonoFire .theme-selector select option,
+.MonoFire .layout-selector select option {
+  background-color: #000;
+  color: #fff;
+}
+
+/* SQUARE THEME */
+.Square {
+  background-color: #ffffff;
+  color: #1a1a1a;
+  text-shadow: none;
+}
+
+.Square .section {
+  background-color: rgba(0, 0, 0, 0.05);
+  border: 1px solid #ccc;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1), inset 0 0 6px rgba(0, 0, 0, 0.05);
+}
+
+.Square .item-link {
+  border-color: #333;
+}
+
+.Square .item-link:hover {
+  background-color: #1a1a1a;
+  box-shadow: 0 0 15px rgba(255, 99, 71, 0.9), inset 0 0 3px rgba(255, 140, 0, 0.7);
+  border-color: #ff6347;
+}
+
+.Square .item-link .icon {
+  color: #ffffff;
+}
+
+.Square .item-title {
+  color: #ffffff;
+}
+
+.Square .title,
+.Square .section-title {
+  color: #1a1a1a;
+  text-shadow: none;
+}
+
+.Square .quran-widget {
+  background-color: rgba(0, 0, 0, 0.05);
+  border: 1px solid #ccc;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1), inset 0 0 6px rgba(0, 0, 0, 0.05);
+}
+
+.Square .quran-widget h3 {
+  color: #1a1a1a;
+  text-shadow: none;
+}
+
+.Square .quran-widget .verse-text {
+  color: #1a1a1a;
+}
+
+.Square .quran-widget .verse-meaning {
+  color: #666;
+}
+
+.Square .quran-widget .verse-info {
+  color: #999;
+}
+
+.Square .quran-widget {
+  background-color: rgba(0, 0, 0, 0.05);
+  border: 1px solid #ccc;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1), inset 0 0 6px rgba(0, 0, 0, 0.05);
+}
+
+.Square .quran-widget h3 {
+  color: #1a1a1a;
+  text-shadow: none;
+}
+
+.Square .quran-widget .verse-text {
+  color: #1a1a1a;
+}
+
+.Square .quran-widget .verse-meaning {
+  color: #666;
+}
+
+.Square .quran-widget .verse-info {
+  color: #999;
+}
+
+.Square .nav-links a,
+.Square .theme-selector select,
+.Square .layout-selector select {
+  color: #1a1a1a;
+  border-color: #bbb;
+  background-color: #ffffff;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+}
+
+.Square .theme-selector select option,
+.Square .layout-selector select option {
+  background-color: #ffffff;
+  color: #1a1a1a;
+}
