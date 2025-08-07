@@ -1,0 +1,13 @@
+.slate .add-item-button .item-link {
+    border: 1px solid #fff;
+    box-shadow: 0 0 8px #fff, inset 0 0 4px #fff;
+  }
+
+.slate .section-title{
+  color: #fff;
+}
+
+.slate .item-link:hover {
+  border: 1px solid #fff;
+  box-shadow: 0 0 8px #fff, inset 0 0 4px #fff;
+}

@@ -26,4 +26,10 @@
   line-height: 1.5;
   resize: vertical;
   background-color: #fdfdfd;
+  background-image: repeating-linear-gradient(
+    transparent,
+    transparent 21px,
+    #e8e5e0 21px,
+    #e8e5e0 22px
+);
 }

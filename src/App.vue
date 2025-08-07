@@ -131,7 +131,7 @@ export default {
         { name: 'Glow', value: 'Glow', icon: 'fas fa-lightbulb', color: '#0f0' },
         { name: 'CyberGlow', value: 'CyberGlow', icon: 'fas fa-eye	', color: '#0ff' },
         { name: 'Fire', value: 'Fire', icon: 'fas fa-fire', color: '#ff6347' },
-        { name: 'Minimal Squares', value: 'minimal-squares', icon: 'fas fa-square', color: '#fff' },
+        { name: 'Slate', value: 'slate', icon: 'fas fa-square', color: '#fff' },
         { name: 'MonoFire', value: 'MonoFire', icon: 'fas fa-fire-alt', color: '#fff' },
         { name: 'Square', value: 'Square', icon: 'fas fa-th-large', color: '#1a1a1a' },
       ],
