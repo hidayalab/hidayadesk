@@ -64,6 +64,18 @@
   color: #0f0;
 }
 
+.Glow .layout-selector label {
+  color: #0f0;
+}
+
+.Glow .card-size-selector label {
+  color: #0f0;
+}
+
+.Glow .theme-selector label {
+  color: #0f0;
+}
+
 /* CARD THEME */
 .Card {
   background-color: #0a0a0a;
@@ -132,6 +144,18 @@
 .Card .theme-selector select option,
 .Card .layout-selector select option {
   background-color: #0a0a0a;
+  color: #0ff;
+}
+
+.Card .layout-selector label {
+  color: #0ff;
+}
+
+.Card .card-size-selector label {
+  color: #0ff;
+}
+
+.Card .theme-selector label {
   color: #0ff;
 }
 
@@ -212,6 +236,18 @@
   color: #ffdab9;
 }
 
+.Fire .layout-selector label {
+  color: #ffdab9;
+}
+
+.Fire .card-size-selector label {
+  color: #ffdab9;
+}
+
+.Fire .theme-selector label {
+  color: #ffdab9;
+}
+
 /* MONOFIRE THEME */
 .MonoFire {
   background-color: #000;
@@ -284,6 +320,18 @@
 .MonoFire .theme-selector select option,
 .MonoFire .layout-selector select option {
   background-color: #000;
+  color: #fff;
+}
+
+.MonoFire .layout-selector label {
+  color: #fff;
+}
+
+.MonoFire .card-size-selector label {
+  color: #fff;
+}
+
+.MonoFire .theme-selector label {
   color: #fff;
 }
 
@@ -382,5 +430,17 @@
 .Square .theme-selector select option,
 .Square .layout-selector select option {
   background-color: #ffffff;
+  color: #1a1a1a;
+}
+
+.Square .layout-selector label {
+  color: #1a1a1a;
+}
+
+.Square .card-size-selector label {
+  color: #1a1a1a;
+}
+
+.Square .theme-selector label {
   color: #1a1a1a;
 }

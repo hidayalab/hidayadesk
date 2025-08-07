@@ -97,15 +97,75 @@ body {
   align-items: center;
 }
 
-.theme-selector select,
-.layout-selector select,
-.display-mode-selector select {
+.custom-dropdown {
+  position: relative;
+  margin-right: 1rem;
+}
+
+.custom-dropdown label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: #fff;
+}
+
+.custom-dropdown .selected-option {
   background-color: #2a2a2a;
   color: #fff;
   border: 1px solid #333;
   border-radius: 4px;
-  padding: 0.5rem;
-  margin-right: 1rem;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-width: 120px;
+}
+
+.custom-dropdown .selected-option .icon {
+  margin-right: 0.5rem;
+}
+
+.custom-dropdown .options-list {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: #2a2a2a;
+  border: 1px solid #333;
+  border-radius: 4px;
+  list-style: none;
+  padding: 0;
+  margin-top: 0.5rem;
+  z-index: 10;
+  min-width: 100%;
+}
+
+.custom-dropdown .options-list li {
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  color: #fff;
+}
+
+.custom-dropdown .options-list li:hover {
+  background-color: #3a3a3a;
+}
+
+/* .custom-dropdown .options-list li:hover {
+  background-color: #3a3a3a;
+} */
+
+.custom-dropdown .options-list li .icon {
+  margin-right: 0.5rem;
+}
+
+.custom-dropdown .dropdown-arrow {
+  margin-left: 1rem;
+  transition: transform 0.2s ease-in-out;
+}
+
+.custom-dropdown .selected-option[aria-expanded="true"] .dropdown-arrow {
+  transform: rotate(180deg);
 }
 
 /* Display Modes */
@@ -361,22 +421,6 @@ body {
   font-size: 0.8rem;
 }
 
-.card-size-large .item-list {
-  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-}
-
-.card-size-large .item-link {
-  padding: 1.25rem;
-}
-
-.card-size-large .item-link .icon {
-  font-size: 2.5rem;
-}
-
-.card-size-large .item-title {
-  font-size: 0.9rem;
-}
-
 /* Card Sizes */
 .card-size-small .item-list {
   grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
@@ -408,23 +452,7 @@ body {
 
 .card-size-medium .item-title {
   font-size: 0.8rem;
-}
-
-.card-size-large .item-list {
-  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-}
-
-.card-size-large .item-link {
-  padding: 1.25rem;
-}
-
-.card-size-large .item-link .icon {
-  font-size: 2.5rem;
-}
-
-.card-size-large .item-title {
-  font-size: 0.9rem;
-}
+} 
 
 .card-size-list .item-list {
   display: block;
@@ -447,4 +475,54 @@ body {
 
 .card-size-list .item-title {
   text-align: left;
+}
+
+.layout-selector {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-right: 1rem;
+}
+
+.layout-selector label {
+  margin-bottom: 0.5rem;
+  color: #fff;
+}
+
+.card-size-selector {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-right: 1rem;
+}
+
+.card-size-selector label {
+  margin-bottom: 0.5rem;
+  color: #fff;
+}
+
+.layout-icons {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.layout-icon {
+  cursor: pointer;
+  padding: 0.5rem;
+  border-radius: 4px;
+  background-color: #2a2a2a;
+  color: #fff;
+  border: 1px solid #333;
+}
+
+.layout-icon.selected {
+  background-color: #fff;
+  color: #000;
+}
+
+.layout-icon span {
+  display: block;
+  font-size: 0.7rem;
+  margin-top: 0.25rem;
+  text-align: center;
 }

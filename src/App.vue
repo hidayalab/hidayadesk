@@ -5,23 +5,41 @@
         <h1 class="title">{{ pageInfo.title }}</h1>
       </div>
       <div class="controls">
-        <div class="theme-selector">
-          <label for="theme-select">Theme:</label>
-          <select id="theme-select" v-model="selectedTheme">
-            <option v-for="theme in themes" :key="theme.name" :value="theme.value">{{ theme.name }}</option>
-          </select>
+        <div class="theme-selector custom-dropdown">
+          <label>Theme:</label>
+          <div class="selected-option" @click="toggleDropdown('theme')">
+            <i :class="['icon', currentThemeIcon]"></i>
+            <span>{{ currentThemeName }}</span>
+            <i class="fas fa-chevron-down dropdown-arrow"></i>
+          </div>
+          <ul class="options-list" v-show="showThemeDropdown">
+            <li v-for="theme in themes" :key="theme.name" @click="selectOption('theme', theme.value)">
+              <i :class="['icon', theme.icon]"></i>
+              <span>{{ theme.name }}</span>
+            </li>
+          </ul>
         </div>
         <div class="layout-selector">
-          <label for="layout-select">Layout:</label>
-          <select id="layout-select" v-model="selectedLayout">
-            <option v-for="layout in layouts" :key="layout.name" :value="layout.value">{{ layout.name }}</option>
-          </select>
+          <label>Layout</label>
+          <div class="layout-icons">
+            <div v-for="layout in layouts" :key="layout.name"
+                 class="layout-icon"
+                 :class="{ 'selected': selectedLayout === layout.value }"
+                 @click="selectOption('layout', layout.value)">
+              <i :class="['icon', layout.icon]"></i>
+            </div>
+          </div>
         </div>
         <div class="card-size-selector">
-          <label for="card-size-select">Card Size:</label>
-          <select id="card-size-select" v-model="selectedCardSize">
-            <option v-for="size in cardSizes" :key="size.name" :value="size.value">{{ size.name }}</option>
-          </select>
+          <label>Card Size</label>
+          <div class="layout-icons">
+            <div v-for="size in cardSizes" :key="size.name"
+                 class="layout-icon"
+                 :class="{ 'selected': selectedCardSize === size.value }"
+                 @click="selectOption('cardSize', size.value)">
+              <i :class="['icon', size.icon]"></i>
+            </div>
+          </div>
         </div>
 
 
@@ -75,32 +93,56 @@ export default {
         aya: ''
       },
       themes: [
-        
-        
-        
-        
-        { name: 'Glow', value: 'Glow' },
-        { name: 'Card', value: 'Card' },
-        { name: 'Fire', value: 'Fire' },
-        { name: 'Minimal Squares', value: 'minimal-squares' },
-        { name: 'MonoFire', value: 'MonoFire' },
-        { name: 'Square', value: 'Square' },
+        { name: 'Glow', value: 'Glow', icon: 'fas fa-lightbulb' },
+        { name: 'Card', value: 'Card', icon: 'fas fa-credit-card' },
+        { name: 'Fire', value: 'Fire', icon: 'fas fa-fire' },
+        { name: 'Minimal Squares', value: 'minimal-squares', icon: 'fas fa-square' },
+        { name: 'MonoFire', value: 'MonoFire', icon: 'fas fa-fire-alt' },
+        { name: 'Square', value: 'Square', icon: 'fas fa-th-large' },
       ],
       layouts: [
-        { name: 'Two Column', value: 'layout-two-column' },
-        { name: 'Three Column', value: 'layout-three-column' },
-        { name: 'Single Column', value: 'layout-compact' },
+        { name: 'Single Column', value: 'layout-compact', icon: 'fas fa-list' },
+        { name: 'Two Column', value: 'layout-two-column', icon: 'fas fa-columns' },
+        { name: 'Three Column', value: 'layout-three-column', icon: 'fas fa-th' },
       ],
       cardSizes: [
-        { name: 'Small', value: 'card-size-small' },
-        { name: 'Medium', value: 'card-size-medium' },
-        { name: 'Large', value: 'card-size-large' },
-        { name: 'List', value: 'card-size-list' },
+        { name: 'Small', value: 'card-size-small', icon: 'fas fa-compress-alt' },
+        { name: 'Medium', value: 'card-size-medium', icon: 'fas fa-expand-alt' },
+        { name: 'List', value: 'card-size-list', icon: 'fas fa-bars' },
       ],
       selectedTheme: 'dashy-dark',
       selectedLayout: 'layout-three-column',
       selectedCardSize: 'card-size-medium',
+      showThemeDropdown: false,
+      showLayoutDropdown: false,
+      showCardSizeDropdown: false,
     };
+  },
+  computed: {
+    currentThemeName() {
+      const theme = this.themes.find(t => t.value === this.selectedTheme);
+      return theme ? theme.name : '';
+    },
+    currentThemeIcon() {
+      const theme = this.themes.find(t => t.value === this.selectedTheme);
+      return theme ? theme.icon : '';
+    },
+    currentLayoutName() {
+      const layout = this.layouts.find(l => l.value === this.selectedLayout);
+      return layout ? layout.name : '';
+    },
+    currentLayoutIcon() {
+      const layout = this.layouts.find(l => l.value === this.selectedLayout);
+      return layout ? layout.icon : '';
+    },
+    currentCardSizeName() {
+      const size = this.cardSizes.find(s => s.value === this.selectedCardSize);
+      return size ? size.name : '';
+    },
+    currentCardSizeIcon() {
+      const size = this.cardSizes.find(s => s.value === this.selectedCardSize);
+      return size ? size.icon : '';
+    },
   },
   watch: {
     selectedTheme(newTheme) {
@@ -172,6 +214,15 @@ export default {
       const query = event.target.value;
       const searchEngine = this.sections.find(s => s.widgets?.find(w => w.type === 'search')).widgets.find(w => w.type === 'search').options.searchEngine;
       window.open(`https://www.${searchEngine}.com/search?q=${query}`, '_blank');
+    },
+    toggleDropdown(type) {
+      this[`show${type.charAt(0).toUpperCase() + type.slice(1)}Dropdown`] = !this[`show${type.charAt(0).toUpperCase() + type.slice(1)}Dropdown`];
+    },
+    selectOption(type, value) {
+      this[`selected${type.charAt(0).toUpperCase() + type.slice(1)}`] = value;
+      if (type !== 'layout' && type !== 'cardSize') {
+        this.toggleDropdown(type);
+      }
     },
   },
 };
