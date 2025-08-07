@@ -1,23 +1,23 @@
 /* CARD THEME */
-.Card {
+.CyberGlow {
   background-color: #0a0a0a;
   color: #0ff;
   text-shadow: none;
 }
 
-.Card .section {
+.CyberGlow .section {
   background-color: rgba(0, 255, 255, 0.1);
   border: 1px solid #0ff;
   box-shadow: 0 0 10px #0ff;
 }
 
-.Card .item-link {
+.CyberGlow .item-link {
   background-color: rgba(0, 255, 255, 0.05);
   border-color: #0ff;
   box-shadow: 0 0 5px #0ff;
 }
 
-.Card .item-link:hover {
+.CyberGlow .item-link:hover {
   background-color: #1a1a1a;
   box-shadow: 0 0 15px #0ff, inset 0 0 3px #0ff;
   border-color: #0ff;
@@ -25,57 +25,57 @@
 
 
 
-.Card .title,
-.Card .section-title {
+.CyberGlow .title,
+.CyberGlow .section-title {
   color: #0ff;
 }
 
-.Card .quran-widget {
+.CyberGlow .widget-area{
   background-color: rgba(0, 255, 255, 0.1);
   border: 1px solid #0ff;
   box-shadow: 0 0 10px #0ff;
   height: 100%;
 }
 
-.Card .quran-widget h3 {
+.CyberGlow .quran-widget h3 {
   color: #0ff;
 }
 
-.Card .quran-widget .verse-text {
+.CyberGlow .quran-widget .verse-text {
   color: #fff;
 }
 
-.Card .quran-widget .verse-meaning {
+.CyberGlow .quran-widget .verse-meaning {
   color: #ccc;
 }
 
-.Card .quran-widget .verse-info {
+.CyberGlow .quran-widget .verse-info {
   color: #aaa;
 }
 
-.Card .nav-links a,
-.Card .theme-selector select,
-.Card .layout-selector select {
+.CyberGlow .nav-links a,
+.CyberGlow .theme-selector select,
+.CyberGlow .layout-selector select {
   color: #0ff;
   border-color: #0ff;
   background-color: #0a0a0a;
   box-shadow: 0 0 5px #0ff;
 }
 
-.Card .theme-selector select option,
-.Card .layout-selector select option {
+.CyberGlow .theme-selector select option,
+.CyberGlow .layout-selector select option {
   background-color: #0a0a0a;
   color: #0ff;
 }
 
-.Card .layout-selector label {
+.CyberGlow .layout-selector label {
   color: #0ff;
 }
 
-.Card .card-size-selector label {
+.CyberGlow .card-size-selector label {
   color: #0ff;
 }
 
-.Card .theme-selector label {
+.CyberGlow .theme-selector label {
   color: #0ff;
 }

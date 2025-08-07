@@ -615,9 +615,8 @@ body {
   border-style: dashed;
 }
 
-.add-item-button:hover .item-link {
-  background-color: #3a3a3a;
-  border-style: solid;
+.list-item.add-item-button > .item-link, .add-item-button .item-link:hover {
+  background-color: black;
 }
 
 
@@ -707,16 +706,9 @@ body {
 }
 
 .add-item-button {
-  cursor: pointer;
-  padding: 0.5rem;
-  border-radius: 4px;
-  background-color: black;
   color: #fff;
-  border: 1px solid #333;
-  margin-bottom: 1rem;
 }
 
 .add-item-button:hover {
-  background-color: #fff;
   color: #000;
 }

@@ -129,7 +129,7 @@ export default {
       currentDate: new Date().toLocaleDateString(),
       themes: [
         { name: 'Glow', value: 'Glow', icon: 'fas fa-lightbulb', color: '#0f0' },
-        { name: 'Card', value: 'Card', icon: 'fas fa-credit-card', color: '#0ff' },
+        { name: 'CyberGlow', value: 'CyberGlow', icon: 'fas fa-eye	', color: '#0ff' },
         { name: 'Fire', value: 'Fire', icon: 'fas fa-fire', color: '#ff6347' },
         { name: 'Minimal Squares', value: 'minimal-squares', icon: 'fas fa-square', color: '#fff' },
         { name: 'MonoFire', value: 'MonoFire', icon: 'fas fa-fire-alt', color: '#fff' },
@@ -203,10 +203,6 @@ export default {
     this.updateThemeStylesheet(this.selectedTheme);
     this.selectedLayout = localStorage.getItem('selectedLayout') || this.selectedLayout;
     this.selectedCardSize = localStorage.getItem('selectedCardSize') || this.selectedCardSize;
-    setInterval(() => {
-      this.currentTime = new Date().toLocaleTimeString();
-      this.currentDate = new Date().toLocaleDateString();
-    }, 1000);
   },
   methods: {
     async fetchConfig() {
@@ -224,11 +220,6 @@ export default {
       } catch (error) {
         console.error('Error fetching or parsing config:', error);
       }
-    },
-    search(event) {
-      const query = event.target.value;
-      const searchEngine = this.sections.find(s => s.widgets?.find(w => w.type === 'search')).widgets.find(w => w.type === 'search').options.searchEngine;
-      window.open(`https://www.${searchEngine}.com/search?q=${query}`, '_blank');
     },
     toggleDropdown(type) {
       this[`show${type.charAt(0).toUpperCase() + type.slice(1)}Dropdown`] = !this[`show${type.charAt(0).toUpperCase() + type.slice(1)}Dropdown`];

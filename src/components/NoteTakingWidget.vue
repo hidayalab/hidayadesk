@@ -1,8 +1,7 @@
 <template>
   <div class="note-taking-widget section">
     <h2 class="section-title">Notes</h2>
-    <textarea v-model="noteContent" placeholder="Enter your notes here..."></textarea>
-    <button @click="saveNote">Save Note</button>
+    <textarea v-model="noteContent" @keyup="saveNote" placeholder="Enter your notes here..."></textarea>
   </div>
 </template>
 
@@ -22,7 +21,6 @@ export default {
   methods: {
     saveNote() {
       localStorage.setItem('userNote', this.noteContent);
-      alert('Note saved!');
     }
   }
 };
