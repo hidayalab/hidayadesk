@@ -14,7 +14,7 @@
           </div>
           <ul class="options-list" v-show="showThemeDropdown">
             <li v-for="theme in themes" :key="theme.name" @click="selectOption('theme', theme.value)">
-              <i :class="['icon', theme.icon]"></i>
+              <i :class="['icon', theme.icon]" :style="{ color: theme.color }"></i>
               <span>{{ theme.name }}</span>
             </li>
           </ul>
@@ -43,8 +43,8 @@
         </div>
 
         <div class="widget-toggle">
-          <button @click="activeWidget = 'quran'">Quran Verse</button>
-          <button @click="activeWidget = 'notes'">Notes</button>
+          <button @click="activeWidget = 'quran'" :class="{ 'selected': activeWidget === 'quran' }">Quran Verse</button>
+          <button @click="activeWidget = 'notes'" :class="{ 'selected': activeWidget === 'notes' }">Notes</button>
         </div>
 
         <nav class="nav-links">
@@ -105,12 +105,12 @@ export default {
         aya: ''
       },
       themes: [
-        { name: 'Glow', value: 'Glow', icon: 'fas fa-lightbulb' },
-        { name: 'Card', value: 'Card', icon: 'fas fa-credit-card' },
-        { name: 'Fire', value: 'Fire', icon: 'fas fa-fire' },
-        { name: 'Minimal Squares', value: 'minimal-squares', icon: 'fas fa-square' },
-        { name: 'MonoFire', value: 'MonoFire', icon: 'fas fa-fire-alt' },
-        { name: 'Square', value: 'Square', icon: 'fas fa-th-large' },
+        { name: 'Glow', value: 'Glow', icon: 'fas fa-lightbulb', color: '#0f0' },
+        { name: 'Card', value: 'Card', icon: 'fas fa-credit-card', color: '#0ff' },
+        { name: 'Fire', value: 'Fire', icon: 'fas fa-fire', color: '#ff6347' },
+        { name: 'Minimal Squares', value: 'minimal-squares', icon: 'fas fa-square', color: '#fff' },
+        { name: 'MonoFire', value: 'MonoFire', icon: 'fas fa-fire-alt', color: '#fff' },
+        { name: 'Square', value: 'Square', icon: 'fas fa-th-large', color: '#1a1a1a' },
       ],
       layouts: [
         { name: 'Single Column', value: 'layout-compact', icon: 'fas fa-list' },
@@ -157,8 +157,9 @@ export default {
     },
   },
   watch: {
-    selectedTheme(newTheme) {
+    selectedTheme(newTheme, oldTheme) {
       localStorage.setItem('selectedTheme', newTheme);
+      this.updateThemeStylesheet(newTheme, oldTheme);
     },
     selectedLayout(newLayout) {
       localStorage.setItem('selectedLayout', newLayout);
@@ -170,6 +171,7 @@ export default {
   mounted() {
     this.fetchConfig();
     this.selectedTheme = localStorage.getItem('selectedTheme') || this.selectedTheme;
+    this.updateThemeStylesheet(this.selectedTheme);
     this.selectedLayout = localStorage.getItem('selectedLayout') || this.selectedLayout;
     this.selectedCardSize = localStorage.getItem('selectedCardSize') || this.selectedCardSize;
     this.fetchRandomQuranVerse();
@@ -237,6 +239,24 @@ export default {
         this.toggleDropdown(type);
       }
     },
+    updateThemeStylesheet(newTheme) {
+      const themeName = newTheme.toLowerCase().replace(' ', '-');
+      let themeUrl = `/src/assets/themes/${themeName}.css`;
+
+      // Check if a theme stylesheet link already exists
+      let themeLink = document.getElementById('theme-stylesheet');
+
+      if (!themeLink) {
+        // If it doesn't exist, create it
+        themeLink = document.createElement('link');
+        themeLink.id = 'theme-stylesheet';
+        themeLink.rel = 'stylesheet';
+        document.head.appendChild(themeLink);
+      }
+      
+      // Set the href to the new theme's stylesheet
+      themeLink.href = themeUrl;
+    }
   },
 };
 </script>

@@ -1,0 +1,75 @@
+/* GLOW THEME */
+.Glow {
+  background-color: #0a0a0a;
+  color: #0f0;
+}
+
+.Glow .section {
+  background-color: rgba(0, 255, 0, 0.1);
+  border: 1px solid #0f0;
+  box-shadow: 0 0 10px #0f0;
+}
+
+
+
+.Glow .item-link {
+  background-color: rgba(0, 255, 0, 0.05);
+  border-color: #0f0;
+  box-shadow: 0 0 5px #0f0;
+}
+
+.Glow .item-link:hover {
+  background-color: #1a1a1a;
+  box-shadow: 0 0 15px #0f0, inset 0 0 3px #0f0;
+  border-color: #0f0;
+}
+
+.Glow .quran-widget {
+  background-color: rgba(0, 255, 0, 0.1);
+  border: 1px solid #0f0;
+  box-shadow: 0 0 10px #0f0;
+}
+
+.Glow .quran-widget h3 {
+  color: #0f0;
+  /* text-shadow: 0 0 5px #0f0, 0 0 10px #0f0; */
+}
+
+.Glow .quran-widget .verse-text {
+  color: #fff;
+}
+
+.Glow .quran-widget .verse-meaning {
+  color: #ccc;
+}
+
+.Glow .quran-widget .verse-info {
+  color: #aaa;
+}
+
+.Glow .nav-links a,
+.Glow .theme-selector select,
+.Glow .layout-selector select {
+  color: #0f0;
+  border-color: #0f0;
+  background-color: #0a0a0a;
+  box-shadow: 0 0 5px #0f0;
+}
+
+.Glow .theme-selector select option,
+.Glow .layout-selector select option {
+  background-color: #0a0a0a;
+  color: #0f0;
+}
+
+.Glow .layout-selector label {
+  color: #0f0;
+}
+
+.Glow .card-size-selector label {
+  color: #0f0;
+}
+
+.Glow .theme-selector label {
+  color: #0f0;
+}

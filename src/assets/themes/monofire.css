@@ -1,0 +1,86 @@
+/* MONOFIRE THEME */
+.MonoFire {
+  background-color: #000;
+  color: #fff;
+  text-shadow: none;
+}
+
+.MonoFire .section {
+  background-color: rgba(255, 255, 255, 0.1);
+  border: 1px solid #ccc;
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.3), inset 0 0 3px rgba(255, 255, 255, 0.2);
+}
+
+.MonoFire .item-link {
+  border-color: #333;
+}
+
+.MonoFire .item-link:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.7), inset 0 0 4px rgba(255, 255, 255, 0.5);
+  border-color: #ccc;
+}
+
+.MonoFire .item-link .icon {
+  color: #eee;
+}
+
+.MonoFire .item-title {
+  color: #fff;
+}
+
+.MonoFire .title,
+.MonoFire .section-title {
+  color: #fff;
+  text-shadow: none;
+}
+
+.MonoFire .quran-widget {
+  background-color: rgba(255, 255, 255, 0.1);
+  border: 1px solid #ccc;
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.3), inset 0 0 3px rgba(255, 255, 255, 0.2);
+}
+
+.MonoFire .quran-widget h3 {
+  color: #fff;
+  text-shadow: none;
+}
+
+.MonoFire .quran-widget .verse-text {
+  color: #fff;
+}
+
+.MonoFire .quran-widget .verse-meaning {
+  color: #ccc;
+}
+
+.MonoFire .quran-widget .verse-info {
+  color: #aaa;
+}
+
+.MonoFire .nav-links a,
+.MonoFire .theme-selector select,
+.MonoFire .layout-selector select {
+  color: #fff;
+  border-color: #aaa;
+  background-color: #000;
+  box-shadow: 0 0 5px rgba(255, 255, 255, 0.2);
+}
+
+.MonoFire .theme-selector select option,
+.MonoFire .layout-selector select option {
+  background-color: #000;
+  color: #fff;
+}
+
+.MonoFire .layout-selector label {
+  color: #fff;
+}
+
+.MonoFire .card-size-selector label {
+  color: #fff;
+}
+
+.MonoFire .theme-selector label {
+  color: #fff;
+}

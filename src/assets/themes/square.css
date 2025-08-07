@@ -1,0 +1,109 @@
+/* SQUARE THEME */
+.Square {
+  background-color: #ffffff;
+  color: #1a1a1a;
+  text-shadow: none;
+}
+
+.Square .section {
+  background-color: rgba(0, 0, 0, 0.05);
+  border: 1px solid #ccc;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1), inset 0 0 6px rgba(0, 0, 0, 0.05);
+}
+
+.Square .item-link {
+  border-color: #333;
+}
+
+.Square .item-link:hover {
+  background-color: #1a1a1a;
+  box-shadow: 0 0 15px rgba(255, 99, 71, 0.9), inset 0 0 3px rgba(255, 140, 0, 0.7);
+  border-color: #ff6347;
+}
+
+.Square .item-link .icon {
+  color: #ffffff;
+}
+
+.Square .item-title {
+  color: #ffffff;
+}
+
+.Square .title,
+.Square .section-title {
+  color: #1a1a1a;
+  text-shadow: none;
+}
+
+.Square .quran-widget {
+  background-color: rgba(0, 0, 0, 0.05);
+  border: 1px solid #ccc;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1), inset 0 0 6px rgba(0, 0, 0, 0.05);
+}
+
+.Square .quran-widget h3 {
+  color: #1a1a1a;
+  text-shadow: none;
+}
+
+.Square .quran-widget .verse-text {
+  color: #1a1a1a;
+}
+
+.Square .quran-widget .verse-meaning {
+  color: #666;
+}
+
+.Square .quran-widget .verse-info {
+  color: #999;
+}
+
+.Square .quran-widget {
+  background-color: rgba(0, 0, 0, 0.05);
+  border: 1px solid #ccc;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1), inset 0 0 6px rgba(0, 0, 0, 0.05);
+}
+
+.Square .quran-widget h3 {
+  color: #1a1a1a;
+  text-shadow: none;
+}
+
+.Square .quran-widget .verse-text {
+  color: #1a1a1a;
+}
+
+.Square .quran-widget .verse-meaning {
+  color: #666;
+}
+
+.Square .quran-widget .verse-info {
+  color: #999;
+}
+
+.Square .nav-links a,
+.Square .theme-selector select,
+.Square .layout-selector select {
+  color: #1a1a1a;
+  border-color: #bbb;
+  background-color: #ffffff;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+}
+
+.Square .theme-selector select option,
+.Square .layout-selector select option {
+  background-color: #ffffff;
+  color: #1a1a1a;
+}
+
+.Square .layout-selector label {
+  color: #1a1a1a;
+}
+
+.Square .card-size-selector label {
+  color: #1a1a1a;
+}
+
+.Square .theme-selector label {
+  color: #1a1a1a;
+}

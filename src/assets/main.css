@@ -6,6 +6,8 @@ body {
 
 #app {
   padding: 2rem;
+  min-height: 100vh;
+  box-sizing: border-box;
 }
 
 .minimal-squares .section {
@@ -253,7 +255,8 @@ body {
   border-bottom-right-radius: 4px;
 }
 
-.widget-toggle button.active {
+.widget-toggle button.active,
+.widget-toggle button.selected {
   background-color: #fff;
   color: #000;
 }
