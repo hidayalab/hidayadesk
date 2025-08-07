@@ -85,6 +85,7 @@
 <script>
 import yaml from 'js-yaml';
 import NoteTakingWidget from './components/NoteTakingWidget.vue';
+import './components/styles/quranwidget.css';
 
 export default {
   components: {

@@ -261,31 +261,6 @@ body {
   color: #000;
 }
 
-.quran-widget h3 {
-  font-size: 1.5rem;
-  margin-top: 0;
-  margin-bottom: 1rem;
-  color: #fff;
-}
-
-.quran-widget .verse-text {
-  font-size: 1.1rem;
-  margin-bottom: 0.8rem;
-  line-height: 1.5;
-}
-
-.quran-widget .verse-meaning {
-  font-style: italic;
-  font-size: 0.9rem;
-  color: #ccc;
-  margin-bottom: 1rem;
-}
-
-.quran-widget .verse-info {
-  text-align: right;
-  font-size: 0.8rem;
-  color: #aaa;
-}
 
 /* Layouts */
 
