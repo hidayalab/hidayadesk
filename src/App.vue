@@ -42,6 +42,10 @@
           </div>
         </div>
 
+        <div class="widget-toggle">
+          <button @click="activeWidget = 'quran'">Quran Verse</button>
+          <button @click="activeWidget = 'notes'">Notes</button>
+        </div>
 
         <nav class="nav-links">
           <a v-for="link in pageInfo.navLinks" :key="link.title" :href="link.path" target="_blank">{{ link.title }}</a>
@@ -65,11 +69,14 @@
           </ul>
         </div>
       </div>
-      <div class="quran-widget">
-        <h3>Random Quran Verse</h3>
-        <p class="verse-text">{{ quranVerse.text }}</p>
-        <p class="verse-meaning">{{ quranVerse.meaning }}</p>
-        <p class="verse-info">- {{ quranVerse.sura }}:{{ quranVerse.aya }}</p>
+      <div class="widget-area">
+        <div v-if="activeWidget === 'quran'" class="quran-widget">
+          <h3>Random Quran Verse</h3>
+          <p class="verse-text">{{ quranVerse.text }}</p>
+          <p class="verse-meaning">{{ quranVerse.meaning }}</p>
+          <p class="verse-info">- {{ quranVerse.sura }}:{{ quranVerse.aya }}</p>
+        </div>
+        <note-taking-widget v-if="activeWidget === 'notes'"></note-taking-widget>
       </div>
     </main>
   </div>
@@ -77,10 +84,15 @@
 
 <script>
 import yaml from 'js-yaml';
+import NoteTakingWidget from './components/NoteTakingWidget.vue';
 
 export default {
+  components: {
+    NoteTakingWidget,
+  },
   data() {
     return {
+      activeWidget: 'quran', // or 'notes'
       pageInfo: {},
       appConfig: {},
       sections: [],
@@ -178,6 +190,7 @@ export default {
         // Initial theme and layout from config, overridden by localStorage if present
         this.selectedTheme = localStorage.getItem('selectedTheme') || this.appConfig.theme || 'dashy-dark';
         this.selectedLayout = localStorage.getItem('selectedLayout') || this.appConfig.layout || 'layout-three-column';
+        this.selectedCardSize = localStorage.getItem('selectedCardSize') || this.appConfig.cardSize || 'card-size-medium';
       } catch (error) {
         console.error('Error fetching or parsing config:', error);
       }
