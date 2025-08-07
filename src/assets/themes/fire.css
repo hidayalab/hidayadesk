@@ -86,3 +86,9 @@
 .Fire .theme-selector label {
   color: #ffdab9;
 }
+
+
+.Fire .add-item-button .item-link {
+  border: 1px solid #ff6347;
+  box-shadow: 0 0 8px #ff6347, inset 0 0 4px #ff6347;
+}

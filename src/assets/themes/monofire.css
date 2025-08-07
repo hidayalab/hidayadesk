@@ -84,3 +84,8 @@
 .MonoFire .theme-selector label {
   color: #fff;
 }
+
+.MonoFire .add-item-button .item-link {
+  border: 1px solid #fff;
+  box-shadow: 0 0 8px #fff, inset 0 0 4px #fff;
+}

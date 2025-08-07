@@ -66,30 +66,58 @@
                 <p class="item-title">{{ item.title }}</p>
               </a>
             </li>
+            <li class="list-item add-item-button" @click="showAddItemModal()">
+              <a target="_blank" class="item-link">
+                <i class="icon fa fa-plus" aria-hidden="true"></i>
+                <p class="item-title">Add</p>
+              </a>
+            </li>
           </ul>
         </div>
       </div>
       <div class="widget-area">
-        <div v-if="activeWidget === 'quran'" class="quran-widget">
-          <h3>Random Quran Verse</h3>
-          <p class="verse-text">{{ quranVerse.text }}</p>
-          <p class="verse-meaning">{{ quranVerse.meaning }}</p>
-          <p class="verse-info">- {{ quranVerse.sura }}:{{ quranVerse.aya }}</p>
-        </div>
+        <quran-widget v-if="activeWidget === 'quran'"></quran-widget>
         <note-taking-widget v-if="activeWidget === 'notes'"></note-taking-widget>
       </div>
     </main>
+
+    <!-- Add Item Modal -->
+    <div v-if="showModal" class="modal-overlay" @click.self="closeModal">
+      <div class="modal-content">
+        <h3>Add New Item</h3>
+        <form @submit.prevent="addItem">
+          <div class="form-group">
+            <label for="item-title">Title:</label>
+            <input type="text" id="item-title" v-model="newItem.title" required>
+          </div>
+          <div class="form-group">
+            <label for="item-url">URL:</label>
+            <input type="url" id="item-url" v-model="newItem.url" required>
+          </div>
+          <div class="form-group">
+            <label for="item-icon">Icon (Font Awesome class, e.g., fas fa-star):</label>
+            <input type="text" id="item-icon" v-model="newItem.icon">
+          </div>
+          <div class="modal-actions">
+            <button type="submit" class="save-button">Add Item</button>
+            <button type="button" @click="closeModal" class="cancel-button">Cancel</button>
+          </div>
+        </form>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
 import yaml from 'js-yaml';
 import NoteTakingWidget from './components/NoteTakingWidget.vue';
+import QuranWidget from './components/QuranWidget.vue';
 import './components/styles/quranwidget.css';
 
 export default {
   components: {
     NoteTakingWidget,
+    QuranWidget,
   },
   data() {
     return {
@@ -99,12 +127,6 @@ export default {
       sections: [],
       currentTime: new Date().toLocaleTimeString(),
       currentDate: new Date().toLocaleDateString(),
-      quranVerse: {
-        text: '',
-        meaning: '',
-        sura: '',
-        aya: ''
-      },
       themes: [
         { name: 'Glow', value: 'Glow', icon: 'fas fa-lightbulb', color: '#0f0' },
         { name: 'Card', value: 'Card', icon: 'fas fa-credit-card', color: '#0ff' },
@@ -129,6 +151,12 @@ export default {
       showThemeDropdown: false,
       showLayoutDropdown: false,
       showCardSizeDropdown: false,
+      showModal: false,
+      newItem: {
+        title: '',
+        url: '',
+        icon: '',
+      },
     };
   },
   computed: {
@@ -175,7 +203,6 @@ export default {
     this.updateThemeStylesheet(this.selectedTheme);
     this.selectedLayout = localStorage.getItem('selectedLayout') || this.selectedLayout;
     this.selectedCardSize = localStorage.getItem('selectedCardSize') || this.selectedCardSize;
-    this.fetchRandomQuranVerse();
     setInterval(() => {
       this.currentTime = new Date().toLocaleTimeString();
       this.currentDate = new Date().toLocaleDateString();
@@ -196,34 +223,6 @@ export default {
         this.selectedCardSize = localStorage.getItem('selectedCardSize') || this.appConfig.cardSize || 'card-size-medium';
       } catch (error) {
         console.error('Error fetching or parsing config:', error);
-      }
-    },
-    async fetchRandomQuranVerse() {
-      try {
-        const totalAyahs = 6236; // Total number of ayahs in the Quran
-        const randomAyahId = Math.floor(Math.random() * totalAyahs) + 1;
-
-        const response = await fetch(`https://api.alquran.cloud/v1/ayah/${randomAyahId}/en.sahih`);
-        const data = await response.json();
-
-        if (data.data) {
-          this.quranVerse = {
-            text: data.data.text,
-            meaning: data.data.text, // The API returns the English translation in the 'text' field for the 'en.sahih' edition
-            sura: data.data.surah.englishName,
-            aya: data.data.numberInSurah
-          };
-        } else {
-          throw new Error('Invalid API response');
-        }
-      } catch (error) {
-        console.error('Error fetching Quran verse:', error);
-        this.quranVerse = {
-          text: 'Failed to load verse.',
-          meaning: 'Please check your internet connection or try again later.',
-          sura: '',
-          aya: ''
-        };
       }
     },
     search(event) {
@@ -257,7 +256,35 @@ export default {
       
       // Set the href to the new theme's stylesheet
       themeLink.href = themeUrl;
-    }
+    },
+    showAddItemModal() {
+      this.showModal = true;
+    },
+    closeModal() {
+      this.showModal = false;
+    },
+    addItem() {
+      // Basic validation
+      if (!this.newItem.title || !this.newItem.url) {
+        alert('Title and URL are required.');
+        return;
+      }
+
+      // Find the target section (e.g., the first section)
+      // You might want a more sophisticated way to select the section
+      const targetSection = this.sections[0];
+      if (targetSection) {
+        targetSection.items.push({
+          ...this.newItem,
+          // Ensure the icon has a default if not provided
+          icon: this.newItem.icon || 'fas fa-link',
+        });
+      }
+
+      // Reset the form and close the modal
+      this.newItem = { title: '', url: '', icon: '' };
+      this.closeModal();
+    },
   },
 };
 </script>

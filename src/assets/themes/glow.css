@@ -73,3 +73,9 @@
 .Glow .theme-selector label {
   color: #0f0;
 }
+
+
+.Glow .add-item-button .item-link {
+  border: 1px dashed #0f0;
+  box-shadow: 0 0 8px #0f0, inset 0 0 4px #0f0;
+}
