@@ -29,3 +29,22 @@
   font-size: 0.8rem;
   color: #aaa;
 }
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .quran-widget {
+    padding: 1rem;
+  }
+
+  .quran-widget h3 {
+    font-size: 1.2rem;
+  }
+
+  .quran-widget .verse-text {
+    font-size: 1rem;
+  }
+
+  .quran-widget .verse-meaning {
+    font-size: 0.8rem;
+  }
+}
