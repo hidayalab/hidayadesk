@@ -79,3 +79,15 @@
 .CyberGlow .theme-selector label {
   color: #0ff;
 }
+
+
+/* CyberGlow Theme */
+#notebook-app.theme-CyberGlow .notebook-header {
+  background: linear-gradient(135deg, #0a4e4e 0%, #0f8a8a 100%);
+}
+#notebook-app.theme-CyberGlow .add-page-btn {
+  background: #0a4e4e;
+}
+#notebook-app.theme-CyberGlow .add-page-btn:hover {
+  background: #0f8a8a;
+}

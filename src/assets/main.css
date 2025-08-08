@@ -214,7 +214,7 @@ body {
   gap: 2rem;
 }
 
-.main-content {
+.bookmark-area {
   flex-grow: 1;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); /* Adjust as needed */
@@ -229,6 +229,7 @@ body {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   color: #fff;
   overflow: hidden;
+  height: 100%;
 }
 
 .widget-toggle {
@@ -266,15 +267,15 @@ body {
 
 
 
-.layout-two-column .main-content {
+.layout-two-column .bookmark-area {
   grid-template-columns: repeat(2, 1fr);
 }
 
-.layout-three-column .main-content {
+.layout-three-column .bookmark-area {
   grid-template-columns: repeat(3, 1fr);
 }
 
-.layout-compact .main-content {
+.layout-compact .bookmark-area {
   grid-template-columns: 1fr;
 }
 
@@ -724,7 +725,7 @@ body {
     margin-top: 2rem;
   }
 
-  .layout-three-column .main-content {
+  .layout-three-column .bookmark-area {
     grid-template-columns: repeat(2, 1fr);
   }
 }
@@ -740,12 +741,12 @@ body {
     gap: 1rem;
   }
 
-  .main-content {
+  .bookmark-area {
     grid-template-columns: 1fr;
   }
 
-  .layout-two-column .main-content,
-  .layout-three-column .main-content {
+  .layout-two-column .bookmark-area,
+  .layout-three-column .bookmark-area {
     grid-template-columns: 1fr;
   }
 

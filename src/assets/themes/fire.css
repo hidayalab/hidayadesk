@@ -92,3 +92,16 @@
   border: 1px solid #ff6347;
   box-shadow: 0 0 8px #ff6347, inset 0 0 4px #ff6347;
 }
+
+
+/* Fire Theme */
+#notebook-app.theme-Fire .notebook-header {
+  background: linear-gradient(135deg, #b32e00 0%, #ff4500 100%);
+}
+#notebook-app.theme-Fire .add-page-btn {
+  background: #b32e00;
+}
+#notebook-app.theme-Fire .add-page-btn:hover {
+  background: #ff4500;
+}
+

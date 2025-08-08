@@ -79,3 +79,15 @@
   border: 1px dashed #0f0;
   box-shadow: 0 0 8px #0f0, inset 0 0 4px #0f0;
 }
+
+
+/* Glow Theme */
+#notebook-app.theme-Glow .notebook-header {
+  background: linear-gradient(135deg, #0a4e0a 0%, #0f8a0f 100%);
+}
+#notebook-app.theme-Glow .add-page-btn {
+  background: #0a4e0a;
+}
+#notebook-app.theme-Glow .add-page-btn:hover {
+  background: #0f8a0f;
+}

@@ -89,3 +89,15 @@
   border: 1px solid #fff;
   box-shadow: 0 0 8px #fff, inset 0 0 4px #fff;
 }
+
+
+/* MonoFire Theme */
+#notebook-app.theme-MonoFire .notebook-header {
+  background: linear-gradient(135deg, #333 0%, #555 100%);
+}
+#notebook-app.theme-MonoFire .add-page-btn {
+  background: #333;
+}
+#notebook-app.theme-MonoFire .add-page-btn:hover {
+  background: #555;
+}

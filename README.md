@@ -40,6 +40,20 @@ npm run build
 
 This will create a `dist` directory with the production-ready files.
 
+## Running with Docker
+
+You can also run FaithNotes using Docker. This is a convenient way to run the application in a containerized environment without needing to install Node.js or other dependencies on your local machine.
+
+1.  **Build the Docker image:**
+    ```bash
+    docker build -t faithnotes .
+    ```
+2.  **Run the Docker container:**
+    ```bash
+    docker run -p 8080:80 faithnotes
+    ```
+    The application will be available at `http://localhost:8080`.
+
 ## Contributing
 
 We welcome contributions from the community! If you'd like to contribute to FaithNotes, please follow these guidelines:
@@ -57,6 +71,20 @@ If you encounter a bug or have a feature request, please [open an issue](https:/
 5.  **Create a pull request** to the `main` branch of the original repository.
 
 We appreciate your help in making FaithNotes even better!
+
+### Adding New Themes
+
+We encourage you to contribute new themes to FaithNotes! To add a new theme, follow these steps:
+
+1.  **Create a new CSS file** in the `src/assets/themes` directory. The filename should be the name of your theme in lowercase (e.g., `my-theme.css`).
+2.  **Define your theme's styles** in the new CSS file. You can use the existing themes as a reference. At a minimum, you should define styles for the `.notebook-header` and `.add-page-btn` classes, as well as their hover states.
+3.  **Import your new theme** in `src/App.vue`. Add a new import statement at the top of the `<script>` section, like this:
+    ```javascript
+    import './assets/themes/my-theme.css';
+    ```
+4.  **Add your theme to the `themes` array** in `src/App.vue`. This will make it available in the theme selector.
+
+That's it! Your new theme will now be available in the application.
 
 ## License
 

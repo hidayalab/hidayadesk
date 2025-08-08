@@ -11,3 +11,16 @@
   border: 1px solid #fff;
   box-shadow: 0 0 8px #fff, inset 0 0 4px #fff;
 }
+
+/* Slate Theme */
+#notebook-app.theme-slate .notebook-header {
+  background: linear-gradient(135deg, #485461 0%, #28313b 100%);
+}
+#notebook-app.theme-slate .add-page-btn {
+  background: #485461;
+}
+#notebook-app.theme-slate .add-page-btn:hover {
+  background: #28313b;
+}
+
+

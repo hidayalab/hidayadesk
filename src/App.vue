@@ -8,7 +8,7 @@
         <div class="theme-selector custom-dropdown">
           <label>Theme:</label>
           <div class="selected-option" @click="toggleDropdown('theme')">
-            <i :class="['icon', currentThemeIcon]"></i>
+            <i :class="['icon', currentThemeIcon]" :style="{color:currentThemeColor}"></i>
             <span>{{ currentThemeName }}</span>
             <i class="fas fa-chevron-down dropdown-arrow"></i>
           </div>
@@ -53,7 +53,7 @@
       </div>
     </header>
     <main class="dashboard-grid">
-      <div class="main-content">
+      <div class="bookmark-area">
         <div v-for="section in sections" :key="section.name" class="section">
           <h2 class="section-title">{{ section.name }}</h2>
           <div class="widget-grid">
@@ -114,6 +114,12 @@ import NoteTakingWidget from './components/NoteTakingWidget.vue';
 import QuranWidget from './components/QuranWidget.vue';
 import './components/styles/quranwidget.css';
 import './components/styles/notetakingwidget.css';
+import './assets/themes/glow.css';
+import './assets/themes/cyberglow.css';
+import './assets/themes/fire.css';
+import './assets/themes/slate.css';
+import './assets/themes/monofire.css';
+import './assets/themes/square.css';
 
 export default {
   components: {
@@ -169,27 +175,14 @@ export default {
       const theme = this.themes.find(t => t.value === this.selectedTheme);
       return theme ? theme.icon : '';
     },
-    currentLayoutName() {
-      const layout = this.layouts.find(l => l.value === this.selectedLayout);
-      return layout ? layout.name : '';
-    },
-    currentLayoutIcon() {
-      const layout = this.layouts.find(l => l.value === this.selectedLayout);
-      return layout ? layout.icon : '';
-    },
-    currentCardSizeName() {
-      const size = this.cardSizes.find(s => s.value === this.selectedCardSize);
-      return size ? size.name : '';
-    },
-    currentCardSizeIcon() {
-      const size = this.cardSizes.find(s => s.value === this.selectedCardSize);
-      return size ? size.icon : '';
-    },
+    currentThemeColor() {
+      const theme = this.themes.find(t => t.value === this.selectedTheme);
+      return theme ? theme.color : '';
+    }
   },
   watch: {
-    selectedTheme(newTheme, oldTheme) {
+    selectedTheme(newTheme) {
       localStorage.setItem('selectedTheme', newTheme);
-      this.updateThemeStylesheet(newTheme, oldTheme);
     },
     selectedLayout(newLayout) {
       localStorage.setItem('selectedLayout', newLayout);
@@ -201,7 +194,6 @@ export default {
   mounted() {
     this.fetchConfig();
     this.selectedTheme = localStorage.getItem('selectedTheme') || this.selectedTheme;
-    this.updateThemeStylesheet(this.selectedTheme);
     this.selectedLayout = localStorage.getItem('selectedLayout') || this.selectedLayout;
     this.selectedCardSize = localStorage.getItem('selectedCardSize') || this.selectedCardSize;
   },
@@ -230,24 +222,6 @@ export default {
       if (type !== 'layout' && type !== 'cardSize') {
         this.toggleDropdown(type);
       }
-    },
-    updateThemeStylesheet(newTheme) {
-      const themeName = newTheme.toLowerCase().replace(' ', '-');
-      let themeUrl = `/src/assets/themes/${themeName}.css`;
-
-      // Check if a theme stylesheet link already exists
-      let themeLink = document.getElementById('theme-stylesheet');
-
-      if (!themeLink) {
-        // If it doesn't exist, create it
-        themeLink = document.createElement('link');
-        themeLink.id = 'theme-stylesheet';
-        themeLink.rel = 'stylesheet';
-        document.head.appendChild(themeLink);
-      }
-      
-      // Set the href to the new theme's stylesheet
-      themeLink.href = themeUrl;
     },
     showAddItemModal() {
       this.showModal = true;
