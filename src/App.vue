@@ -4,7 +4,7 @@
 
       <div class="logoAndSearch">
         <div class="logo-and-title">
-          <img src="logo.png" alt="FaithNotes Logo" class="logo">
+          <img src="/logo.png" alt="FaithNotes Logo" class="logo">
           <h1 class="title">{{ pageInfo.title }}</h1>
         </div>
 

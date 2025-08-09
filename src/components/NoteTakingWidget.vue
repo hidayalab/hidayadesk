@@ -83,18 +83,26 @@ export default {
     },
 
     initializeNotebook() {
-        // Create initial page
-        const welcomePage = {
-            id: 1,
-            title: 'Welcome',
-            content: 'Welcome to your quick notes!\n\nThis notebook widget lets you:\n• Create multiple pages\n• Switch between them easily\n• Auto-save your notes\n• Minimize when not in use\n\nStart writing your thoughts here...',
-            createdAt: new Date(),
-            updatedAt: new Date()
-        };
-
-        this.pages = [welcomePage];
-        this.currentPage = welcomePage;
-        this.nextId = 2;
+        const savedPages = localStorage.getItem('notebook-pages');
+        if (savedPages) {
+            this.pages = JSON.parse(savedPages);
+            this.currentPage = this.pages[0];
+            this.nextId = Math.max(...this.pages.map(p => p.id)) + 1;
+        } else {
+            // Create initial page
+            const welcomePage = {
+                id: 1,
+                title: 'Welcome',
+                content: 'Welcome to your quick notes!\n\nThis notebook widget lets you:\n• Create multiple pages\n• Switch between them easily\n• Auto-save your notes\n• Minimize when not in use\n\nStart writing your thoughts here...',
+                createdAt: new Date(),
+                updatedAt: new Date()
+            };
+    
+            this.pages = [welcomePage];
+            this.currentPage = welcomePage;
+            this.nextId = 2;
+            this.savePages();
+        }
     },
 
     addNewPage() {
@@ -108,7 +116,7 @@ export default {
 
         this.pages.push(newPage);
         this.currentPage = newPage;
-        this.savePage();
+        this.savePages();
     },
 
     selectPage(page) {
@@ -124,17 +132,20 @@ export default {
         if (this.currentPage && this.currentPage.id === pageId) {
             this.currentPage = this.pages[Math.max(0, pageIndex - 1)];
         }
+        this.savePages();
     },
 
     savePage() {
         if (this.currentPage) {
             this.currentPage.updatedAt = new Date();
-            // In a real app, save to localStorage or backend
-            console.log('Page saved:', this.currentPage);
+            this.savePages();
         }
     },
 
-    
+    savePages() {
+        localStorage.setItem('notebook-pages', JSON.stringify(this.pages));
+        console.log('All pages saved to localStorage');
+    }
   }
 };
 </script>
