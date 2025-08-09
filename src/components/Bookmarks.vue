@@ -1,5 +1,5 @@
 <template>
-    <div v-for="section in sections" :key="section.name" class="section">
+    <div v-for="section in filteredSections" :key="section.name" class="section">
         <h2 class="section-title">{{ section.name }}</h2>
         <div class="widget-grid">
 
@@ -46,12 +46,39 @@
 </template>
 
 <script>
+import './styles/bookmark.css';
 
 export default {
     props: {
         sections: {
             type: Array,
             default: []
+        },
+        searchQuery: {
+            type: String,
+            default: ''
+        }
+    },
+    data() {
+        return {
+            showModal: false,
+            newItem: {
+                title: '',
+                url: '',
+                icon: '',
+            },
+        };
+    },
+    computed: {
+        filteredSections() {
+            if (!this.searchQuery) {
+                return this.sections;
+            }
+            const query = this.searchQuery.toLowerCase();
+            return this.sections.map(section => {
+                const filteredItems = section.items.filter(item => item.title.toLowerCase().includes(query));
+                return { ...section, items: filteredItems };
+            }).filter(section => section.items.length > 0);
         }
     },
     methods: {
@@ -84,17 +111,6 @@ export default {
             this.newItem = { title: '', url: '', icon: '' };
             this.closeModal();
         },
-    },
-    data() {
-        return {
-
-            showModal: false,
-            newItem: {
-                title: '',
-                url: '',
-                icon: '',
-            },
-        };
     },
 };
 </script>

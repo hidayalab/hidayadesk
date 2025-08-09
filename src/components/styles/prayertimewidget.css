@@ -1,0 +1,67 @@
+.prayer-time-widget .next-prayer-container {
+  text-align: center;
+  padding: 1rem 0;
+}
+
+.prayer-time-widget .next-prayer-label {
+  font-size: 0.9rem;
+  color: #aaa;
+  margin-bottom: 0.5rem;
+}
+
+.prayer-time-widget .next-prayer-time {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: 2px;
+  text-shadow: 0 0 5px #007bff, 0 0 10px #007bff, 0 0 15px #007bff;
+}
+
+.prayer-time-widget {
+  padding: 1.5rem;
+}
+
+.widget-title {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.prayer-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.prayer-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 0;
+  border-bottom: 1px solid #333;
+}
+
+.prayer-item:last-child {
+  border-bottom: none;
+}
+
+.prayer-icon {
+  font-size: 1.5rem;
+  margin-right: 1rem;
+  color: #007bff;
+}
+
+.prayer-name {
+  font-weight: 500;
+}
+
+.prayer-time {
+  font-weight: 600;
+}
+
+.error-message {
+  text-align: center;
+  color: #ff6347;
+}

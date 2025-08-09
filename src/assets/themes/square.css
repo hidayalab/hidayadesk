@@ -1,3 +1,33 @@
+.Square .prayer-time-widget .widget-title {
+  color: #1a1a1a;
+}
+
+.Square .prayer-time-widget .prayer-item {
+  border-bottom-color: #ccc;
+}
+
+.Square .prayer-time-widget .prayer-icon {
+  color: #1a1a1a;
+}
+
+.Square .prayer-time-widget .prayer-name,
+.Square .prayer-time-widget .prayer-time {
+  color: #1a1a1a;
+}
+
+.Square .prayer-time-widget .next-prayer-container {
+  background-color: #f0f0f0;
+  border-bottom: 1px solid #ccc;
+}
+
+.Square .prayer-time-widget .next-prayer-label {
+  color: #666;
+}
+
+.Square .prayer-time-widget .next-prayer-time {
+  color: #1a1a1a;
+}
+
 /* SQUARE THEME */
 .Square {
   background-color: #ffffff;

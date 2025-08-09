@@ -5,6 +5,10 @@
         <h1 class="title">{{ pageInfo.title }}</h1>
       </div>
       <div class="controls">
+        <div class="search-bar">
+          <i class="fas fa-search search-icon"></i>
+          <input type="text" v-model="searchQuery" placeholder="Search...">
+        </div>
         <div class="theme-selector custom-dropdown">
           <label>Theme:</label>
           <div class="selected-option" @click="toggleDropdown('theme')">
@@ -38,9 +42,14 @@
           </div>
         </div>
 
-        <div class="widget-toggle">
+        <div class="widget-selector">
+          <label>Widget</label>
+          <div class="widget-toggle">
           <button @click="activeWidget = 'quran'" :class="{ 'selected': activeWidget === 'quran' }">Quran Verse</button>
           <button @click="activeWidget = 'notes'" :class="{ 'selected': activeWidget === 'notes' }">Notes</button>
+          
+          <button @click="activeWidget = 'prayer'" :class="{ 'selected': activeWidget === 'prayer' }">Prayer</button>
+        </div>
         </div>
 
         <nav class="nav-links">
@@ -50,12 +59,14 @@
     </header>
     <main class="dashboard-grid">
       <div class="bookmark-area">
-        <Bookmarks :sections="sections" />
+        <Bookmarks :sections="sections" :search-query="searchQuery" />
 
       </div>
       <div class="widget-area">
         <quran-widget v-if="activeWidget === 'quran'"></quran-widget>
         <note-taking-widget v-if="activeWidget === 'notes'" :theme="selectedTheme"></note-taking-widget>
+        
+        <prayer-time-widget v-if="activeWidget === 'prayer'" :location="location"></prayer-time-widget>
       </div>
     </main>
 
@@ -74,6 +85,7 @@ import './assets/themes/square.css';
 import Bookmarks from './components/Bookmarks.vue';
 import NoteTakingWidget from './components/NoteTakingWidget.vue';
 import QuranWidget from './components/QuranWidget.vue';
+import PrayerTimeWidget from './components/PrayerTimeWidget.vue';
 import './components/styles/notetakingwidget.css';
 import './components/styles/quranwidget.css';
 
@@ -81,12 +93,15 @@ export default {
   components: {
     NoteTakingWidget,
     QuranWidget,
-    Bookmarks
+    Bookmarks,
+    PrayerTimeWidget
   },
 
   data() {
     return {
-      activeWidget: 'quran', // or 'notes'
+      activeWidget: 'quran', // or 'notes',
+      location: null,
+      searchQuery: '',
       pageInfo: {},
       appConfig: {},
       sections: [],
@@ -144,8 +159,26 @@ export default {
     this.selectedTheme = localStorage.getItem('selectedTheme') || this.selectedTheme;
     this.selectedLayout = localStorage.getItem('selectedLayout') || this.selectedLayout;
     this.selectedCardSize = localStorage.getItem('selectedCardSize') || this.selectedCardSize;
+    this.getLocation();
   },
   methods: {
+    getLocation() {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+          (position) => {
+            this.location = {
+              latitude: position.coords.latitude,
+              longitude: position.coords.longitude,
+            };
+          },
+          (error) => {
+            console.error('Error getting location:', error);
+          }
+        );
+      } else {
+        console.error('Geolocation is not supported by this browser.');
+      }
+    },
     async fetchConfig() {
       try {
         const response = await fetch('/conf.yml');

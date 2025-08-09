@@ -1,3 +1,33 @@
+/* Search bar */
+.search-bar {
+  position: relative;
+  margin-right: 1rem;
+}
+
+.search-bar .search-icon {
+  position: absolute;
+  top: 50%;
+  left: 1rem;
+  transform: translateY(-50%);
+  color: #aaa;
+}
+
+.search-bar input {
+  background-color: #2a2a2a;
+  color: #fff;
+  border: 1px solid #333;
+  border-radius: 20px;
+  padding: 0.5rem 1rem 0.5rem 2.5rem;
+  width: 200px;
+  transition: width 0.3s ease-in-out;
+}
+
+.search-bar input:focus {
+  width: 300px;
+  outline: none;
+  border-color: #007bff;
+}
+
 /* General styles */
 body {
   margin: 0;
