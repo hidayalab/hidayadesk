@@ -1,8 +1,8 @@
 pageInfo:
-  title: My Awesome Dashboard
+  title: FaithNotes
   description: A dashboard for all my self-hosted services
 appConfig:
-  theme: dashy-dark
+  theme: CyberGlow
 
 sections:
   - name: Merge Request

@@ -1,14 +1,19 @@
 <template>
   <div id="app" class="container-fluid" :class="[selectedTheme, selectedLayout, selectedCardSize]">
     <header class="header">
-      <div class="logo-and-title">
-        <h1 class="title">{{ pageInfo.title }}</h1>
-      </div>
-      <div class="controls">
+
+      <div class="logoAndSearch">
+        <div class="logo-and-title">
+          <img src="/logo.png" alt="FaithNotes Logo" class="logo">
+          <h1 class="title">{{ pageInfo.title }}</h1>
+        </div>
+
         <div class="search-bar">
           <i class="fas fa-search search-icon"></i>
           <input type="text" v-model="searchQuery" placeholder="Search...">
         </div>
+      </div>
+      <div class="controls">
         <div class="theme-selector custom-dropdown">
           <label>Theme:</label>
           <div class="selected-option" @click="toggleDropdown('theme')">
@@ -45,11 +50,12 @@
         <div class="widget-selector">
           <label>Widget</label>
           <div class="widget-toggle">
-          <button @click="activeWidget = 'quran'" :class="{ 'selected': activeWidget === 'quran' }">Quran Verse</button>
-          <button @click="activeWidget = 'notes'" :class="{ 'selected': activeWidget === 'notes' }">Notes</button>
-          
-          <button @click="activeWidget = 'prayer'" :class="{ 'selected': activeWidget === 'prayer' }">Prayer</button>
-        </div>
+            <button @click="activeWidget = 'quran'" :class="{ 'selected': activeWidget === 'quran' }">Quran
+              Verse</button>
+            <button @click="activeWidget = 'notes'" :class="{ 'selected': activeWidget === 'notes' }">Notes</button>
+
+            <button @click="activeWidget = 'prayer'" :class="{ 'selected': activeWidget === 'prayer' }">Prayer</button>
+          </div>
         </div>
 
         <nav class="nav-links">
@@ -65,8 +71,8 @@
       <div class="widget-area">
         <quran-widget v-if="activeWidget === 'quran'"></quran-widget>
         <note-taking-widget v-if="activeWidget === 'notes'" :theme="selectedTheme"></note-taking-widget>
-        
-        <prayer-time-widget v-if="activeWidget === 'prayer'" :location="location"></prayer-time-widget>
+
+        <prayer-time-widget v-if="activeWidget === 'prayer'" ></prayer-time-widget>
       </div>
     </main>
 
@@ -100,7 +106,6 @@ export default {
   data() {
     return {
       activeWidget: 'quran', // or 'notes',
-      location: null,
       searchQuery: '',
       pageInfo: {},
       appConfig: {},
@@ -123,7 +128,7 @@ export default {
         { name: 'Medium', value: 'card-size-medium', icon: 'fas fa-expand-alt' },
         { name: 'List', value: 'card-size-list', icon: 'fas fa-bars' },
       ],
-      selectedTheme: 'dashy-dark',
+      selectedTheme: 'CyberGlow',
       selectedLayout: 'layout-three-column',
       selectedCardSize: 'card-size-medium',
       showThemeDropdown: false,
@@ -156,10 +161,6 @@ export default {
   },
   mounted() {
     this.fetchConfig();
-    this.selectedTheme = localStorage.getItem('selectedTheme') || this.selectedTheme;
-    this.selectedLayout = localStorage.getItem('selectedLayout') || this.selectedLayout;
-    this.selectedCardSize = localStorage.getItem('selectedCardSize') || this.selectedCardSize;
-    this.getLocation();
   },
   methods: {
     getLocation() {
@@ -188,7 +189,7 @@ export default {
         this.appConfig = config.appConfig;
         this.sections = config.sections;
         // Initial theme and layout from config, overridden by localStorage if present
-        this.selectedTheme = localStorage.getItem('selectedTheme') || this.appConfig.theme || 'dashy-dark';
+        this.selectedTheme = localStorage.getItem('selectedTheme') || this.appConfig.theme || 'CyberGlow';
         this.selectedLayout = localStorage.getItem('selectedLayout') || this.appConfig.layout || 'layout-three-column';
         this.selectedCardSize = localStorage.getItem('selectedCardSize') || this.appConfig.cardSize || 'card-size-medium';
       } catch (error) {

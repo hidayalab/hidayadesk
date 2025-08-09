@@ -29,6 +29,7 @@ export default {
   },
   data() {
     return {
+      location:null,
       prayerTimes: {},
       error: null,
       timeToNextPrayer: '--:--:--',
@@ -64,6 +65,23 @@ export default {
     },
   },
   methods: {
+    getLocation() {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+          (position) => {
+            this.location = {
+              latitude: position.coords.latitude,
+              longitude: position.coords.longitude,
+            };
+          },
+          (error) => {
+            console.error('Error getting location:', error);
+          }
+        );
+      } else {
+        console.error('Geolocation is not supported by this browser.');
+      }
+    },
     async fetchPrayerTimes(latitude, longitude) {
       try {
         const response = await fetch(`https://api.aladhan.com/v1/timings?latitude=${latitude}&longitude=${longitude}&method=8`);
@@ -105,6 +123,9 @@ export default {
       }, 1000);
     },
   },
+  mounted(){
+    this.getLocation();
+  }
 };
 </script>
 
