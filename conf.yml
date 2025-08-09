@@ -1,0 +1,20 @@
+pageInfo:
+  title: FaithNotes
+  description: A dashboard for all my self-hosted services
+appConfig:
+  theme: CyberGlow
+
+sections:
+  - name: Work
+    icon: fas fa-briefcase
+    items:
+      - title: Gmail
+        description: Email
+        url: https://mail.google.com
+        icon: fas fa-envelope
+        target: newtab
+      - title: Google Calendar
+        description: Calendar
+        url: https://calendar.google.com
+        icon: fas fa-calendar-alt
+        target: newtab
