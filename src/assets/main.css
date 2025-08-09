@@ -746,6 +746,15 @@ body {
 
 /* Responsive Design */
 @media (max-width: 1200px) {
+  .header{
+    flex-wrap: wrap;
+  }
+  .logoAndSearch{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+  }
   .dashboard-grid {
     flex-direction: column;
   }
