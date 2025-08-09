@@ -1,5 +1,52 @@
 <template>
   <div class="prayer-time-widget">
+    <div class="notification-controls">
+      <button 
+        v-if="!notificationsEnabled" 
+        @click="enableNotifications" 
+        class="notification-btn enable-btn"
+      >
+        🔔 Enable Prayer Notifications
+      </button>
+      <div v-else class="notification-status">
+        <span class="status-text">🔔 Notifications On</span>
+        <button @click="toggleNotificationSettings" class="settings-btn">⚙️</button>
+      </div>
+    </div>
+
+    <div v-if="showNotificationSettings" class="notification-settings">
+      <div class="setting-row">
+        <label>
+          <input 
+            type="checkbox" 
+            v-model="notificationConfig.exactTime"
+            @change="updateNotifications"
+          />
+          Notify at exact prayer time
+        </label>
+      </div>
+      <div class="setting-row">
+        <label>
+          <input 
+            type="checkbox" 
+            v-model="notificationConfig.advanceNotification"
+            @change="updateNotifications"
+          />
+          Notify in advance:
+        </label>
+        <select 
+          v-model="notificationConfig.advanceMinutes"
+          @change="updateNotifications"
+          :disabled="!notificationConfig.advanceNotification"
+        >
+          <option value="5">5 minutes</option>
+          <option value="10">10 minutes</option>
+          <option value="15">15 minutes</option>
+          <option value="30">30 minutes</option>
+        </select>
+      </div>
+    </div>
+
     <div v-if="error" class="error-message">
       <p>{{ error }}</p>
     </div>
@@ -20,6 +67,8 @@
 </template>
 
 <script>
+import notificationService from '../services/notificationService.js';
+
 export default {
   props: {
     location: {
@@ -29,10 +78,17 @@ export default {
   },
   data() {
     return {
-      location:null,
+      location: null,
       prayerTimes: {},
       error: null,
       timeToNextPrayer: '--:--:--',
+      notificationsEnabled: false,
+      showNotificationSettings: false,
+      notificationConfig: {
+        exactTime: true,
+        advanceNotification: false,
+        advanceMinutes: 10
+      },
       prayerIcons: {
         Fajr: 'fas fa-cloud-sun',
         Dhuhr: 'fas fa-sun',
@@ -89,6 +145,7 @@ export default {
         if (data.code === 200) {
           this.prayerTimes = data.data.timings;
           this.startTimer();
+          this.updateNotifications();
         } else {
           this.error = "Could not retrieve prayer times.";
         }
@@ -122,6 +179,50 @@ export default {
         }
       }, 1000);
     },
+    async enableNotifications() {
+      const granted = await notificationService.requestPermission();
+      if (granted) {
+        this.notificationsEnabled = true;
+        this.loadNotificationSettings();
+        this.updateNotifications();
+        
+        // Show a test notification
+        notificationService.showNotification('Prayer Notifications Enabled', {
+          body: 'You will now receive notifications for prayer times.',
+          requireInteraction: false
+        });
+      } else {
+        alert('Please allow notifications to receive prayer time reminders.');
+      }
+    },
+    toggleNotificationSettings() {
+      this.showNotificationSettings = !this.showNotificationSettings;
+    },
+    updateNotifications() {
+      if (this.notificationsEnabled && Object.keys(this.prayerTimes).length > 0) {
+        const settings = {
+          exactTime: this.notificationConfig.exactTime,
+          advanceMinutes: this.notificationConfig.advanceNotification ? this.notificationConfig.advanceMinutes : 0
+        };
+        
+        notificationService.scheduleAllPrayerNotifications(this.prayerTimes, settings);
+        this.saveNotificationSettings();
+      }
+    },
+    saveNotificationSettings() {
+      localStorage.setItem('prayerNotificationConfig', JSON.stringify({
+        enabled: this.notificationsEnabled,
+        config: this.notificationConfig
+      }));
+    },
+    loadNotificationSettings() {
+      const saved = localStorage.getItem('prayerNotificationConfig');
+      if (saved) {
+        const settings = JSON.parse(saved);
+        this.notificationsEnabled = settings.enabled && notificationService.getPermissionStatus() === 'granted';
+        this.notificationConfig = { ...this.notificationConfig, ...settings.config };
+      }
+    }
   },
   mounted(){
     this.getLocation();
