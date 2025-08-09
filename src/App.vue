@@ -52,12 +52,19 @@
           <div class="widget-toggle">
             <button @click="activeWidget = 'quran'" :class="{ 'selected': activeWidget === 'quran' }">Quran
               Verse</button>
-            <button @click="activeWidget = 'notes'" :class="{ 'selected': activeWidget === 'notes' }">Notes</button>
-
-            <button @click="activeWidget = 'prayer'" :class="{ 'selected': activeWidget === 'prayer' }">Prayer</button>
+            <button v-if="!showMoreWidgets" @click="showMoreWidgets = true">More Widgets</button>
+            <template v-if="showMoreWidgets">
+              <button @click="activeWidget = 'notes'" :class="{ 'selected': activeWidget === 'notes' }">Notes</button>
+              <button @click="activeWidget = 'prayer'" :class="{ 'selected': activeWidget === 'prayer' }">Prayer</button>
+            </template>
           </div>
         </div>
 
+        <div class="edit-controls">
+          <button @click="toggleEditMode" class="edit-button">
+            <i class="fas fa-edit"></i>
+          </button>
+        </div>
         <nav class="nav-links">
           <a v-for="link in pageInfo.navLinks" :key="link.title" :href="link.path" target="_blank">{{ link.title }}</a>
         </nav>
@@ -65,14 +72,14 @@
     </header>
     <main class="dashboard-grid">
       <div class="bookmark-area">
-        <Bookmarks :sections="sections" :search-query="searchQuery" />
-
+        <Bookmarks :sections="sections" :search-query="searchQuery" :edit-mode="isEditMode" @add-item="handleAddItem"
+          @add-section="handleAddSection" @update-section="handleUpdateSection" @update-item="handleUpdateItem" />
       </div>
       <div class="widget-area">
         <quran-widget v-if="activeWidget === 'quran'"></quran-widget>
         <note-taking-widget v-if="activeWidget === 'notes'" :theme="selectedTheme"></note-taking-widget>
 
-        <prayer-time-widget v-if="activeWidget === 'prayer'" ></prayer-time-widget>
+        <prayer-time-widget v-if="activeWidget === 'prayer'"></prayer-time-widget>
       </div>
     </main>
 
@@ -105,8 +112,10 @@ export default {
 
   data() {
     return {
+      isEditMode: false,
       activeWidget: 'quran', // or 'notes',
       searchQuery: '',
+      showMoreWidgets: false,
       pageInfo: {},
       appConfig: {},
       sections: [],
@@ -163,22 +172,30 @@ export default {
     this.fetchConfig();
   },
   methods: {
-    getLocation() {
-      if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(
-          (position) => {
-            this.location = {
-              latitude: position.coords.latitude,
-              longitude: position.coords.longitude,
-            };
-          },
-          (error) => {
-            console.error('Error getting location:', error);
-          }
-        );
-      } else {
-        console.error('Geolocation is not supported by this browser.');
+    toggleEditMode() {
+      this.isEditMode = !this.isEditMode;
+    },
+    handleAddItem(payload) {
+      const section = this.sections.find(s => s.name === payload.sectionName);
+      if (section) {
+        section.items.push(payload.item);
+        this.saveSectionsToLocalStorage();
       }
+    },
+    handleAddSection(sectionName) {
+      this.sections.push({ name: sectionName, items: [] });
+      this.saveSectionsToLocalStorage();
+    },
+    handleUpdateSection(payload) {
+      this.sections[payload.index] = payload.section;
+      this.saveSectionsToLocalStorage();
+    },
+    handleUpdateItem(payload) {
+      this.sections[payload.sectionIndex].items[payload.itemIndex] = payload.item;
+      this.saveSectionsToLocalStorage();
+    },
+    saveSectionsToLocalStorage() {
+      localStorage.setItem('userSections', JSON.stringify(this.sections));
     },
     async fetchConfig() {
       try {
@@ -187,7 +204,14 @@ export default {
         const config = yaml.load(configText);
         this.pageInfo = config.pageInfo;
         this.appConfig = config.appConfig;
-        this.sections = config.sections;
+
+        const savedSections = localStorage.getItem('userSections');
+        if (savedSections) {
+          this.sections = JSON.parse(savedSections);
+        } else {
+          this.sections = config.sections;
+        }
+
         // Initial theme and layout from config, overridden by localStorage if present
         this.selectedTheme = localStorage.getItem('selectedTheme') || this.appConfig.theme || 'CyberGlow';
         this.selectedLayout = localStorage.getItem('selectedLayout') || this.appConfig.layout || 'layout-three-column';

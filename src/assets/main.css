@@ -746,6 +746,9 @@ body {
 
 /* Responsive Design */
 @media (max-width: 1200px) {
+  .widget-area{
+    order: -1;
+  }
   .header{
     flex-wrap: wrap;
   }
@@ -763,9 +766,8 @@ body {
     width: 100%;
     margin-top: 2rem;
   }
-
-  .layout-three-column .bookmark-area {
-    grid-template-columns: repeat(2, 1fr);
+  .section{
+    padding: 10px;
   }
 }
 
@@ -784,10 +786,7 @@ body {
     grid-template-columns: 1fr;
   }
 
-  .layout-two-column .bookmark-area,
-  .layout-three-column .bookmark-area {
-    grid-template-columns: 1fr;
-  }
+
 
   .card-size-list .item-link {
     flex-basis: 100%;

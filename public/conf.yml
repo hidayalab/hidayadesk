@@ -5,111 +5,16 @@ appConfig:
   theme: CyberGlow
 
 sections:
-  - name: Merge Request
-    icon: fas fa-rocket
+  - name: Work
+    icon: fas fa-briefcase
     items:
-      - title: New Backend
-        description: Source Code, Issues and Pull Requests
-        url: https://gitlab.com/airasia-superapp/delivery/aa-ride/back-end
-        icon: fab fa-gitlab
-        id: 0_1273_newbackend
-      - title: Backoffice
-        description: Source Code, Issues and Pull Requests
-        url: https://gitlab.com/airasia-superapp/delivery/aa-ride/aaride-backoffice
-        icon: fab fa-gitlab
-        id: 1_1273_backoffice
-      - title: Driver App
-        description: Source Code, Issues and Pull Requests
-        url: https://gitlab.com/airasia-superapp/delivery/aa-ride/aaride-driver-app
-        icon: fab fa-gitlab
-        id: 2_1273_driverapp
-      - title: Legacy Services
-        description: Source Code, Issues and Pull Requests
-        url: https://gitlab.com/airasia-superapp/delivery/aa-ride/aride-services
-        icon: fab fa-gitlab
-        id: 3_1273_legacyservices
-      - title: Passenger App
-        description: Source Code, Issues and Pull Requests
-        url: >-
-          https://gitlab.com/airasia-superapp/delivery/aa-ride/aaride-passenger-app
-        icon: fab fa-gitlab
-        id: 4_1273_passengerapp
-      - title: CICD
-        description: Source Code, Issues and Pull Requests
-        url: >-
-          https://gitlab.com/airasia-superapp/delivery/aa-ride/gitlab-cicd-template
-        icon: fab fa-gitlab
-        id: 5_1273_cicd
-  - name: Dasboard
-    icon: favicon
-    items:
-      - title: Sprint Board
-        description: JIRA dashboard
-        icon: fab fa-jira
-        url: https://airasia.atlassian.net/jira/software/c/projects/AAR/boards/563
+      - title: Gmail
+        description: Email
+        url: https://mail.google.com
+        icon: fas fa-envelope
         target: newtab
-        id: 0_800_sprintboard
-      - title: Ride admin portal
-        description: admin portal to manage operations
-        icon: mdi-monitor-dashboard
-        url: https://ride.airasia.com/admin/MY/#/home
+      - title: Google Calendar
+        description: Calendar
+        url: https://calendar.google.com
+        icon: fas fa-calendar-alt
         target: newtab
-        id: 1_800_rideadminportal
-      - title: Business Portal
-        description: business portal
-        icon: si-airasia
-        url: https://ride.airasia.com/business/#/login/airasia
-        target: newtab
-        id: 2_800_businessportal
-    displayData:
-      sortBy: default
-      rows: 1
-      cols: 1
-      collapsed: false
-      hideForGuests: false
-  - name: Hotkeys
-    icon: fas fa-rocket
-    items:
-      - title: Merge requests
-        description: Source Code, Issues and Pull Requests
-        url: https://gitlab.com/airasia-superapp/delivery/aa-ride
-        icon: fab fa-gitlab
-        id: 0_743_mergerequests
-      - title: Query grafana
-        description: query grafana for error
-        icon: 🔍
-        url: >-
-          https://grafana.airasiatech.com/explore?orgId=4&left=%7B%22datasource%22:%22logs-ride%22,%22queries%22:%5B%7B%22refId%22:%22A%22,%22expr%22:%22%7Benv%3D%5C%22prd%5C%22,%20namespace%3D%5C%22default%5C%22,%20level%3D%5C%22ERROR%5C%22%7D%20%7C%20json%22,%22queryType%22:%22range%22,%22datasource%22:%7B%22type%22:%22loki%22,%22uid%22:%22logs-ride%22%7D,%22editorMode%22:%22builder%22%7D%5D,%22range%22:%7B%22from%22:%22now-3h%22,%22to%22:%22now%22%7D%7D
-        target: newtab
-        id: 1_743_querygrafana
-      - title: Workload
-        description: to view ride production workload information
-        icon: mdi-server-network
-        url: >-
-          https://console.cloud.google.com/kubernetes/workload/overview?hl=id&project=amazing-modem-199209&pageState=(%22savedViews%22:(%22i%22:%22a12d37da21154f6aa3887d51c84c2902%22,%22c%22:%5B%5D,%22n%22:%5B%5D))
-        target: newtab
-        id: 2_743_workload
-      - title: pubsub
-        icon: fas fa-broadcast-tower
-        url: >-
-          https://console.cloud.google.com/cloudpubsub/topic/list?referrer=search&hl=id&inv=1&invt=Ab1e3A&project=amazing-modem-199209
-        target: newtab  # Add this line
-        id: 3_743_pubsub
-  - name: Monitor
-    icon: fas fa-rocket
-    items:
-      - title: API Flow
-        description: Development a project management links for Dashy
-        icon: mdi-api
-        url: >-
-          https://grafana.airasiatech.com/d/d04dbb51-64fb-416b-af5b-57f61b7ea32b/1-api-flow-dashboard?orgId=4&refresh=15m
-        target: newtab
-        id: 3_744_apiflow
-      - title: Production Error logs
-        description: All errors logs
-        icon: ⚠️
-        url: >-
-          https://grafana.airasiatech.com/explore?orgId=4&left=%7B%22datasource%22:%22logs-ride%22,%22queries%22:%5B%7B%22refId%22:%22A%22,%22expr%22:%22%7Blevel%3D%5C%22ERROR%5C%22,%20namespace%3D%5C%22default%5C%22,%20env%3D%5C%22prd%5C%22%7D%20%21%3D%20%60BACKEND_CONNECTIVITY_ERROR%60%20%21%3D%20%60INVALID_USER%60%20%21%3D%20%60EXPIRED_REFRESH_TOKEN%60%20%21%3D%20%60ER_LOCK_DEADLOCK%60%20%21%3D%20%60MISSING_AUTHORIZATION_TOKEN%60%20%21%3D%20%60PROMO_OUT_OF_ZONE%60%20%21%3D%20%60PUSH_NO_SUBSCRIBERS%60%20%21%3D%20%60FARE_MISMATCHED%60%20%21%3D%20%60PROMO_EXPIRED%60%20%21%3D%20%60UNAUTHORIZED%60%20%21%3D%20%60INVALID_PROMO_CODE%60%20%21%3D%20%60PROMO_REACH_LIMIT%60%20%21%3D%20%60PROMO_USER_REDEEMED%60%20%21%3D%20%60DUPLICATE_ACTION%60%20%21%3D%20%60INVALID_AUTHORIZATION_TOKEN%60%20%21%3D%20%60PROMO_ONLY_NEW_USER%60%20%21%3D%20%60BOOKING_HAS_PAYMENT_FAILED%60%20%21%3D%20%60validateDriverBonus%60%20%21%3D%20%60NO_ROUTES_FOUND%60%20%21%3D%20%60DUPLICATE_BOOKING%60%20%21%3D%20%60INVALID_AUTH_TOKEN%60%20%21%3D%20%60PROMO_MIN_FARE_NOT_REACH%60%20%21%3D%20%60MISSING_COUNTRY_ZONE%60%20%21%3D%20%60BOOKING_HAS_ACTIVE%60%20%21%3D%20%60ADVANCE_BOOKING_MINIMUM%60%20%21%3D%20%60INVALID_INPUT%60%20%21%3D%20%60INSUFFICIENT_BALANCE%60%20%21%3D%20%60INVALID_REFRESH_TOKEN%60%20%21%3D%20%60MEMBER_ACCOUNT_INACTIVE%60%20%21%3D%20%60INVALID_DATA%60%20%21%3D%20%60There%20is%20no%20Auth%20this%20order%60%20%21%3D%20%60INACTIVE_USER%60%20%21%3D%20%60REWARD_VOUCHER_USED%60%20%21%3D%20%60SUSPENDED_DRIVER%60%20%21%3D%20%60NO_PERMISSION%60%20%21%3D%20%60ACTION_LOCK_LIMIT%60%20%21%3D%20%60USER_PASSWORD_INCORRECT%60%20%21%3D%20%60USER_MAX_FAV_PLACE%60%20%21%3D%20%60UNREGISTERED%60%20%21%3D%20%60USER_PIN_INACTIVE%60%20%21%3D%20%60VERIFICATION_FAILED%60%20%21%3D%20%60USER_PIN_INCORRECT%60%20%21%3D%20%60MULTIPLE_USER_ACCOUNT%60%20%21%3D%20%60INACTIVE_DRIVER%60%20%21%3D%20%60INVALID_VERIFICATION_CODE_PHONE%60%20%21%3D%20%60MULTIPLE_DEVICE_LOGIN_DETECTED%60%20%21%3D%20%60MAX_BOOKING_DISTANCE_LIMIT_REACHED%60%20%7C%20json%22,%22queryType%22:%22range%22,%22datasource%22:%7B%22type%22:%22loki%22,%22uid%22:%22logs-ride%22%7D,%22editorMode%22:%22builder%22%7D%5D,%22range%22:%7B%22from%22:%22now-1h%22,%22to%22:%22now%22%7D%7D
-        target: newtab
-        id: 4_744_productionerrorlogs
- 

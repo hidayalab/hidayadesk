@@ -11,13 +11,19 @@
                     <p class="item-title">{{ item.title }}</p>
                 </a>
             </li>
-            <li class="list-item add-item-button" @click="showAddItemModal()">
+            <li class="list-item add-item-button" @click="showAddItemModal(section)">
                 <a target="_blank" class="item-link">
                     <i class="icon fa fa-plus" aria-hidden="true"></i>
                     <p class="item-title">Add</p>
                 </a>
             </li>
         </ul>
+    </div>
+    <div class="add-section-button" @click="showAddSectionModal = true">
+        <button class="item-link">
+            <i class="icon fa fa-plus" aria-hidden="true"></i>
+            <p class="item-title">Add New Section</p>
+        </button>
     </div>
     <!-- Add Item Modal -->
     <div v-if="showModal" class="modal-overlay" @click.self="closeModal">
@@ -43,6 +49,23 @@
             </form>
         </div>
     </div>
+
+    <!-- Add Section Modal -->
+    <div v-if="showAddSectionModal" class="modal-overlay" @click.self="showAddSectionModal = false">
+        <div class="modal-content">
+            <h3>Add New Section</h3>
+            <form @submit.prevent="addSection">
+                <div class="form-group">
+                    <label for="section-name">Section Name:</label>
+                    <input type="text" id="section-name" v-model="newSectionName" required>
+                </div>
+                <div class="modal-actions">
+                    <button type="submit" class="save-button">Add Section</button>
+                    <button type="button" @click="showAddSectionModal = false" class="cancel-button">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
 </template>
 
 <script>
@@ -62,11 +85,14 @@ export default {
     data() {
         return {
             showModal: false,
+            showAddSectionModal: false,
             newItem: {
                 title: '',
                 url: '',
                 icon: '',
             },
+            newSectionName: '',
+            activeSection: null,
         };
     },
     computed: {
@@ -82,34 +108,41 @@ export default {
         }
     },
     methods: {
-
-        showAddItemModal() {
+        showAddItemModal(section) {
+            this.activeSection = section;
             this.showModal = true;
         },
         closeModal() {
             this.showModal = false;
+            this.activeSection = null;
         },
         addItem() {
-            // Basic validation
             if (!this.newItem.title || !this.newItem.url) {
                 alert('Title and URL are required.');
                 return;
             }
 
-            // Find the target section (e.g., the first section)
-            // You might want a more sophisticated way to select the section
-            const targetSection = this.sections[0];
-            if (targetSection) {
-                targetSection.items.push({
-                    ...this.newItem,
-                    // Ensure the icon has a default if not provided
-                    icon: this.newItem.icon || 'fas fa-link',
+            if (this.activeSection) {
+                this.$emit('add-item', {
+                    sectionName: this.activeSection.name,
+                    item: {
+                        ...this.newItem,
+                        icon: this.newItem.icon || 'fas fa-link',
+                    }
                 });
             }
 
-            // Reset the form and close the modal
             this.newItem = { title: '', url: '', icon: '' };
             this.closeModal();
+        },
+        addSection() {
+            if (!this.newSectionName) {
+                alert('Section name is required.');
+                return;
+            }
+            this.$emit('add-section', this.newSectionName);
+            this.newSectionName = '';
+            this.showAddSectionModal = false;
         },
     },
 };
