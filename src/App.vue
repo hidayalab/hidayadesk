@@ -84,9 +84,15 @@
       </div>
     </main>
 
-
   </div>
+  <app-footer />
 </template>
+
+<style scoped>
+#app {
+  padding-bottom: 60px; /* Height of the footer */
+}
+</style>
 
 <script>
 import yaml from 'js-yaml';
@@ -100,6 +106,7 @@ import Bookmarks from './components/Bookmarks.vue';
 import NoteTakingWidget from './components/NoteTakingWidget.vue';
 import QuranWidget from './components/QuranWidget.vue';
 import PrayerTimeWidget from './components/PrayerTimeWidget.vue';
+import AppFooter from './components/AppFooter.vue';
 import './components/styles/notetakingwidget.css';
 import './components/styles/quranwidget.css';
 
@@ -108,7 +115,8 @@ export default {
     NoteTakingWidget,
     QuranWidget,
     Bookmarks,
-    PrayerTimeWidget
+    PrayerTimeWidget,
+    AppFooter
   },
 
   data() {
