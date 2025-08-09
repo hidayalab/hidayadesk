@@ -4,7 +4,7 @@
 
       <div class="logoAndSearch">
         <div class="logo-and-title">
-          <img src="/logo.png" alt="FaithNotes Logo" class="logo">
+          <img src="logo.png" alt="FaithNotes Logo" class="logo">
           <h1 class="title">{{ pageInfo.title }}</h1>
         </div>
 
@@ -208,7 +208,8 @@ export default {
     },
     async fetchConfig() {
       try {
-        const response = await fetch('/conf.yml');
+        const configUrl = import.meta.env.BASE_URL + 'config.yml';
+        const response = await fetch(configUrl);
         const configText = await response.text();
         const config = yaml.load(configText);
         this.pageInfo = config.pageInfo;
