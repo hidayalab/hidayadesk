@@ -45,3 +45,31 @@
   font-size: 2rem;
   margin-bottom: 0.5rem;
 }
+
+.list-item {
+  position: relative;
+}
+
+.edit-icon {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  cursor: pointer;
+  color: #fff;
+  opacity: 0.6;
+  transition: opacity 0.3s ease;
+}
+
+.edit-icon:hover {
+  opacity: 1;
+}
+
+.section-title {
+  display: flex;
+  align-items: center;
+}
+
+.section-title .edit-icon {
+  margin-left: 10px;
+  position: static;
+}

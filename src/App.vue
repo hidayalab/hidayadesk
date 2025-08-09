@@ -62,7 +62,7 @@
 
         <div class="edit-controls">
           <button @click="toggleEditMode" class="edit-button">
-            <i class="fas fa-edit"></i>
+            Edit <i class="fas fa-edit"></i>
           </button>
         </div>
         <nav class="nav-links">
@@ -73,7 +73,8 @@
     <main class="dashboard-grid">
       <div class="bookmark-area">
         <Bookmarks :sections="sections" :search-query="searchQuery" :edit-mode="isEditMode" @add-item="handleAddItem"
-          @add-section="handleAddSection" @update-section="handleUpdateSection" @update-item="handleUpdateItem" />
+          @add-section="handleAddSection" @update-section="handleUpdateSection" @update-item="handleUpdateItem"
+          @delete-section="handleDeleteSection" @delete-item="handleDeleteItem" />
       </div>
       <div class="widget-area">
         <quran-widget v-if="activeWidget === 'quran'"></quran-widget>
@@ -192,6 +193,14 @@ export default {
     },
     handleUpdateItem(payload) {
       this.sections[payload.sectionIndex].items[payload.itemIndex] = payload.item;
+      this.saveSectionsToLocalStorage();
+    },
+    handleDeleteSection(sectionIndex) {
+      this.sections.splice(sectionIndex, 1);
+      this.saveSectionsToLocalStorage();
+    },
+    handleDeleteItem(payload) {
+      this.sections[payload.sectionIndex].items.splice(payload.itemIndex, 1);
       this.saveSectionsToLocalStorage();
     },
     saveSectionsToLocalStorage() {

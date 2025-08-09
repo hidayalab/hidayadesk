@@ -1,15 +1,19 @@
 <template>
-    <div v-for="section in filteredSections" :key="section.name" class="section">
-        <h2 class="section-title">{{ section.name }}</h2>
+    <div v-for="(section, sectionIndex) in filteredSections" :key="section.name" class="section">
+        <h2 class="section-title">
+            {{ section.name }}
+            <i v-if="editMode" class="fas fa-edit edit-icon" @click="showEditSectionModal(sectionIndex)"></i>
+        </h2>
         <div class="widget-grid">
 
         </div>
         <ul class="item-list">
-            <li v-for="item in section.items" :key="item.title" class="list-item">
+            <li v-for="(item, itemIndex) in section.items" :key="item.title" class="list-item">
                 <a :href="item.url" target="_blank" class="item-link">
                     <i :class="['icon', item.icon]"></i>
                     <p class="item-title">{{ item.title }}</p>
                 </a>
+                <i v-if="editMode" class="fas fa-edit edit-icon" @click="showEditItemModal(sectionIndex, itemIndex)"></i>
             </li>
             <li class="list-item add-item-button" @click="showAddItemModal(section)">
                 <a target="_blank" class="item-link">
@@ -66,6 +70,54 @@
             </form>
         </div>
     </div>
+
+    <!-- Edit Section Modal -->
+    <div v-if="showEditSection" class="modal-overlay" @click.self="closeEditModal">
+        <div class="modal-content">
+            <h3>Edit Section</h3>
+            <form @submit.prevent="updateSection">
+                <div class="form-group">
+                    <label for="edit-section-name">Section Name:</label>
+                    <input type="text" id="edit-section-name" v-model="editableSection.name" required>
+                </div>
+                <div class="modal-actions">
+                    <button type="button" @click="deleteSection" class="delete-button">Delete</button>
+                    <div>
+                        <button type="submit" class="save-button">Save Changes</button>
+                        <button type="button" @click="closeEditModal" class="cancel-button">Cancel</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Edit Item Modal -->
+    <div v-if="showEditItem" class="modal-overlay" @click.self="closeEditModal">
+        <div class="modal-content">
+            <h3>Edit Item</h3>
+            <form @submit.prevent="updateItem">
+                <div class="form-group">
+                    <label for="edit-item-title">Title:</label>
+                    <input type="text" id="edit-item-title" v-model="editableItem.title" required>
+                </div>
+                <div class="form-group">
+                    <label for="edit-item-url">URL:</label>
+                    <input type="url" id="edit-item-url" v-model="editableItem.url" required>
+                </div>
+                <div class="form-group">
+                    <label for="edit-item-icon">Icon:</label>
+                    <input type="text" id="edit-item-icon" v-model="editableItem.icon">
+                </div>
+                <div class="modal-actions">
+                    <button type="button" @click="deleteItem" class="delete-button">Delete</button>
+                    <div>
+                        <button type="submit" class="save-button">Save Changes</button>
+                        <button type="button" @click="closeEditModal" class="cancel-button">Cancel</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
 </template>
 
 <script>
@@ -80,12 +132,18 @@ export default {
         searchQuery: {
             type: String,
             default: ''
+        },
+        editMode: {
+            type: Boolean,
+            default: false
         }
     },
     data() {
         return {
             showModal: false,
             showAddSectionModal: false,
+            showEditSection: false,
+            showEditItem: false,
             newItem: {
                 title: '',
                 url: '',
@@ -93,6 +151,10 @@ export default {
             },
             newSectionName: '',
             activeSection: null,
+            editableSection: null,
+            editableItem: null,
+            editableSectionIndex: null,
+            editableItemIndex: null,
         };
     },
     computed: {
@@ -115,6 +177,27 @@ export default {
         closeModal() {
             this.showModal = false;
             this.activeSection = null;
+        },
+        showEditSectionModal(sectionIndex) {
+            this.editableSectionIndex = sectionIndex;
+            this.editableSection = { ...this.sections[sectionIndex] };
+            this.showEditSection = true;
+        },
+
+        showEditItemModal(sectionIndex, itemIndex) {
+            this.editableSectionIndex = sectionIndex;
+            this.editableItemIndex = itemIndex;
+            this.editableItem = { ...this.sections[sectionIndex].items[itemIndex] };
+            this.showEditItem = true;
+        },
+
+        closeEditModal() {
+            this.showEditSection = false;
+            this.showEditItem = false;
+            this.editableSection = null;
+            this.editableItem = null;
+            this.editableSectionIndex = null;
+            this.editableItemIndex = null;
         },
         addItem() {
             if (!this.newItem.title || !this.newItem.url) {
@@ -143,6 +226,38 @@ export default {
             this.$emit('add-section', this.newSectionName);
             this.newSectionName = '';
             this.showAddSectionModal = false;
+        },
+        updateSection() {
+            this.$emit('update-section', {
+                index: this.editableSectionIndex,
+                section: this.editableSection
+            });
+            this.closeEditModal();
+        },
+
+        updateItem() {
+            this.$emit('update-item', {
+                sectionIndex: this.editableSectionIndex,
+                itemIndex: this.editableItemIndex,
+                item: this.editableItem
+            });
+            this.closeEditModal();
+        },
+        deleteSection() {
+            if (confirm('Are you sure you want to delete this section?')) {
+                this.$emit('delete-section', this.editableSectionIndex);
+                this.closeEditModal();
+            }
+        },
+
+        deleteItem() {
+            if (confirm('Are you sure you want to delete this item?')) {
+                this.$emit('delete-item', {
+                    sectionIndex: this.editableSectionIndex,
+                    itemIndex: this.editableItemIndex
+                });
+                this.closeEditModal();
+            }
         },
     },
 };
