@@ -122,6 +122,23 @@
   background-color: rgba(0, 123, 255, 0.1);
 }
 
+.disable-btn {
+  background: transparent;
+  border: 1px solid #dc3545;
+  color: #dc3545;
+  font-size: 0.8rem;
+  cursor: pointer;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+  margin-left: 0.5rem;
+}
+
+.disable-btn:hover {
+  background-color: #dc3545;
+  color: white;
+}
+
 /* Notification Settings */
 .notification-settings {
   background-color: rgba(42, 42, 42, 0.5);

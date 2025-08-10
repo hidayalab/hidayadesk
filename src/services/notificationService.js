@@ -20,8 +20,6 @@ class NotificationService {
     }
 
     const notification = new Notification(title, {
-      icon: '/logo.png',
-      badge: '/logo.png',
       tag: 'prayer-time',
       requireInteraction: true,
       ...options

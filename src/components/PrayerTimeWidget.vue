@@ -11,6 +11,7 @@
       <div v-else class="notification-status">
         <span class="status-text">🔔 Notifications On</span>
         <button @click="toggleNotificationSettings" class="settings-btn">⚙️</button>
+        <button @click="disableNotifications" class="disable-btn">🔕 Disable</button>
       </div>
     </div>
 
@@ -183,7 +184,7 @@ export default {
       const granted = await notificationService.requestPermission();
       if (granted) {
         this.notificationsEnabled = true;
-        this.loadNotificationSettings();
+        this.saveNotificationSettings();
         this.updateNotifications();
         
         // Show a test notification
@@ -197,6 +198,17 @@ export default {
     },
     toggleNotificationSettings() {
       this.showNotificationSettings = !this.showNotificationSettings;
+    },
+    disableNotifications() {
+      this.notificationsEnabled = false;
+      this.showNotificationSettings = false;
+      notificationService.clearAllScheduledNotifications();
+      this.saveNotificationSettings();
+      // Show confirmation notification
+      notificationService.showNotification('Prayer Notifications Disabled', {
+        body: 'You will no longer receive prayer time notifications.',
+        requireInteraction: false
+      });
     },
     updateNotifications() {
       if (this.notificationsEnabled && Object.keys(this.prayerTimes).length > 0) {
@@ -219,13 +231,15 @@ export default {
       const saved = localStorage.getItem('prayerNotificationConfig');
       if (saved) {
         const settings = JSON.parse(saved);
-        this.notificationsEnabled = settings.enabled && notificationService.getPermissionStatus() === 'granted';
+        const permissionStatus = notificationService.getPermissionStatus();
+        this.notificationsEnabled = settings.enabled && permissionStatus === 'granted';
         this.notificationConfig = { ...this.notificationConfig, ...settings.config };
       }
     }
   },
   mounted(){
     this.getLocation();
+    this.loadNotificationSettings();
   }
 };
 </script>
