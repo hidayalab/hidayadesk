@@ -27,7 +27,7 @@ class QuranService {
    */
   async getVerseById(ayahId) {
     const cacheKey = `verse_${ayahId}`;
-    
+
     // Check cache first
     if (this.cache.has(cacheKey)) {
       const cached = this.cache.get(cacheKey);
@@ -96,101 +96,6 @@ class QuranService {
   }
 
   /**
-   * Get verses from a specific surah
-   * @param {number} surahNumber - Surah number (1-114)
-   * @param {number} startAyah - Starting ayah number (optional)
-   * @param {number} endAyah - Ending ayah number (optional)
-   * @returns {Promise<Array>} Array of ayah data
-   */
-  async getSurahVerses(surahNumber, startAyah = null, endAyah = null) {
-    try {
-      let url = `${this.baseUrl}/surah/${surahNumber}`;
-      if (startAyah && endAyah) {
-        url += `/ar.alafasy/${startAyah}-${endAyah}`;
-      }
-
-      const [arabicResponse, englishResponse] = await Promise.all([
-        fetch(url.replace('ar.alafasy', 'ar.alafasy')),
-        fetch(url.replace('ar.alafasy', 'en.sahih'))
-      ]);
-
-      const [arabicData, englishData] = await Promise.all([
-        arabicResponse.json(),
-        englishResponse.json()
-      ]);
-
-      if (!arabicData.data?.ayahs || !englishData.data?.ayahs) {
-        throw new Error('Invalid surah response structure');
-      }
-
-      return arabicData.data.ayahs.map((arabicAyah, index) => {
-        const englishAyah = englishData.data.ayahs[index];
-        return {
-          id: arabicAyah.number,
-          arabic: {
-            text: arabicAyah.text,
-            ayahNumber: arabicAyah.numberInSurah
-          },
-          english: {
-            text: englishAyah.text,
-            ayahNumber: englishAyah.numberInSurah
-          },
-          reference: {
-            surah: englishAyah.surah.englishName,
-            surahArabic: arabicAyah.surah.name,
-            ayah: arabicAyah.numberInSurah,
-            surahNumber: arabicAyah.surah.number
-          }
-        };
-      });
-    } catch (error) {
-      console.error('Error fetching surah verses:', error);
-      throw new Error('Failed to fetch surah verses');
-    }
-  }
-
-  /**
-   * Search for verses containing specific text
-   * @param {string} query - Search query
-   * @param {number} size - Number of results (default: 10)
-   * @returns {Promise<Array>} Search results
-   */
-  async searchVerses(query, size = 10) {
-    try {
-      const response = await fetch(
-        `${this.baseUrl}/search/${encodeURIComponent(query)}/all/en?size=${size}`
-      );
-      
-      if (!response.ok) {
-        throw new Error('Search request failed');
-      }
-
-      const data = await response.json();
-      
-      if (!data.data?.matches) {
-        return [];
-      }
-
-      // For each search result, get the full verse data
-      const searchResults = await Promise.all(
-        data.data.matches.map(async (match) => {
-          try {
-            return await this.getVerseById(match.number);
-          } catch (error) {
-            console.error(`Error fetching verse ${match.number}:`, error);
-            return null;
-          }
-        })
-      );
-
-      return searchResults.filter(result => result !== null);
-    } catch (error) {
-      console.error('Error searching verses:', error);
-      throw new Error('Failed to search verses');
-    }
-  }
-
-  /**
    * Get verse of the day (changes daily)
    * @returns {Promise<Object>} Verse of the day
    */
@@ -199,12 +104,12 @@ class QuranService {
     const dayOfYear = Math.floor(
       (today - new Date(today.getFullYear(), 0, 0)) / (1000 * 60 * 60 * 24)
     );
-    
+
     // Use day of year to get a consistent "verse of the day"
     const verseId = (dayOfYear % 6236) + 1;
-    
+
     const cacheKey = `verse_of_day_${today.toDateString()}`;
-    
+
     if (this.cache.has(cacheKey)) {
       const cached = this.cache.get(cacheKey);
       return cached.data;
@@ -212,7 +117,7 @@ class QuranService {
 
     try {
       const verseData = await this.getVerseById(verseId);
-      
+
       this.cache.set(cacheKey, {
         data: verseData,
         timestamp: Date.now()
