@@ -1,33 +1,3 @@
-.Square .prayer-time-widget .widget-title {
-  color: #1a1a1a;
-}
-
-.Square .prayer-time-widget .prayer-item {
-  border-bottom-color: #ccc;
-}
-
-.Square .prayer-time-widget .prayer-icon {
-  color: #1a1a1a;
-}
-
-.Square .prayer-time-widget .prayer-name,
-.Square .prayer-time-widget .prayer-time {
-  color: #1a1a1a;
-}
-
-.Square .prayer-time-widget .next-prayer-container {
-  background-color: #f0f0f0;
-  border-bottom: 1px solid #ccc;
-}
-
-.Square .prayer-time-widget .next-prayer-label {
-  color: #666;
-}
-
-.Square .prayer-time-widget .next-prayer-time {
-  color: #1a1a1a;
-}
-
 /* SQUARE THEME */
 .Square {
   background-color: #ffffff;
@@ -42,20 +12,31 @@
 }
 
 .Square .item-link {
-  border-color: #333;
+  background-color: rgba(0, 0, 0, 0.02);
+  border-color: #ccc;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  color: #1a1a1a;
 }
 
 .Square .item-link:hover {
   background-color: #1a1a1a;
-  box-shadow: 0 0 15px rgba(255, 99, 71, 0.9), inset 0 0 3px rgba(255, 140, 0, 0.7);
-  border-color: #ff6347;
+  box-shadow: 0 0 15px rgba(26, 26, 26, 0.3), inset 0 0 3px rgba(26, 26, 26, 0.2);
+  border-color: #1a1a1a;
 }
 
 .Square .item-link .icon {
+  color: #1a1a1a;
+}
+
+.Square .item-link:hover .icon {
   color: #ffffff;
 }
 
 .Square .item-title {
+  color: #1a1a1a;
+}
+
+.Square .item-link:hover .item-title {
   color: #ffffff;
 }
 
@@ -68,6 +49,11 @@
 .Square .widget-area {
   background-color: rgba(0, 0, 0, 0.05);
   border: 1px solid #ccc;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.Square .quran-widget {
+  background-color: #ffffff;
 }
 
 .Square .quran-widget h3 {
@@ -75,33 +61,33 @@
   text-shadow: none;
 }
 
-.Square .quran-widget .verse-text {
-  color: #1a1a1a;
+.Square .quran-widget .verse-text,
+.Square .quran-widget .arabic-verse,
+.Square .quran-widget .surah-arabic,
+.Square .quran-widget .verse-arabic {
+  color: #1a1a1a !important;
 }
 
-.Square .quran-widget .verse-meaning {
-  color: #666;
-}
-
-.Square .quran-widget .verse-info {
-  color: #999;
-}
-
-.Square .quran-widget h3 {
-  color: #1a1a1a;
-  text-shadow: none;
-}
-
-.Square .quran-widget .verse-text {
-  color: #1a1a1a;
-}
-
-.Square .quran-widget .verse-meaning {
-  color: #666;
+.Square .quran-widget .verse-meaning,
+.Square .quran-widget .english-translation,
+.Square .quran-widget .english-verse {
+  color: #1a1a1a !important;
 }
 
 .Square .quran-widget .verse-info {
-  color: #999;
+  color: #1a1a1a !important;
+}
+
+.Square .quran-widget-header {
+  background-color: #ffffff;
+}
+
+.Square .widget-title-row {
+  color: #1a1a1a;
+}
+
+.Square .widget-title-row h3 {
+  color: #1a1a1a;
 }
 
 .Square .nav-links a,
@@ -132,18 +118,152 @@
 }
 
 .Square .add-item-button .item-link {
-  border: 1px solid #1a1a1a;
-  box-shadow: 0 0 8px #1a1a1a, inset 0 0 4px #1a1a1a;
+  border: 1px dashed #1a1a1a;
+  box-shadow: 0 0 8px rgba(26, 26, 26, 0.2), inset 0 0 4px rgba(26, 26, 26, 0.1);
+  background-color: rgba(0, 0, 0, 0.02);
+  color: #1a1a1a;
 }
 
+.Square .add-item-button .item-link .icon {
+  color: #ffffff !important;
+}
+
+.Square .add-item-button .item-link .item-title {
+  color: #ffffff !important;
+}
+
+.Square .add-item-button .item-link:hover {
+  background-color: #f8f9fa !important;
+  border: 1px solid #1a1a1a;
+  box-shadow: 0 0 12px rgba(26, 26, 26, 0.3);
+  color: #1a1a1a !important;
+}
+
+.Square .add-item-button .item-link:hover .icon {
+  color: #1a1a1a !important;
+}
+
+.Square .add-item-button .item-link:hover .item-title {
+  color: #1a1a1a !important;
+}
+
+/* Override general item-link hover for add buttons */
+.Square .add-item-button .item-link:hover {
+  background-color: #f8f9fa !important;
+  box-shadow: 0 0 12px rgba(26, 26, 26, 0.3) !important;
+}
+
+/* Add New Section Button */
+.Square .add-section-button,
+.Square .add-section-button .item-link {
+  border: 1px dashed #1a1a1a;
+  box-shadow: 0 0 8px rgba(26, 26, 26, 0.2), inset 0 0 4px rgba(26, 26, 26, 0.1);
+  background-color: rgba(0, 0, 0, 0.02);
+  color: #1a1a1a;
+}
+
+.Square .add-section-button .icon,
+.Square .add-section-button .item-link .icon {
+  color: #ffffff !important;
+}
+
+.Square .add-section-button .item-title,
+.Square .add-section-button .item-link .item-title {
+  color: #ffffff !important;
+}
+
+.Square .add-section-button:hover,
+.Square .add-section-button .item-link:hover {
+  background-color: #f8f9fa;
+  border: 1px solid #1a1a1a;
+  box-shadow: 0 0 12px rgba(26, 26, 26, 0.3);
+  color: #1a1a1a;
+}
+
+.Square .add-section-button:hover .icon,
+.Square .add-section-button .item-link:hover .icon {
+  color: #1a1a1a !important;
+}
+
+.Square .add-section-button:hover .item-title,
+.Square .add-section-button .item-link:hover .item-title {
+  color: #1a1a1a !important;
+}
+
+/* General button styling for add buttons */
+.Square .add-button,
+.Square .section-add-button {
+  border: 1px dashed #1a1a1a;
+  box-shadow: 0 0 8px rgba(26, 26, 26, 0.2), inset 0 0 4px rgba(26, 26, 26, 0.1);
+  background-color: rgba(0, 0, 0, 0.02);
+  color: #1a1a1a;
+}
+
+.Square .add-button:hover,
+.Square .section-add-button:hover {
+  background-color: #f8f9fa;
+  border: 1px solid #1a1a1a;
+  box-shadow: 0 0 12px rgba(26, 26, 26, 0.3);
+  color: #1a1a1a;
+}
+
+/* Ensure no dark background on hover for add buttons - override general item-link hover */
+.Square .add-item-button .item-link:hover,
+.Square .add-section-button:hover,
+.Square .add-section-button .item-link:hover,
+.Square .add-button:hover {
+  background-color: #f8f9fa !important;
+  color: #1a1a1a !important;
+}
+
+/* Prevent orange glow effect on add buttons */
+.Square .add-item-button .item-link:hover,
+.Square .add-section-button:hover,
+.Square .add-section-button .item-link:hover {
+  box-shadow: 0 0 12px rgba(26, 26, 26, 0.3) !important;
+  border-color: #1a1a1a !important;
+}
+
+/* Square Theme - Notebook */
 #notebook-app.theme-Square .notebook-header {
-  background: linear-gradient(135deg, #1a1a1a 0%, #333 100%);
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  color: #1a1a1a;
+  border-bottom: 1px solid #dee2e6;
 }
+
 #notebook-app.theme-Square .add-page-btn {
-  background: #1a1a1a;
+  background: #ffffff;
+  color: #1a1a1a;
+  border: 1px solid #dee2e6;
 }
+
 #notebook-app.theme-Square .add-page-btn:hover {
-  background: #333;
+  background: #f8f9fa;
+  border-color: #1a1a1a;
+}
+
+#notebook-app.theme-Square .page-content {
+  color: #1a1a1a;
+  background-color: #ffffff;
+}
+
+#notebook-app.theme-Square .page-tab {
+  color: #666;
+  background-color: #f8f9fa;
+  border: 1px solid #dee2e6;
+}
+
+#notebook-app.theme-Square .page-tab.active {
+  color: #1a1a1a;
+  background-color: #ffffff;
+  border-color: #1a1a1a;
+  font-weight: 500;
+}
+
+#notebook-app.theme-Square textarea {
+  color: #1a1a1a;
+  background-color: #ffffff;
+  border: 1px solid #dee2e6;
 }
 
 /* QuranWidget theme overrides */
@@ -153,24 +273,46 @@
 
 .Square .arabic-verse {
   border-right-color: #1a1a1a;
+  color: #1a1a1a !important;
+  background-color: #ffffff;
 }
 
 .Square .english-translation {
   border-left-color: #666;
+  color: #1a1a1a !important;
+  background-color: #ffffff;
+}
+
+.Square .control-btn {
+  color: #1a1a1a;
+  border-color: rgba(26, 26, 26, 0.3);
+  background-color: #ffffff;
+}
+
+.Square .control-btn:hover {
+  background: #f8f9fa;
+  color: #1a1a1a;
+  border-color: #1a1a1a;
 }
 
 .Square .control-btn.active {
-  background: rgba(26, 26, 26, 0.2);
+  background: rgba(26, 26, 26, 0.1);
   border-color: rgba(26, 26, 26, 0.4);
   color: #1a1a1a;
 }
 
 .Square .surah-arabic {
-  color: #1a1a1a;
+  color: #1a1a1a !important;
 }
 
 .Square .loading-spinner {
   border-top-color: #1a1a1a;
+}
+
+.Square .font-dropdown-full {
+  color: #1a1a1a;
+  border-color: rgba(26, 26, 26, 0.3);
+  background-color: #ffffff;
 }
 
 .Square .font-dropdown-full:focus {
@@ -178,6 +320,41 @@
   box-shadow: 0 0 0 3px rgba(26, 26, 26, 0.3);
 }
 
+.Square .font-dropdown-full option {
+  color: #1a1a1a;
+  background-color: #ffffff;
+}
+
+.Square .font-selector-label,
+.Square .font-selector label,
+.Square label {
+  color: #1a1a1a;
+}
+
+.Square .verse-controls-row,
+.Square .font-selector-row {
+  color: #1a1a1a;
+}
+
+/* Ensure no unwanted white text on hover for widget elements */
+.Square .control-btn:hover {
+  color: #1a1a1a;
+}
+
+.Square .font-dropdown-full:hover {
+  color: #1a1a1a;
+}
+
+/* Consistent widget content styling */
+.Square .verse-controls {
+  background-color: #ffffff;
+}
+
+.Square .font-selector-row {
+  background-color: #ffffff;
+}
+
+/* HadithWidget theme overrides */
 .Square .hadith-widget {
   border-color: rgba(26, 26, 26, 0.3);
 }
@@ -188,10 +365,12 @@
 
 .Square .hadith-arabic {
   border-right-color: #1a1a1a;
+  color: #1a1a1a;
 }
 
 .Square .hadith-english {
   border-left-color: #666;
+  color: #1a1a1a;
 }
 
 .Square .book-info {
@@ -200,14 +379,90 @@
 
 .Square .retry-btn,
 .Square .load-btn {
-  background: rgba(26, 26, 26, 0.2);
-  border-color: rgba(26, 26, 26, 0.4);
+  background: rgba(26, 26, 26, 0.1);
+  border-color: rgba(26, 26, 26, 0.3);
   color: #1a1a1a;
 }
 
 .Square .retry-btn:hover,
 .Square .load-btn:hover {
-  background: rgba(26, 26, 26, 0.3);
-  border-color: rgba(26, 26, 26, 0.6);
+  background: rgba(26, 26, 26, 0.2);
+  border-color: rgba(26, 26, 26, 0.5);
   box-shadow: 0 4px 12px rgba(26, 26, 26, 0.2);
+}
+
+/* Prayer Time Widget theme overrides */
+.Square .prayer-time-widget {
+  background-color: #ffffff;
+}
+
+.Square .prayer-time-widget .widget-title {
+  color: #1a1a1a;
+}
+
+.Square .prayer-time-widget .prayer-item {
+  border-bottom-color: #ccc;
+}
+
+.Square .prayer-time-widget .prayer-icon {
+  color: #1a1a1a;
+}
+
+.Square .prayer-time-widget .prayer-name,
+.Square .prayer-time-widget .prayer-time {
+  color: #1a1a1a;
+}
+
+.Square .prayer-time-widget .next-prayer-container {
+  background-color: #f8f9fa;
+  border-bottom: 1px solid #dee2e6;
+  padding: 8px;
+  border-radius: 4px 4px 0 0;
+}
+
+.Square .quran-widget .verse-container {
+  background-color: #f8f9fa;
+  padding: 8px;
+  border-radius: 4px;
+  margin: 8px 0;
+}
+
+.Square .quran-widget .loading-state {
+  background-color: #ffffff;
+  color: #1a1a1a;
+}
+
+/* Comprehensive Quran widget text color overrides */
+.Square .quran-widget *,
+.Square .quran-widget p,
+.Square .quran-widget div,
+.Square .quran-widget span {
+  color: #1a1a1a !important;
+}
+
+.Square .quran-widget .verse-content {
+  background-color: #ffffff;
+  color: #1a1a1a !important;
+}
+
+.Square .quran-widget .verse-header {
+  color: #1a1a1a !important;
+  background-color: #f8f9fa;
+}
+
+/* Override any inherited white or light text */
+.Square .quran-widget [style*="color: white"],
+.Square .quran-widget [style*="color: #fff"],
+.Square .quran-widget [style*="color: #ffffff"],
+.Square .quran-widget [style*="color: #ccc"],
+.Square .quran-widget [style*="color: #aaa"] {
+  color: #1a1a1a !important;
+}
+
+.Square .prayer-time-widget .next-prayer-label {
+  color: #666;
+}
+
+.Square .prayer-time-widget .next-prayer-time {
+  color: #1a1a1a;
 }
