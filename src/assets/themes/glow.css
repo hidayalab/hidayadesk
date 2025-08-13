@@ -100,3 +100,52 @@
 .Glow .english-translation {
   border-left-color: #0f0;
 }
+
+.Glow .control-btn.active {
+  background: rgba(0, 255, 0, 0.2);
+  border-color: rgba(0, 255, 0, 0.4);
+  color: #0f0;
+}
+
+.Glow .surah-arabic {
+  color: #0f0;
+}
+
+.Glow .loading-spinner {
+  border-top-color: #0f0;
+}
+
+.Glow .font-dropdown-full:focus {
+  border-color: #0f0;
+  box-shadow: 0 0 0 3px rgba(0, 255, 0, 0.3);
+}
+
+.Glow .hadith-widget::before {
+  background: linear-gradient(90deg, #0f0, #32cd32, #00ff7f);
+}
+
+.Glow .hadith-arabic {
+  border-right-color: #0f0;
+}
+
+.Glow .hadith-english {
+  border-left-color: #0f0;
+}
+
+.Glow .book-info {
+  color: #0f0;
+}
+
+.Glow .retry-btn,
+.Glow .load-btn {
+  background: rgba(0, 255, 0, 0.2);
+  border-color: rgba(0, 255, 0, 0.4);
+  color: #0f0;
+}
+
+.Glow .retry-btn:hover,
+.Glow .load-btn:hover {
+  background: rgba(0, 255, 0, 0.3);
+  border-color: rgba(0, 255, 0, 0.6);
+  box-shadow: 0 4px 12px rgba(0, 255, 0, 0.2);
+}

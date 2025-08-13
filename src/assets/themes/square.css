@@ -145,3 +145,69 @@
 #notebook-app.theme-Square .add-page-btn:hover {
   background: #333;
 }
+
+/* QuranWidget theme overrides */
+.Square .quran-widget {
+  border-color: rgba(26, 26, 26, 0.3);
+}
+
+.Square .arabic-verse {
+  border-right-color: #1a1a1a;
+}
+
+.Square .english-translation {
+  border-left-color: #666;
+}
+
+.Square .control-btn.active {
+  background: rgba(26, 26, 26, 0.2);
+  border-color: rgba(26, 26, 26, 0.4);
+  color: #1a1a1a;
+}
+
+.Square .surah-arabic {
+  color: #1a1a1a;
+}
+
+.Square .loading-spinner {
+  border-top-color: #1a1a1a;
+}
+
+.Square .font-dropdown-full:focus {
+  border-color: #1a1a1a;
+  box-shadow: 0 0 0 3px rgba(26, 26, 26, 0.3);
+}
+
+.Square .hadith-widget {
+  border-color: rgba(26, 26, 26, 0.3);
+}
+
+.Square .hadith-widget::before {
+  background: linear-gradient(90deg, #1a1a1a, #666, #999);
+}
+
+.Square .hadith-arabic {
+  border-right-color: #1a1a1a;
+}
+
+.Square .hadith-english {
+  border-left-color: #666;
+}
+
+.Square .book-info {
+  color: #1a1a1a;
+}
+
+.Square .retry-btn,
+.Square .load-btn {
+  background: rgba(26, 26, 26, 0.2);
+  border-color: rgba(26, 26, 26, 0.4);
+  color: #1a1a1a;
+}
+
+.Square .retry-btn:hover,
+.Square .load-btn:hover {
+  background: rgba(26, 26, 26, 0.3);
+  border-color: rgba(26, 26, 26, 0.6);
+  box-shadow: 0 4px 12px rgba(26, 26, 26, 0.2);
+}

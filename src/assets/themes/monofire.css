@@ -101,3 +101,69 @@
 #notebook-app.theme-MonoFire .add-page-btn:hover {
   background: #555;
 }
+
+/* QuranWidget theme overrides */
+.MonoFire .quran-widget {
+  border-color: rgba(204, 204, 204, 0.3);
+}
+
+.MonoFire .arabic-verse {
+  border-right-color: #fff;
+}
+
+.MonoFire .english-translation {
+  border-left-color: #ccc;
+}
+
+.MonoFire .control-btn.active {
+  background: rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.4);
+  color: #fff;
+}
+
+.MonoFire .surah-arabic {
+  color: #fff;
+}
+
+.MonoFire .loading-spinner {
+  border-top-color: #fff;
+}
+
+.MonoFire .font-dropdown-full:focus {
+  border-color: #fff;
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.3);
+}
+
+.MonoFire .hadith-widget {
+  border-color: rgba(204, 204, 204, 0.3);
+}
+
+.MonoFire .hadith-widget::before {
+  background: linear-gradient(90deg, #fff, #ccc, #999);
+}
+
+.MonoFire .hadith-arabic {
+  border-right-color: #fff;
+}
+
+.MonoFire .hadith-english {
+  border-left-color: #ccc;
+}
+
+.MonoFire .book-info {
+  color: #fff;
+}
+
+.MonoFire .retry-btn,
+.MonoFire .load-btn {
+  background: rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.4);
+  color: #fff;
+}
+
+.MonoFire .retry-btn:hover,
+.MonoFire .load-btn:hover {
+  background: rgba(255, 255, 255, 0.3);
+  border-color: rgba(255, 255, 255, 0.6);
+  box-shadow: 0 4px 12px rgba(255, 255, 255, 0.2);
+}

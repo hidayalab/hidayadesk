@@ -127,9 +127,9 @@
 }
 
 .control-btn.active {
-  background: rgba(0, 212, 170, 0.2);
-  border-color: rgba(0, 212, 170, 0.4);
-  color: #00d4aa;
+  background: rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.4);
+  color: #fff;
 }
 
 .verse-content {
@@ -178,7 +178,7 @@
   padding: 1rem;
   background: rgba(255,255,255,0.04);
   border-radius: 12px;
-  border-right: 3px solid #00d4aa;
+  border-right: 3px solid #fff;
   font-weight: 400;
   letter-spacing: 0.01em;
   word-wrap: break-word;
@@ -268,7 +268,7 @@
 
 .surah-arabic {
   font-family: 'Amiri', 'Noto Sans Arabic', Arial, sans-serif;
-  color: #00d4aa;
+  color: #fff;
   font-size: 1rem;
   direction: rtl;
 }
@@ -291,7 +291,7 @@
   width: 40px;
   height: 40px;
   border: 3px solid rgba(255,255,255,0.1);
-  border-top: 3px solid #00d4aa;
+  border-top: 3px solid #fff;
   border-radius: 50%;
   animation: spin 1s linear infinite;
 }
@@ -381,8 +381,8 @@
 
 .font-dropdown-full:focus {
   outline: none;
-  border-color: #00d4aa;
-  box-shadow: 0 0 0 3px rgba(0, 212, 170, 0.3);
+  border-color: #fff;
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.3);
   background: rgba(0,0,0,0.7);
 }
 

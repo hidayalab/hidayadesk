@@ -118,3 +118,56 @@
   border-left-color: #ff6347;
 }
 
+.Fire .control-btn.active {
+  background: rgba(255, 99, 71, 0.2);
+  border-color: rgba(255, 99, 71, 0.4);
+  color: #ff6347;
+}
+
+.Fire .surah-arabic {
+  color: #ff6347;
+}
+
+.Fire .loading-spinner {
+  border-top-color: #ff6347;
+}
+
+.Fire .font-dropdown-full:focus {
+  border-color: #ff6347;
+  box-shadow: 0 0 0 3px rgba(255, 99, 71, 0.3);
+}
+
+.Fire .hadith-widget {
+  border-color: rgba(255, 100, 71, 0.3);
+}
+
+.Fire .hadith-widget::before {
+  background: linear-gradient(90deg, #ff6347, #ff7f50, #ffa500);
+}
+
+.Fire .hadith-arabic {
+  border-right-color: #ff6347;
+}
+
+.Fire .hadith-english {
+  border-left-color: #ff6347;
+}
+
+.Fire .book-info {
+  color: #ff6347;
+}
+
+.Fire .retry-btn,
+.Fire .load-btn {
+  background: rgba(255, 100, 71, 0.2);
+  border-color: rgba(255, 100, 71, 0.4);
+  color: #ff6347;
+}
+
+.Fire .retry-btn:hover,
+.Fire .load-btn:hover {
+  background: rgba(255, 100, 71, 0.3);
+  border-color: rgba(255, 100, 71, 0.6);
+  box-shadow: 0 4px 12px rgba(255, 100, 71, 0.2);
+}
+

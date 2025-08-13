@@ -23,4 +23,70 @@
   background: #28313b;
 }
 
+/* QuranWidget theme overrides */
+.slate .quran-widget {
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+.slate .arabic-verse {
+  border-right-color: #fff;
+}
+
+.slate .english-translation {
+  border-left-color: #485461;
+}
+
+.slate .control-btn.active {
+  background: rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.4);
+  color: #fff;
+}
+
+.slate .surah-arabic {
+  color: #fff;
+}
+
+.slate .loading-spinner {
+  border-top-color: #fff;
+}
+
+.slate .font-dropdown-full:focus {
+  border-color: #fff;
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.3);
+}
+
+.slate .hadith-widget {
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+.slate .hadith-widget::before {
+  background: linear-gradient(90deg, #fff, #ccc, #999);
+}
+
+.slate .hadith-arabic {
+  border-right-color: #fff;
+}
+
+.slate .hadith-english {
+  border-left-color: #485461;
+}
+
+.slate .book-info {
+  color: #fff;
+}
+
+.slate .retry-btn,
+.slate .load-btn {
+  background: rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.4);
+  color: #fff;
+}
+
+.slate .retry-btn:hover,
+.slate .load-btn:hover {
+  background: rgba(255, 255, 255, 0.3);
+  border-color: rgba(255, 255, 255, 0.6);
+  box-shadow: 0 4px 12px rgba(255, 255, 255, 0.2);
+}
+
 
