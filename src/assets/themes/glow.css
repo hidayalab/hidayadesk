@@ -91,3 +91,12 @@
 #notebook-app.theme-Glow .add-page-btn:hover {
   background: #0f8a0f;
 }
+
+/* QuranWidget theme overrides */
+.Glow .arabic-verse {
+  border-right-color: #0f0;
+}
+
+.Glow .english-translation {
+  border-left-color: #0f0;
+}

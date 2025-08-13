@@ -575,36 +575,3 @@
     padding: 0.6rem;
   }
 }
-
-/* Theme-specific adjustments */
-.CyberGlow .quran-widget {
-  border-color: rgba(0, 255, 255, 0.3);
-}
-
-.CyberGlow .arabic-verse {
-  border-right-color: #00ffff;
-}
-
-.CyberGlow .english-translation {
-  border-left-color: #00ffff;
-}
-
-.Fire .quran-widget {
-  border-color: rgba(255, 100, 71, 0.3);
-}
-
-.Fire .arabic-verse {
-  border-right-color: #ff6347;
-}
-
-.Fire .english-translation {
-  border-left-color: #ff6347;
-}
-
-.Glow .arabic-verse {
-  border-right-color: #0f0;
-}
-
-.Glow .english-translation {
-  border-left-color: #0f0;
-}

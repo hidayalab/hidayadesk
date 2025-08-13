@@ -105,3 +105,16 @@
   background: #ff4500;
 }
 
+/* QuranWidget theme overrides */
+.Fire .quran-widget {
+  border-color: rgba(255, 100, 71, 0.3);
+}
+
+.Fire .arabic-verse {
+  border-right-color: #ff6347;
+}
+
+.Fire .english-translation {
+  border-left-color: #ff6347;
+}
+

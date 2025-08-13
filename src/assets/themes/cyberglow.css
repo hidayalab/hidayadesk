@@ -91,3 +91,16 @@
 #notebook-app.theme-CyberGlow .add-page-btn:hover {
   background: #0f8a8a;
 }
+
+/* QuranWidget theme overrides */
+.CyberGlow .quran-widget {
+  border-color: rgba(0, 255, 255, 0.3);
+}
+
+.CyberGlow .arabic-verse {
+  border-right-color: #00ffff;
+}
+
+.CyberGlow .english-translation {
+  border-left-color: #00ffff;
+}
