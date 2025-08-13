@@ -91,3 +91,69 @@
 #notebook-app.theme-CyberGlow .add-page-btn:hover {
   background: #0f8a8a;
 }
+
+/* QuranWidget theme overrides */
+.CyberGlow .quran-widget {
+  border-color: rgba(0, 255, 255, 0.3);
+}
+
+.CyberGlow .arabic-verse {
+  border-right-color: #00ffff;
+}
+
+.CyberGlow .english-translation {
+  border-left-color: #00ffff;
+}
+
+.CyberGlow .control-btn.active {
+  background: rgba(0, 255, 255, 0.2);
+  border-color: rgba(0, 255, 255, 0.4);
+  color: #00ffff;
+}
+
+.CyberGlow .surah-arabic {
+  color: #00ffff;
+}
+
+.CyberGlow .loading-spinner {
+  border-top-color: #00ffff;
+}
+
+.CyberGlow .font-dropdown-full:focus {
+  border-color: #00ffff;
+  box-shadow: 0 0 0 3px rgba(0, 255, 255, 0.3);
+}
+
+.CyberGlow .hadith-widget {
+  border-color: rgba(0, 255, 255, 0.3);
+}
+
+.CyberGlow .hadith-widget::before {
+  background: linear-gradient(90deg, #00ffff, #00a8cc, #00ffff);
+}
+
+.CyberGlow .hadith-arabic {
+  border-right-color: #00ffff;
+}
+
+.CyberGlow .hadith-english {
+  border-left-color: #00ffff;
+}
+
+.CyberGlow .book-info {
+  color: #00ffff;
+}
+
+.CyberGlow .retry-btn,
+.CyberGlow .load-btn {
+  background: rgba(0, 255, 255, 0.2);
+  border-color: rgba(0, 255, 255, 0.4);
+  color: #00ffff;
+}
+
+.CyberGlow .retry-btn:hover,
+.CyberGlow .load-btn:hover {
+  background: rgba(0, 255, 255, 0.3);
+  border-color: rgba(0, 255, 255, 0.6);
+  box-shadow: 0 4px 12px rgba(0, 255, 255, 0.2);
+}

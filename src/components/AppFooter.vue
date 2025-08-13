@@ -18,7 +18,7 @@ export default {
   left: 0;
   width: 100%;
   text-align: center;
-  padding: 1rem;
+  padding: 1rem 0;
   font-size: 0.9rem;
   color: #888;
   background-color: #1a1a1a; /* Match a dark theme */
