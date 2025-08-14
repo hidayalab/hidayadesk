@@ -2,29 +2,57 @@
     <div v-for="(section, sectionIndex) in filteredSections" :key="section.name" class="section">
         <h2 class="section-title">
             {{ section.name }}
-            <i v-if="editMode" class="fas fa-edit edit-icon" @click="showEditSectionModal(sectionIndex)"></i>
+            <button 
+              v-if="editMode" 
+              class="edit-icon-button"
+              @click="showEditSectionModal(sectionIndex)"
+              :aria-label="`Edit ${section.name} section`"
+            >
+              <i class="fas fa-edit" aria-hidden="true"></i>
+            </button>
         </h2>
         <div class="widget-grid">
 
         </div>
-        <ul class="item-list">
-            <li v-for="(item, itemIndex) in section.items" :key="item.title" class="list-item">
-                <a :href="item.url" target="_blank" class="item-link">
-                    <i :class="['icon', item.icon]"></i>
+        <ul class="item-list" role="list">
+            <li v-for="(item, itemIndex) in section.items" :key="item.title" class="list-item" role="listitem">
+                <a 
+                  :href="item.url" 
+                  target="_blank" 
+                  class="item-link"
+                  :aria-label="`Open ${item.title}`"
+                  rel="noopener noreferrer"
+                >
+                    <i :class="['icon', item.icon]" aria-hidden="true"></i>
                     <p class="item-title">{{ item.title }}</p>
                 </a>
-                <i v-if="editMode" class="fas fa-edit edit-icon" @click="showEditItemModal(sectionIndex, itemIndex)"></i>
+                <button 
+                  v-if="editMode" 
+                  class="edit-icon-button item-edit-button"
+                  @click="showEditItemModal(sectionIndex, itemIndex)"
+                  :aria-label="`Edit ${item.title}`"
+                >
+                  <i class="fas fa-edit" aria-hidden="true"></i>
+                </button>
             </li>
-            <li class="list-item add-item-button" @click="showAddItemModal(section)">
-                <a target="_blank" class="item-link">
+            <li v-if="editMode" class="list-item add-item-button" role="listitem">
+                <button 
+                  class="item-link add-button" 
+                  @click="showAddItemModal(section)"
+                  :aria-label="`Add item to ${section.name}`"
+                >
                     <i class="icon fa fa-plus" aria-hidden="true"></i>
                     <p class="item-title">Add</p>
-                </a>
+                </button>
             </li>
         </ul>
     </div>
-    <div class="add-section-button" @click="showAddSectionModal = true">
-        <button class="item-link">
+    <div v-if="editMode" class="add-section-button">
+        <button 
+          class="item-link add-button"
+          @click="showAddSectionModal = true"
+          aria-label="Add new section"
+        >
             <i class="icon fa fa-plus" aria-hidden="true"></i>
             <p class="item-title">Add New Section</p>
         </button>

@@ -171,3 +171,127 @@
   box-shadow: 0 4px 12px rgba(255, 100, 71, 0.2);
 }
 
+/* Edit Button Fire Theme */
+.Fire .edit-button {
+  background: rgba(255, 100, 71, 0.1);
+  border: 1px solid rgba(255, 100, 71, 0.3);
+  color: #ff6347;
+  box-shadow: 0 0 8px rgba(255, 100, 71, 0.2);
+}
+
+.Fire .edit-button:hover {
+  background: rgba(255, 100, 71, 0.2);
+  border-color: rgba(255, 100, 71, 0.5);
+  color: #ff6347;
+  box-shadow: 0 0 15px rgba(255, 100, 71, 0.4);
+}
+
+.Fire .edit-button.active {
+  background: rgba(255, 100, 71, 0.25);
+  border-color: rgba(255, 100, 71, 0.6);
+  color: #ff6347;
+  box-shadow: 0 0 20px rgba(255, 100, 71, 0.5);
+}
+
+/* Settings Button Fire Theme */
+.Fire .settings-btn {
+  background: rgba(255, 100, 71, 0.1);
+  border: 1px solid rgba(255, 100, 71, 0.3);
+  color: #ff6347;
+  box-shadow: 0 0 8px rgba(255, 100, 71, 0.2);
+}
+
+.Fire .settings-btn:hover {
+  background: rgba(255, 100, 71, 0.2);
+  border-color: rgba(255, 100, 71, 0.5);
+  color: #ff6347;
+  box-shadow: 0 0 15px rgba(255, 100, 71, 0.4);
+}
+
+.Fire .settings-btn.active {
+  background: rgba(255, 100, 71, 0.25);
+  border-color: rgba(255, 100, 71, 0.6);
+  color: #ff6347;
+  box-shadow: 0 0 20px rgba(255, 100, 71, 0.5);
+}
+
+/* Widget Button Fire Theme */
+.Fire .widget-btn {
+  background: rgba(255, 100, 71, 0.1);
+  border: 1px solid rgba(255, 100, 71, 0.3);
+  color: #ff6347;
+  box-shadow: 0 0 8px rgba(255, 100, 71, 0.2);
+}
+
+.Fire .widget-btn:hover {
+  background: rgba(255, 100, 71, 0.2);
+  border-color: rgba(255, 100, 71, 0.5);
+  color: #ff6347;
+  box-shadow: 0 0 15px rgba(255, 100, 71, 0.4);
+}
+
+.Fire .widget-btn.selected {
+  background: rgba(255, 100, 71, 0.25);
+  border-color: rgba(255, 100, 71, 0.6);
+  color: #ff6347;
+  box-shadow: 0 0 20px rgba(255, 100, 71, 0.5);
+}
+
+/* Search Component Fire Theme */
+.Fire .search-bar input {
+  background: rgba(255, 100, 71, 0.1);
+  border: 1px solid rgba(255, 100, 71, 0.3);
+  color: #ffdab9;
+  box-shadow: 0 0 8px rgba(255, 100, 71, 0.2);
+}
+
+.Fire .search-bar input:focus {
+  background: rgba(255, 100, 71, 0.2);
+  border-color: rgba(255, 100, 71, 0.5);
+  box-shadow: 0 0 15px rgba(255, 100, 71, 0.4);
+}
+
+.Fire .search-bar input::placeholder {
+  color: rgba(255, 218, 185, 0.6);
+}
+
+.Fire .search-bar .search-icon {
+  color: rgba(255, 100, 71, 0.7);
+}
+
+/* Layout Icons Fire Theme */
+.Fire .layout-icon.selected {
+  background-color: #ff6347;
+  color: #fff;
+  box-shadow: 0 0 8px rgba(255, 100, 71, 0.6);
+}
+
+.Fire .layout-icon:hover {
+  background: rgba(255, 100, 71, 0.1);
+  border-color: rgba(255, 100, 71, 0.3);
+}
+
+/* Settings Panel Layout Adjustments Fire Theme */
+.Fire .settings-panel {
+  border-color: rgba(255, 100, 71, 0.3);
+  box-shadow: 
+    0 25px 50px rgba(255, 100, 71, 0.1),
+    0 15px 30px rgba(0, 0, 0, 0.4),
+    0 5px 15px rgba(0, 0, 0, 0.2),
+    inset 0 2px 0 rgba(255, 100, 71, 0.15);
+}
+
+/* Modal and Selection Styling Fire Theme */
+.Fire .selection-modal {
+  background: rgba(26, 5, 5, 0.98);
+  border-color: rgba(255, 100, 71, 0.2);
+}
+
+.Fire .modal-header h3 {
+  color: #ffdab9;
+}
+
+.Fire .selection-item.selected {
+  border-color: rgba(255, 100, 71, 0.4);
+  background: rgba(255, 100, 71, 0.15);
+}
