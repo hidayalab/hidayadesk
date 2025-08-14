@@ -1,31 +1,45 @@
-/* SQUARE THEME */
+/* SQUARE THEME - Geometric Design with Slate Colors */
 .Square {
-  background-color: #ffffff;
-  color: #1a1a1a;
+  background-color: #2c3e50;
+  color: #ecf0f1;
   text-shadow: none;
+  font-weight: 500;
 }
 
+/* Core Layout Elements */
 .Square .section {
-  background-color: rgba(0, 0, 0, 0.05);
-  border: 1px solid #ccc;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1), inset 0 0 6px rgba(0, 0, 0, 0.05);
+  background-color: rgba(255, 255, 255, 0.05);
+  border: 2px solid #485461;
+  border-radius: 0;
+  box-shadow: 0 2px 4px rgba(255, 255, 255, 0.1);
+  transition: all 0.2s ease;
+}
+
+.Square .section:hover {
+  border-color: #ecf0f1;
+  box-shadow: 0 4px 8px rgba(255, 255, 255, 0.15);
 }
 
 .Square .item-link {
-  background-color: rgba(0, 0, 0, 0.02);
-  border-color: #ccc;
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-  color: #1a1a1a;
+  background-color: rgba(255, 255, 255, 0.03);
+  border: 1px solid #485461;
+  border-radius: 0;
+  color: #ecf0f1;
+  box-shadow: none;
+  transition: all 0.2s ease;
 }
 
 .Square .item-link:hover {
-  background-color: #1a1a1a;
-  box-shadow: 0 0 15px rgba(26, 26, 26, 0.3), inset 0 0 3px rgba(26, 26, 26, 0.2);
-  border-color: #1a1a1a;
+  background-color: #485461;
+  border-color: #ecf0f1;
+  color: #ffffff;
+  transform: translateY(-1px);
+  box-shadow: 0 3px 6px rgba(255, 255, 255, 0.2);
 }
 
 .Square .item-link .icon {
-  color: #1a1a1a;
+  color: #ecf0f1;
+  transition: color 0.2s ease;
 }
 
 .Square .item-link:hover .icon {
@@ -33,7 +47,9 @@
 }
 
 .Square .item-title {
-  color: #1a1a1a;
+  color: #ecf0f1;
+  font-weight: 600;
+  transition: color 0.2s ease;
 }
 
 .Square .item-link:hover .item-title {
@@ -42,427 +58,490 @@
 
 .Square .title,
 .Square .section-title {
-  color: #1a1a1a;
+  color: #ecf0f1;
+  font-weight: 700;
   text-shadow: none;
 }
 
+/* Widget Area */
 .Square .widget-area {
-  background-color: rgba(0, 0, 0, 0.05);
-  border: 1px solid #ccc;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  background-color: rgba(255, 255, 255, 0.05);
+  border: 2px solid #485461;
+  border-radius: 0;
+  box-shadow: 0 2px 4px rgba(255, 255, 255, 0.1);
 }
 
+/* Header Components - Square Design */
+.Square .search-bar input {
+  background: rgba(255, 255, 255, 0.05);
+  border: 2px solid #485461;
+  border-radius: 0;
+  color: #ecf0f1;
+  box-shadow: none;
+  transition: all 0.2s ease;
+}
+
+.Square .search-bar input:focus {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: #ecf0f1;
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.1);
+}
+
+.Square .search-bar input::placeholder {
+  color: #bdc3c7;
+}
+
+.Square .search-bar .search-icon {
+  color: #bdc3c7;
+}
+
+/* Button Styling - Geometric */
+.Square .edit-button {
+  background: rgba(255, 255, 255, 0.05);
+  border: 2px solid #485461;
+  border-radius: 0;
+  color: #ecf0f1;
+  box-shadow: none;
+}
+
+.Square .edit-button:hover {
+  background: #485461;
+  border-color: #ecf0f1;
+  color: #ffffff;
+  box-shadow: 0 2px 4px rgba(255, 255, 255, 0.2);
+}
+
+.Square .edit-button.active {
+  background: #ecf0f1;
+  border-color: #ffffff;
+  color: #2c3e50;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.Square .settings-btn {
+  background: rgba(255, 255, 255, 0.05);
+  border: 2px solid #485461;
+  border-radius: 0;
+  color: #ecf0f1;
+  box-shadow: none;
+}
+
+.Square .settings-btn:hover {
+  background: #485461;
+  border-color: #ecf0f1;
+  color: #ffffff;
+  box-shadow: 0 2px 4px rgba(255, 255, 255, 0.2);
+}
+
+.Square .settings-btn.active {
+  background: #ecf0f1;
+  border-color: #ffffff;
+  color: #2c3e50;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.Square .widget-btn {
+  background: rgba(255, 255, 255, 0.05);
+  border: 2px solid #485461;
+  border-radius: 0;
+  color: #ecf0f1;
+  box-shadow: none;
+}
+
+.Square .widget-btn:hover {
+  background: #485461;
+  border-color: #ecf0f1;
+  color: #ffffff;
+  box-shadow: 0 2px 4px rgba(255, 255, 255, 0.2);
+}
+
+.Square .widget-btn.selected {
+  background: #ecf0f1;
+  border-color: #ffffff;
+  color: #2c3e50;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* Widget Toggle Container */
+.Square .widget-toggle {
+  background: rgba(255, 255, 255, 0.05);
+  border: 2px solid #485461;
+  border-radius: 0;
+  box-shadow: 0 1px 3px rgba(255, 255, 255, 0.1);
+}
+
+/* Layout Controls */
+.Square .layout-icon {
+  border-radius: 0;
+  border: 1px solid #485461;
+  background-color: rgba(255, 255, 255, 0.05);
+  color: #ecf0f1;
+  transition: all 0.2s ease;
+}
+
+.Square .layout-icon:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-color: #ecf0f1;
+  color: #ffffff;
+}
+
+.Square .layout-icon.selected {
+  background-color: #ecf0f1;
+  border-color: #ffffff;
+  color: #2c3e50;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+/* Quran Widget Styling */
 .Square .quran-widget {
-  background-color: #ffffff;
+  background-color: rgba(255, 255, 255, 0.05);
+  border-radius: 0;
 }
 
 .Square .quran-widget h3 {
-  color: #1a1a1a;
-  text-shadow: none;
+  color: #ecf0f1;
+  font-weight: 700;
 }
 
 .Square .quran-widget .verse-text,
 .Square .quran-widget .arabic-verse,
 .Square .quran-widget .surah-arabic,
 .Square .quran-widget .verse-arabic {
-  color: #1a1a1a !important;
+  color: #ecf0f1 !important;
+  background-color: rgba(255, 255, 255, 0.03);
 }
 
 .Square .quran-widget .verse-meaning,
 .Square .quran-widget .english-translation,
 .Square .quran-widget .english-verse {
-  color: #1a1a1a !important;
+  color: #bdc3c7 !important;
+  background-color: rgba(255, 255, 255, 0.03);
 }
 
 .Square .quran-widget .verse-info {
-  color: #1a1a1a !important;
-}
-
-.Square .quran-widget-header {
-  background-color: #ffffff;
-}
-
-.Square .widget-title-row {
-  color: #1a1a1a;
-}
-
-.Square .widget-title-row h3 {
-  color: #1a1a1a;
-}
-
-.Square .nav-links a,
-.Square .theme-selector select,
-.Square .layout-selector select {
-  color: #1a1a1a;
-  border-color: #bbb;
-  background-color: #ffffff;
-  box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
-}
-
-.Square .theme-selector select option,
-.Square .layout-selector select option {
-  background-color: #ffffff;
-  color: #1a1a1a;
-}
-
-.Square .layout-selector label {
-  color: #1a1a1a;
-}
-
-.Square .card-size-selector label {
-  color: #1a1a1a;
-}
-
-.Square .theme-selector label {
-  color: #1a1a1a;
-}
-
-.Square .add-item-button .item-link {
-  border: 1px dashed #1a1a1a;
-  box-shadow: 0 0 8px rgba(26, 26, 26, 0.2), inset 0 0 4px rgba(26, 26, 26, 0.1);
-  background-color: rgba(0, 0, 0, 0.02);
-  color: #1a1a1a;
-}
-
-.Square .add-item-button .item-link .icon {
-  color: #ffffff !important;
-}
-
-.Square .add-item-button .item-link .item-title {
-  color: #ffffff !important;
-}
-
-.Square .add-item-button .item-link:hover {
-  background-color: #f8f9fa !important;
-  border: 1px solid #1a1a1a;
-  box-shadow: 0 0 12px rgba(26, 26, 26, 0.3);
-  color: #1a1a1a !important;
-}
-
-.Square .add-item-button .item-link:hover .icon {
-  color: #1a1a1a !important;
-}
-
-.Square .add-item-button .item-link:hover .item-title {
-  color: #1a1a1a !important;
-}
-
-/* Override general item-link hover for add buttons */
-.Square .add-item-button .item-link:hover {
-  background-color: #f8f9fa !important;
-  box-shadow: 0 0 12px rgba(26, 26, 26, 0.3) !important;
-}
-
-/* Add New Section Button */
-.Square .add-section-button,
-.Square .add-section-button .item-link {
-  border: 1px dashed #1a1a1a;
-  box-shadow: 0 0 8px rgba(26, 26, 26, 0.2), inset 0 0 4px rgba(26, 26, 26, 0.1);
-  background-color: rgba(0, 0, 0, 0.02);
-  color: #1a1a1a;
-}
-
-.Square .add-section-button .icon,
-.Square .add-section-button .item-link .icon {
-  color: #ffffff !important;
-}
-
-.Square .add-section-button .item-title,
-.Square .add-section-button .item-link .item-title {
-  color: #ffffff !important;
-}
-
-.Square .add-section-button:hover,
-.Square .add-section-button .item-link:hover {
-  background-color: #f8f9fa;
-  border: 1px solid #1a1a1a;
-  box-shadow: 0 0 12px rgba(26, 26, 26, 0.3);
-  color: #1a1a1a;
-}
-
-.Square .add-section-button:hover .icon,
-.Square .add-section-button .item-link:hover .icon {
-  color: #1a1a1a !important;
-}
-
-.Square .add-section-button:hover .item-title,
-.Square .add-section-button .item-link:hover .item-title {
-  color: #1a1a1a !important;
-}
-
-/* General button styling for add buttons */
-.Square .add-button,
-.Square .section-add-button {
-  border: 1px dashed #1a1a1a;
-  box-shadow: 0 0 8px rgba(26, 26, 26, 0.2), inset 0 0 4px rgba(26, 26, 26, 0.1);
-  background-color: rgba(0, 0, 0, 0.02);
-  color: #1a1a1a;
-}
-
-.Square .add-button:hover,
-.Square .section-add-button:hover {
-  background-color: #f8f9fa;
-  border: 1px solid #1a1a1a;
-  box-shadow: 0 0 12px rgba(26, 26, 26, 0.3);
-  color: #1a1a1a;
-}
-
-/* Ensure no dark background on hover for add buttons - override general item-link hover */
-.Square .add-item-button .item-link:hover,
-.Square .add-section-button:hover,
-.Square .add-section-button .item-link:hover,
-.Square .add-button:hover {
-  background-color: #f8f9fa !important;
-  color: #1a1a1a !important;
-}
-
-/* Prevent orange glow effect on add buttons */
-.Square .add-item-button .item-link:hover,
-.Square .add-section-button:hover,
-.Square .add-section-button .item-link:hover {
-  box-shadow: 0 0 12px rgba(26, 26, 26, 0.3) !important;
-  border-color: #1a1a1a !important;
-}
-
-/* Square Theme - Notebook */
-#notebook-app.theme-Square .notebook-header {
-  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-  color: #1a1a1a;
-  border-bottom: 1px solid #dee2e6;
-}
-
-#notebook-app.theme-Square .add-page-btn {
-  background: #ffffff;
-  color: #1a1a1a;
-  border: 1px solid #dee2e6;
-}
-
-#notebook-app.theme-Square .add-page-btn:hover {
-  background: #f8f9fa;
-  border-color: #1a1a1a;
-}
-
-#notebook-app.theme-Square .page-content {
-  color: #1a1a1a;
-  background-color: #ffffff;
-}
-
-#notebook-app.theme-Square .page-tab {
-  color: #666;
-  background-color: #f8f9fa;
-  border: 1px solid #dee2e6;
-}
-
-#notebook-app.theme-Square .page-tab.active {
-  color: #1a1a1a;
-  background-color: #ffffff;
-  border-color: #1a1a1a;
-  font-weight: 500;
-}
-
-#notebook-app.theme-Square textarea {
-  color: #1a1a1a;
-  background-color: #ffffff;
-  border: 1px solid #dee2e6;
-}
-
-/* QuranWidget theme overrides */
-.Square .quran-widget {
-  border-color: rgba(26, 26, 26, 0.3);
+  color: #95a5a6 !important;
 }
 
 .Square .arabic-verse {
-  border-right-color: #1a1a1a;
-  color: #1a1a1a !important;
-  background-color: #ffffff;
+  border-right: 3px solid #ecf0f1;
+  border-radius: 0;
 }
 
 .Square .english-translation {
-  border-left-color: #666;
-  color: #1a1a1a !important;
-  background-color: #ffffff;
+  border-left: 3px solid #95a5a6;
+  border-radius: 0;
 }
 
 .Square .control-btn {
-  color: #1a1a1a;
-  border-color: rgba(26, 26, 26, 0.3);
-  background-color: #ffffff;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid #485461;
+  border-radius: 0;
+  color: #ecf0f1;
 }
 
 .Square .control-btn:hover {
-  background: #f8f9fa;
-  color: #1a1a1a;
-  border-color: #1a1a1a;
+  background: rgba(255, 255, 255, 0.1);
+  border-color: #ecf0f1;
+  color: #ffffff;
 }
 
 .Square .control-btn.active {
-  background: rgba(26, 26, 26, 0.1);
-  border-color: rgba(26, 26, 26, 0.4);
-  color: #1a1a1a;
+  background: #ecf0f1;
+  border-color: #ffffff;
+  color: #2c3e50;
 }
 
-.Square .surah-arabic {
-  color: #1a1a1a !important;
-}
-
-.Square .loading-spinner {
-  border-top-color: #1a1a1a;
-}
-
+/* Form Elements */
 .Square .font-dropdown-full {
-  color: #1a1a1a;
-  border-color: rgba(26, 26, 26, 0.3);
-  background-color: #ffffff;
+  border-radius: 0;
+  border: 1px solid #485461;
+  background-color: rgba(255, 255, 255, 0.05);
+  color: #ecf0f1;
 }
 
 .Square .font-dropdown-full:focus {
-  border-color: #1a1a1a;
-  box-shadow: 0 0 0 3px rgba(26, 26, 26, 0.3);
+  border-color: #ecf0f1;
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.1);
 }
 
 .Square .font-dropdown-full option {
-  color: #1a1a1a;
-  background-color: #ffffff;
+  background-color: #2c3e50;
+  color: #ecf0f1;
 }
 
-.Square .font-selector-label,
-.Square .font-selector label,
-.Square label {
-  color: #1a1a1a;
+/* Settings Panel */
+.Square .settings-panel {
+  background: #2c3e50;
+  border: 2px solid #485461;
+  border-radius: 0;
+  box-shadow: 0 4px 8px rgba(255, 255, 255, 0.15);
 }
 
-.Square .verse-controls-row,
-.Square .font-selector-row {
-  color: #1a1a1a;
+.Square .settings-panel label {
+  color: #ecf0f1;
+  font-weight: 600;
 }
 
-/* Ensure no unwanted white text on hover for widget elements */
-.Square .control-btn:hover {
-  color: #1a1a1a;
+.Square .settings-option-button {
+  border-radius: 0;
+  border: 1px solid #485461;
+  background: rgba(255, 255, 255, 0.03);
 }
 
-.Square .font-dropdown-full:hover {
-  color: #1a1a1a;
+.Square .settings-option-button:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: #ecf0f1;
 }
 
-/* Consistent widget content styling */
-.Square .verse-controls {
-  background-color: #ffffff;
+.Square .option-title {
+  color: #ecf0f1;
+  font-weight: 600;
 }
 
-.Square .font-selector-row {
-  background-color: #ffffff;
+.Square .option-description {
+  color: #bdc3c7;
 }
 
-/* HadithWidget theme overrides */
+/* Modal Styling */
+.Square .modal-overlay {
+  background: rgba(0, 0, 0, 0.8);
+}
+
+.Square .selection-modal {
+  background: #2c3e50;
+  border: 2px solid #485461;
+  border-radius: 0;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
+}
+
+.Square .modal-header h3 {
+  color: #ecf0f1;
+  font-weight: 700;
+}
+
+.Square .modal-close {
+  border-radius: 0;
+  border: 1px solid #485461;
+  background: rgba(255, 255, 255, 0.05);
+  color: #ecf0f1;
+}
+
+.Square .modal-close:hover {
+  background: #485461;
+  border-color: #ecf0f1;
+  color: #ffffff;
+}
+
+/* Selection Items */
+.Square .selection-item {
+  border-radius: 0;
+  border: 1px solid #485461;
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.Square .selection-item:hover {
+  border-color: #ecf0f1;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.Square .selection-item.selected {
+  border-color: #ecf0f1;
+  background: #485461;
+  color: #ffffff;
+}
+
+/* Theme Preview */
+.Square .theme-preview {
+  border-radius: 0;
+}
+
+/* Add Item Buttons */
+.Square .add-item-button .item-link {
+  border: 2px dashed #95a5a6;
+  background-color: rgba(255, 255, 255, 0.03);
+  border-radius: 0;
+}
+
+.Square .add-item-button .item-link:hover {
+  border-color: #ecf0f1;
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #ecf0f1;
+}
+
+.Square .add-item-button .item-link .icon {
+  color: #95a5a6;
+}
+
+.Square .add-item-button .item-link:hover .icon {
+  color: #ecf0f1;
+}
+
+.Square .add-item-button .item-link .item-title {
+  color: #95a5a6;
+  font-weight: 600;
+}
+
+.Square .add-item-button .item-link:hover .item-title {
+  color: #ecf0f1;
+}
+
+/* Hadith Widget */
 .Square .hadith-widget {
-  border-color: rgba(26, 26, 26, 0.3);
+  border-radius: 0;
+  border: 2px solid #485461;
+  background: rgba(255, 255, 255, 0.05);
 }
 
 .Square .hadith-widget::before {
-  background: linear-gradient(90deg, #1a1a1a, #666, #999);
+  background: linear-gradient(90deg, #ecf0f1, #bdc3c7, #95a5a6);
+  height: 3px;
 }
 
 .Square .hadith-arabic {
-  border-right-color: #1a1a1a;
-  color: #1a1a1a;
+  border-right: 3px solid #ecf0f1;
+  border-radius: 0;
+  color: #ecf0f1;
 }
 
 .Square .hadith-english {
-  border-left-color: #666;
-  color: #1a1a1a;
+  border-left: 3px solid #95a5a6;
+  border-radius: 0;
+  color: #bdc3c7;
 }
 
 .Square .book-info {
-  color: #1a1a1a;
+  color: #ecf0f1;
+  font-weight: 600;
 }
 
-.Square .retry-btn,
-.Square .load-btn {
-  background: rgba(26, 26, 26, 0.1);
-  border-color: rgba(26, 26, 26, 0.3);
-  color: #1a1a1a;
+.Square .load-btn,
+.Square .retry-btn {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid #485461;
+  border-radius: 0;
+  color: #ecf0f1;
 }
 
-.Square .retry-btn:hover,
-.Square .load-btn:hover {
-  background: rgba(26, 26, 26, 0.2);
-  border-color: rgba(26, 26, 26, 0.5);
-  box-shadow: 0 4px 12px rgba(26, 26, 26, 0.2);
+.Square .load-btn:hover,
+.Square .retry-btn:hover {
+  background: #485461;
+  border-color: #ecf0f1;
+  color: #ffffff;
+  box-shadow: 0 2px 4px rgba(255, 255, 255, 0.2);
 }
 
-/* Prayer Time Widget theme overrides */
+/* Prayer Time Widget */
 .Square .prayer-time-widget {
-  background-color: #ffffff;
+  background-color: rgba(255, 255, 255, 0.05);
+  border-radius: 0;
 }
 
 .Square .prayer-time-widget .widget-title {
-  color: #1a1a1a;
+  color: #ecf0f1;
+  font-weight: 700;
 }
 
 .Square .prayer-time-widget .prayer-item {
-  border-bottom-color: #ccc;
+  border-bottom: 1px solid #485461;
+  border-radius: 0;
 }
 
 .Square .prayer-time-widget .prayer-icon {
-  color: #1a1a1a;
+  color: #ecf0f1;
 }
 
 .Square .prayer-time-widget .prayer-name,
 .Square .prayer-time-widget .prayer-time {
-  color: #1a1a1a;
+  color: #ecf0f1;
 }
 
 .Square .prayer-time-widget .next-prayer-container {
-  background-color: #f8f9fa;
-  border-bottom: 1px solid #dee2e6;
-  padding: 8px;
-  border-radius: 4px 4px 0 0;
-}
-
-.Square .quran-widget .verse-container {
-  background-color: #f8f9fa;
-  padding: 8px;
-  border-radius: 4px;
-  margin: 8px 0;
-}
-
-.Square .quran-widget .loading-state {
-  background-color: #ffffff;
-  color: #1a1a1a;
-}
-
-/* Comprehensive Quran widget text color overrides */
-.Square .quran-widget *,
-.Square .quran-widget p,
-.Square .quran-widget div,
-.Square .quran-widget span {
-  color: #1a1a1a !important;
-}
-
-.Square .quran-widget .verse-content {
-  background-color: #ffffff;
-  color: #1a1a1a !important;
-}
-
-.Square .quran-widget .verse-header {
-  color: #1a1a1a !important;
-  background-color: #f8f9fa;
-}
-
-/* Override any inherited white or light text */
-.Square .quran-widget [style*="color: white"],
-.Square .quran-widget [style*="color: #fff"],
-.Square .quran-widget [style*="color: #ffffff"],
-.Square .quran-widget [style*="color: #ccc"],
-.Square .quran-widget [style*="color: #aaa"] {
-  color: #1a1a1a !important;
+  background-color: #485461;
+  border: 1px solid #ecf0f1;
+  border-radius: 0;
 }
 
 .Square .prayer-time-widget .next-prayer-label {
-  color: #666;
+  color: #bdc3c7;
+  font-weight: 600;
 }
 
 .Square .prayer-time-widget .next-prayer-time {
-  color: #1a1a1a;
+  color: #ffffff;
+  font-weight: 700;
+}
+
+/* Override any rounded corners globally for Square theme */
+.Square * {
+  border-radius: 0 !important;
+}
+
+/* Note Widget Styling */
+.Square #notebook-app.theme-Square .notebook-header {
+  background: #2c3e50;
+  color: #ecf0f1;
+  border-bottom: 2px solid #485461;
+  border-radius: 0;
+}
+
+.Square #notebook-app.theme-Square .add-page-btn {
+  background: #485461;
+  color: #ecf0f1;
+  border: 1px solid #485461;
+  border-radius: 0;
+  transition: all 0.2s ease;
+}
+
+.Square #notebook-app.theme-Square .add-page-btn:hover {
+  background: #ecf0f1;
+  border-color: #ffffff;
+  color: #2c3e50;
+  box-shadow: 0 2px 4px rgba(255, 255, 255, 0.2);
+}
+
+.Square #notebook-app.theme-Square .page-content {
+  color: #ecf0f1;
+  background-color: #2c3e50;
+  border-radius: 0;
+}
+
+.Square #notebook-app.theme-Square .page-tab {
+  color: #bdc3c7;
+  background-color: #485461;
+  border: 1px solid #485461;
+  border-radius: 0;
+  transition: all 0.2s ease;
+}
+
+.Square #notebook-app.theme-Square .page-tab:hover {
+  color: #ecf0f1;
+  background-color: rgba(236, 240, 241, 0.1);
+  border-color: #ecf0f1;
+}
+
+.Square #notebook-app.theme-Square .page-tab.active {
+  color: #ffffff;
+  background-color: #2c3e50;
+  border-color: #ecf0f1;
+  font-weight: 600;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.Square #notebook-app.theme-Square textarea {
+  color: #ecf0f1 !important;
+  background-color: #2c3e50 !important;
+  border: 2px solid #485461 !important;
+  border-radius: 0 !important;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.Square #notebook-app.theme-Square textarea:focus {
+  border-color: #ecf0f1 !important;
+  box-shadow: 0 0 0 3px rgba(236, 240, 241, 0.1) !important;
+  outline: none;
+}
+
+.Square #notebook-app.theme-Square textarea::placeholder {
+  color: #bdc3c7 !important;
 }

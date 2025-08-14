@@ -157,3 +157,128 @@
   border-color: rgba(0, 255, 255, 0.6);
   box-shadow: 0 4px 12px rgba(0, 255, 255, 0.2);
 }
+
+/* Edit Button CyberGlow Theme */
+.CyberGlow .edit-button {
+  background: rgba(0, 255, 255, 0.1);
+  border: 1px solid rgba(0, 255, 255, 0.3);
+  color: #0ff;
+  box-shadow: 0 0 8px rgba(0, 255, 255, 0.2);
+}
+
+.CyberGlow .edit-button:hover {
+  background: rgba(0, 255, 255, 0.2);
+  border-color: rgba(0, 255, 255, 0.5);
+  color: #0ff;
+  box-shadow: 0 0 15px rgba(0, 255, 255, 0.4);
+}
+
+.CyberGlow .edit-button.active {
+  background: rgba(0, 255, 255, 0.25);
+  border-color: rgba(0, 255, 255, 0.6);
+  color: #0ff;
+  box-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
+}
+
+/* Settings Button CyberGlow Theme */
+.CyberGlow .settings-btn {
+  background: rgba(0, 255, 255, 0.1);
+  border: 1px solid rgba(0, 255, 255, 0.3);
+  color: #0ff;
+  box-shadow: 0 0 8px rgba(0, 255, 255, 0.2);
+}
+
+.CyberGlow .settings-btn:hover {
+  background: rgba(0, 255, 255, 0.2);
+  border-color: rgba(0, 255, 255, 0.5);
+  color: #0ff;
+  box-shadow: 0 0 15px rgba(0, 255, 255, 0.4);
+}
+
+.CyberGlow .settings-btn.active {
+  background: rgba(0, 255, 255, 0.25);
+  border-color: rgba(0, 255, 255, 0.6);
+  color: #0ff;
+  box-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
+}
+
+/* Widget Button CyberGlow Theme */
+.CyberGlow .widget-btn {
+  background: rgba(0, 255, 255, 0.1);
+  border: 1px solid rgba(0, 255, 255, 0.3);
+  color: #0ff;
+  box-shadow: 0 0 8px rgba(0, 255, 255, 0.2);
+}
+
+.CyberGlow .widget-btn:hover {
+  background: rgba(0, 255, 255, 0.2);
+  border-color: rgba(0, 255, 255, 0.5);
+  color: #0ff;
+  box-shadow: 0 0 15px rgba(0, 255, 255, 0.4);
+}
+
+.CyberGlow .widget-btn.selected {
+  background: rgba(0, 255, 255, 0.25);
+  border-color: rgba(0, 255, 255, 0.6);
+  color: #0ff;
+  box-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
+}
+
+/* Search Component CyberGlow Theme */
+.CyberGlow .search-bar input {
+  background: rgba(0, 255, 255, 0.1);
+  border: 1px solid rgba(0, 255, 255, 0.3);
+  color: #fff;
+  box-shadow: 0 0 8px rgba(0, 255, 255, 0.2);
+}
+
+.CyberGlow .search-bar input:focus {
+  background: rgba(0, 255, 255, 0.2);
+  border-color: rgba(0, 255, 255, 0.5);
+  box-shadow: 0 0 15px rgba(0, 255, 255, 0.4);
+}
+
+.CyberGlow .search-bar input::placeholder {
+  color: rgba(0, 255, 255, 0.6);
+}
+
+.CyberGlow .search-bar .search-icon {
+  color: rgba(0, 255, 255, 0.7);
+}
+
+/* Layout Icons CyberGlow Theme */
+.CyberGlow .layout-icon.selected {
+  background-color: #00ffff;
+  color: #000;
+  box-shadow: 0 0 8px rgba(0, 255, 255, 0.6);
+}
+
+.CyberGlow .layout-icon:hover {
+  background: rgba(0, 255, 255, 0.1);
+  border-color: rgba(0, 255, 255, 0.3);
+}
+
+/* Settings Panel Layout Adjustments CyberGlow Theme */
+.CyberGlow .settings-panel {
+  border-color: rgba(0, 255, 255, 0.3);
+  box-shadow: 
+    0 25px 50px rgba(0, 255, 255, 0.1),
+    0 15px 30px rgba(0, 0, 0, 0.4),
+    0 5px 15px rgba(0, 0, 0, 0.2),
+    inset 0 2px 0 rgba(0, 255, 255, 0.15);
+}
+
+/* Modal and Selection Styling CyberGlow Theme */
+.CyberGlow .selection-modal {
+  background: rgba(10, 10, 10, 0.98);
+  border-color: rgba(0, 255, 255, 0.2);
+}
+
+.CyberGlow .modal-header h3 {
+  color: #0ff;
+}
+
+.CyberGlow .selection-item.selected {
+  border-color: rgba(0, 255, 255, 0.4);
+  background: rgba(0, 255, 255, 0.15);
+}
