@@ -1,10 +1,10 @@
 class HadithService {
   constructor() {
     this.baseUrl = 'https://hadithapi.com/api';
-    this.apiKey = '$2y$10$G0llMifp1VYjeaQjaU65HOWkSwTJCQebyIGTvh9clrB8qHpDlm'; // Working API key
+    this.apiKey = '$2y$10$G0llMifp1VYjeaQjaU65HOWkSwTJCQebyIGTvh9clrB8qHpDlm'; // Working API and test API keys can be stopped at any time.
     this.cache = new Map();
     this.cacheExpiry = 24 * 60 * 60 * 1000; // 24 hours
-    
+
     // Initialize API key from environment or localStorage
     this.initializeApiKey();
   }
@@ -57,7 +57,7 @@ class HadithService {
     const url = new URL(`${this.baseUrl}${endpoint}`);
     
     // Add API key as query parameter - REQUIRED for HadithAPI.com
-    const apiKey = this.getApiKey() || '$2y$10$G0llMifp1VYjeaQjaU65HOWkSwTJCQebyIGTvh9clrB8qHpDlm';
+    const apiKey = this.getApiKey() || '';
     if (apiKey) {
       url.searchParams.append('apiKey', apiKey);
     }
@@ -78,54 +78,10 @@ class HadithService {
     };
   }
 
-  async fetchBooks() {
-    const cacheKey = 'books';
-    const cached = this.getFromCache(cacheKey);
-    if (cached) return cached;
-
-    try {
-      const params = {
-        apiKey: this.getApiKey() || '$2y$10$G0llMifp1VYjeaQjaU65HOWkSwTJCQebyIGTvh9clrB8qHpDlm'
-      };
-      
-      const url = new URL(`${this.baseUrl}/books`);
-      Object.entries(params).forEach(([key, value]) => {
-        if (value) url.searchParams.append(key, value.toString());
-      });
-      
-      const response = await fetch(url.toString(), {
-        method: 'GET',
-        headers: this.getHeaders()
-      });
-      
-      if (!response.ok) {
-        const errorText = await response.text();
-        console.log('❌ Books API Error:', errorText);
-        
-        // Return popular books as fallback
-        return {
-          status: 200,
-          books: this.getPopularBooks()
-        };
-      }
-      
-      const data = await response.json();
-      this.setCache(cacheKey, data);
-      return data;
-    } catch (error) {
-      console.error('Error fetching hadith books:', error);
-      // Return popular books as fallback
-      return {
-        status: 200,
-        books: this.getPopularBooks()
-      };
-    }
-  }
-
   async fetchRandomHadith(bookSlug = null) {
     try {
       const params = {
-        apiKey: this.getApiKey() || '$2y$10$G0llMifp1VYjeaQjaU65HOWkSwTJCQebyIGTvh9clrB8qHpDlm'
+        apiKey: this.getApiKey() || ''
       };
       
       // Add book filter if specified
@@ -266,113 +222,54 @@ class HadithService {
     return hash;
   }
 
-  async fetchHadithsByBook(bookSlug, page = 1, limit = 10) {
-    const cacheKey = `hadiths-${bookSlug}-${page}-${limit}`;
-    const cached = this.getFromCache(cacheKey);
-    if (cached) return cached;
 
-    try {
-      const params = {
-        book: this.getApiBookName(bookSlug), // Use proper API book name
-        paginate: limit
-      };
+  // async searchHadiths(query, bookSlug = null, page = 1, limit = 10) {
+  //   try {
+  //     const params = {
+  //       query: query,
+  //       page: page,
+  //       limit: limit
+  //     };
+
+  //     if (bookSlug) {
+  //       params.book = bookSlug;
+  //     }
+
+  //     const url = this.buildUrl('/hadiths/search', params);
+  //     const response = await fetch(url, {
+  //       headers: this.getHeaders()
+  //     });
       
-      // HadithAPI.com might not support traditional pagination, using paginate instead
-      if (page > 1) {
-        params.offset = (page - 1) * limit;
-      }
-
-      const url = this.buildUrl('/hadiths/', params);
-      const response = await fetch(url, {
-        method: 'GET',
-        headers: this.getHeaders()
-      });
+  //     if (!response.ok) {
+  //       throw new Error(`HTTP error! status: ${response.status}`);
+  //     }
       
-      if (!response.ok) {
-        const errorText = await response.text();
-        throw new Error(`Failed to fetch hadiths by book (${response.status}): ${errorText}`);
-      }
-      
-      const data = await response.json();
-      this.setCache(cacheKey, data);
-      return data;
-    } catch (error) {
-      console.error('Error fetching hadiths by book:', error);
-      throw error;
-    }
-  }
+  //     const data = await response.json();
+  //     return data;
+  //   } catch (error) {
+  //     console.error('Error searching hadiths:', error);
+  //     throw error;
+  //   }
+  // }
 
-  async fetchHadithByNumber(bookSlug, hadithNumber) {
-    const cacheKey = `hadith-${bookSlug}-${hadithNumber}`;
-    const cached = this.getFromCache(cacheKey);
-    if (cached) return cached;
+  // getFromCache(key) {
+  //   const cached = this.cache.get(key);
+  //   if (cached && Date.now() - cached.timestamp < this.cacheExpiry) {
+  //     return cached.data;
+  //   }
+  //   return null;
+  // }
 
-    try {
-      const url = this.buildUrl(`/books/${bookSlug}/hadiths/${hadithNumber}`);
-      const response = await fetch(url, {
-        headers: this.getHeaders()
-      });
-      
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-      
-      const data = await response.json();
-      this.setCache(cacheKey, data);
-      return data;
-    } catch (error) {
-      console.error('Error fetching specific hadith:', error);
-      throw error;
-    }
-  }
+  // setCache(key, data) {
+  //   this.cache.set(key, {
+  //     data,
+  //     timestamp: Date.now()
+  //   });
+  // }
 
-  async searchHadiths(query, bookSlug = null, page = 1, limit = 10) {
-    try {
-      const params = {
-        query: query,
-        page: page,
-        limit: limit
-      };
-
-      if (bookSlug) {
-        params.book = bookSlug;
-      }
-
-      const url = this.buildUrl('/hadiths/search', params);
-      const response = await fetch(url, {
-        headers: this.getHeaders()
-      });
-      
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-      
-      const data = await response.json();
-      return data;
-    } catch (error) {
-      console.error('Error searching hadiths:', error);
-      throw error;
-    }
-  }
-
-  getFromCache(key) {
-    const cached = this.cache.get(key);
-    if (cached && Date.now() - cached.timestamp < this.cacheExpiry) {
-      return cached.data;
-    }
-    return null;
-  }
-
-  setCache(key, data) {
-    this.cache.set(key, {
-      data,
-      timestamp: Date.now()
-    });
-  }
-
-  clearCache() {
-    this.cache.clear();
-  }
+  // clearCache() {
+  //   this.cache.clear();
+  // }
 
   // Popular hadith book names for HadithAPI.com
   getPopularBooks() {
