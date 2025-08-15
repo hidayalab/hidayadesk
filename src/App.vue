@@ -253,7 +253,7 @@ export default {
 
   data() {
     return {
-      isEditMode: false,
+      isEditMode: true,
       activeWidget: 'quran',
       searchQuery: '',
       showMoreWidgets: false,
