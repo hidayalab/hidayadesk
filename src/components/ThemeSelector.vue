@@ -374,7 +374,7 @@ watch(() => props.isVisible, (isVisible) => {
     0 0 0 1px rgba(255, 255, 255, 0.1);
   max-width: 95vw;
   max-height: 95vh;
-  width: 1200px;
+  width: 800px;
   overflow: hidden;
   border: 2px solid rgba(255, 255, 255, 0.1);
   transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
