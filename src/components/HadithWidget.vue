@@ -14,16 +14,11 @@
             ⭐ Daily
           </button>
         </div>
-        <div class="action-controls">
-          <button @click="loadCurrentModeHadith" class="control-btn icon-only" :disabled="isLoading" title="Refresh Hadith">
-            {{ isLoading ? '⏳' : '🔄' }}
-          </button>
-        </div>
       </div>
 
     </div>
     
-    <div class="api-key-input" v-show="showApiKeyInput">
+    <!-- <div class="api-key-input" v-show="showApiKeyInput">
       <div class="api-key-header">
         <label class="api-key-label">Hadith API Key</label>
         <button @click="toggleApiKeyInput" class="close-btn" title="Close">✕</button>
@@ -44,13 +39,13 @@
           🗑️ Clear
         </button>
       </div>
-    </div>
+    </div> -->
     
     <div class="hadith-content" v-if="!isLoading && currentHadith">
       <div class="hadith-text">
-        <div class="hadith-arabic" v-if="currentHadith.hadithArabic">
+        <!-- <div class="hadith-arabic" v-if="currentHadith.hadithArabic">
           {{ currentHadith.hadithArabic }}
-        </div>
+        </div> -->
         <div class="hadith-english">
           {{ currentHadith.hadithEnglish }}
         </div>
@@ -148,27 +143,22 @@ export default {
       }
     },
     
-    saveApiKey() {
-      const trimmedKey = this.tempApiKey.trim();
-      console.log('🔑 Saving API key from input:', trimmedKey ? `${trimmedKey.substring(0, 10)}...` : 'Empty');
+    // saveApiKey() {
+    //   const trimmedKey = this.tempApiKey.trim();
+    //   console.log('🔑 Saving API key from input:', trimmedKey ? `${trimmedKey.substring(0, 10)}...` : 'Empty');
       
-      if (trimmedKey) {
-        hadithService.setApiKey(trimmedKey);
-        this.showApiKeyInput = false;
-        this.tempApiKey = '';
-        console.log('🔄 Reloading hadith with new API key...');
-        // Reload hadith with new API key
-        this.loadCurrentModeHadith();
-      } else {
-        console.log('❌ API key is empty, not saving');
-      }
-    },
+    //   if (trimmedKey) {
+    //     hadithService.setApiKey(trimmedKey);
+    //     this.showApiKeyInput = false;
+    //     this.tempApiKey = '';
+    //     console.log('🔄 Reloading hadith with new API key...');
+    //     // Reload hadith with new API key
+    //     this.loadCurrentModeHadith();
+    //   } else {
+    //     console.log('❌ API key is empty, not saving');
+    //   }
+    // },
     
-    clearApiKey() {
-      hadithService.setApiKey(null);
-      this.tempApiKey = '';
-      this.showApiKeyInput = false;
-    },
     
     loadSavedSettings() {
       const savedMode = localStorage.getItem('hadithWidgetMode');

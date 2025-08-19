@@ -156,46 +156,13 @@
       </div>
     </main>
 
-    <!-- Theme Selection Modal -->
-    <div class="modal-overlay" v-show="showThemeModal" @click="closeThemeModal">
-      <div class="selection-modal theme-modal" @click.stop>
-        <div class="modal-header">
-          <h3>Select Theme</h3>
-          <button class="modal-close" @click="closeThemeModal" aria-label="Close modal">
-            <i class="fas fa-times"></i>
-          </button>
-        </div>
-        <div class="modal-body">
-          <div class="selection-grid">
-            <div 
-              v-for="theme in themes" 
-              :key="theme.value"
-              class="selection-item"
-              :class="{ 'selected': selectedTheme === theme.value }"
-              @click="selectTheme(theme.value)"
-            >
-              <div class="item-content">
-                <div class="theme-preview" :class="theme.value">
-                  <div class="preview-header"></div>
-                  <div class="preview-content"></div>
-                </div>
-                <div class="item-info">
-                  <span class="item-title">{{ theme.name }}</span>
-                  <span class="item-description">{{ getThemeDescription(theme.value) }}</span>
-                </div>
-              </div>
-              <div class="selection-indicator" v-if="selectedTheme === theme.value">
-                <i class="fas fa-check"></i>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="modal-footer">
-          <button class="modal-button secondary" @click="closeThemeModal">Cancel</button>
-          <button class="modal-button primary" @click="closeThemeModal">Apply</button>
-        </div>
-      </div>
-    </div>
+    <!-- Enhanced Theme Selection Modal -->
+    <ThemeSelector 
+      v-model="selectedTheme"
+      :is-visible="showThemeModal"
+      @close="closeThemeModal"
+      @apply="handleThemeApply"
+    />
 
     <!-- Widget Selection Modal -->
     <div class="modal-overlay" v-show="showWidgetModal" @click="closeWidgetModal">
@@ -268,6 +235,7 @@ import QuranWidget from './components/QuranWidget.vue';
 import PrayerTimeWidget from './components/PrayerTimeWidget.vue';
 import HadithWidget from './components/HadithWidget.vue';
 import AppFooter from './components/AppFooter.vue';
+import ThemeSelector from './components/ThemeSelector.vue';
 import './components/styles/notetakingwidget.css';
 import './components/styles/quranwidget.css';
 import './components/styles/hadithwidget.css';
@@ -279,12 +247,13 @@ export default {
     Bookmarks,
     PrayerTimeWidget,
     HadithWidget,
-    AppFooter
+    AppFooter,
+    ThemeSelector
   },
 
   data() {
     return {
-      isEditMode: false,
+      isEditMode: true,
       activeWidget: 'quran',
       searchQuery: '',
       showMoreWidgets: false,
@@ -556,6 +525,11 @@ export default {
     },
     
     selectTheme(themeValue) {
+      this.selectedTheme = themeValue;
+      this.closeThemeModal();
+    },
+    
+    handleThemeApply(themeValue) {
       this.selectedTheme = themeValue;
       this.closeThemeModal();
     },

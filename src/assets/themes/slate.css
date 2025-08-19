@@ -101,46 +101,84 @@
   box-shadow: 0 0 8px rgba(255, 255, 255, 0.2), inset 0 0 4px rgba(255, 255, 255, 0.1);
 }
 
-/* Slate Theme - Notebook */
-#notebook-app.theme-slate .notebook-header {
-  background: linear-gradient(135deg, #485461 0%, #28313b 100%);
+/* Slate Theme - Notebook - White background like other themes */
+.slate #notebook-app.theme-slate .notebook-widget {
+  background: #f9f7f4 !important;
+}
+
+.slate #notebook-app.theme-slate .notebook-header {
+  background: linear-gradient(135deg, #485461 0%, #28313b 100%) !important;
   color: #fff;
   border-bottom: 1px solid #485461;
 }
 
-#notebook-app.theme-slate .add-page-btn {
-  background: #485461;
+.slate #notebook-app.theme-slate .add-page-btn {
+  background: #485461 !important;
   color: #fff;
   border: 1px solid #485461;
 }
 
-#notebook-app.theme-slate .add-page-btn:hover {
-  background: #28313b;
+.slate #notebook-app.theme-slate .add-page-btn:hover {
+  background: #28313b !important;
   border-color: #fff;
 }
 
-#notebook-app.theme-slate .page-content {
-  color: #ecf0f1;
-  background-color: #2c3e50;
+.slate #notebook-app.theme-slate .page-content,
+.slate #notebook-app.theme-slate .notebook-content {
+  color: #333;
+  background: linear-gradient(to right, #f9f7f4 0%, #f9f7f4 40px, #e8e5e0 40px, #e8e5e0 42px, #f9f7f4 42px) !important;
 }
 
-#notebook-app.theme-slate .page-tab {
-  color: #bdc3c7;
-  background-color: #485461;
-  border: 1px solid #485461;
+.slate #notebook-app.theme-slate .page-tabs {
+  background: #e8e5e0 !important;
+  border-bottom: 1px solid #d4b8b8;
 }
 
-#notebook-app.theme-slate .page-tab.active {
-  color: #fff;
-  background-color: #2c3e50;
-  border-color: #fff;
+.slate #notebook-app.theme-slate .notebook-footer {
+  background: #e8e5e0 !important;
+  border-top: 1px solid #d4b8b8;
+}
+
+.slate #notebook-app.theme-slate .page-tab {
+  color: #5d4e37;
+  background-color: #d4b8b8 !important;
+  border: 1px solid #c4a8a8;
+}
+
+.slate #notebook-app.theme-slate .page-tab:hover {
+  background-color: #e4d8d8 !important;
+}
+
+.slate #notebook-app.theme-slate .page-tab.active {
+  color: #333;
+  background-color: #f9f7f4 !important;
+  border-color: #c4a8a8;
   font-weight: 500;
 }
 
-#notebook-app.theme-slate textarea {
-  color: #ecf0f1;
-  background-color: #2c3e50;
-  border: 1px solid #485461;
+.slate #notebook-app.theme-slate textarea,
+.slate #notebook-app.theme-slate .page-textarea {
+  color: #444 !important;
+  background-color: transparent !important;
+  background-image: repeating-linear-gradient(transparent, transparent 21px, #e8e5e0 21px, #e8e5e0 22px) !important;
+  border: none !important;
+}
+
+.slate #notebook-app.theme-slate textarea:focus,
+.slate #notebook-app.theme-slate .page-textarea:focus {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.slate #notebook-app.theme-slate textarea::placeholder,
+.slate #notebook-app.theme-slate .page-textarea::placeholder {
+  color: #a0a0a0 !important;
+  font-style: italic;
+}
+
+.slate #notebook-app.theme-slate .page-title {
+  color: #333 !important;
+  border-bottom: 1px dotted #d4b8b8 !important;
 }
 
 /* QuranWidget theme overrides */
