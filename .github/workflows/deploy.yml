@@ -3,8 +3,6 @@ name: Deploy Vue.js to GitHub Pages
 on:
   push:
     branches: [ main ]
-  pull_request:
-    branches: [ main ]    
 
 permissions:
   contents: read
@@ -42,4 +40,3 @@ jobs:
     - name: Deploy to GitHub Pages
       id: deployment
       uses: actions/deploy-pages@v4
-      if: github.ref == 'refs/heads/main'
