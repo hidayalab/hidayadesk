@@ -18,3 +18,17 @@ sections:
         url: https://calendar.google.com
         icon: fas fa-calendar-alt
         target: newtab
+
+  - name: Islam
+    icon: fas fa-briefcase
+    items:
+      - title: Quran
+        description: Read quran daily
+        url: https://quran.com/
+        icon: fas fa-book-quran
+        target: newtab
+      - title: Hadith
+        description: Ready one hadith daily
+        url: Sunnah.com
+        icon: fas fa-feather-alt
+        target: newtab              
