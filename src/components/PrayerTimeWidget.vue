@@ -48,19 +48,35 @@
       </div>
     </div>
 
-    <div v-if="error" class="error-message">
+    <div v-if="error" class="error-message" data-testid="prayer-error">
       <p>{{ error }}</p>
+      <button 
+        @click="retryFetch" 
+        class="retry-btn"
+        data-testid="prayer-retry-btn"
+      >
+        Retry
+      </button>
     </div>
     <div v-else>
-      <div class="next-prayer-container">
+      <div class="next-prayer-container" data-testid="next-prayer">
         <p class="next-prayer-label">Next Prayer In</p>
-        <p class="next-prayer-time">{{ timeToNextPrayer }}</p>
+        <p class="next-prayer-name" data-testid="next-prayer-name">{{ nextPrayerName }}</p>
+        <p class="next-prayer-time" data-testid="next-prayer-time">{{ timeToNextPrayer }}</p>
       </div>
       <ul class="prayer-list">
-        <li v-for="prayer in filteredPrayerTimes" :key="prayer.name" class="prayer-item">
+        <li 
+          v-for="prayer in filteredPrayerTimes" 
+          :key="prayer.name" 
+          class="prayer-item"
+          :data-testid="`prayer-time-item`"
+        >
           <i :class="prayer.icon" class="prayer-icon"></i>
           <span class="prayer-name">{{ prayer.name }}</span>
-          <span class="prayer-time">{{ prayer.time }}</span>
+          <span 
+            class="prayer-time" 
+            :data-testid="`prayer-${prayer.name.toLowerCase()}`"
+          >{{ prayer.time }}</span>
         </li>
       </ul>
     </div>
@@ -79,10 +95,10 @@ export default {
   },
   data() {
     return {
-      location: null,
       prayerTimes: {},
       error: null,
       timeToNextPrayer: '--:--:--',
+      nextPrayerName: '',
       notificationsEnabled: false,
       showNotificationSettings: false,
       notificationConfig: {
@@ -126,10 +142,12 @@ export default {
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(
           (position) => {
-            this.location = {
+            const location = {
               latitude: position.coords.latitude,
               longitude: position.coords.longitude,
             };
+            // Emit event to parent to update location
+            this.$emit('location-updated', location);
           },
           (error) => {
             console.error('Error getting location:', error);
@@ -175,8 +193,10 @@ export default {
           const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
           const seconds = Math.floor((diff % (1000 * 60)) / 1000);
           this.timeToNextPrayer = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+          this.nextPrayerName = nextPrayerName;
         } else {
           this.timeToNextPrayer = 'Done for today';
+          this.nextPrayerName = '';
         }
       }, 1000);
     },
@@ -234,6 +254,12 @@ export default {
         const permissionStatus = notificationService.getPermissionStatus();
         this.notificationsEnabled = settings.enabled && permissionStatus === 'granted';
         this.notificationConfig = { ...this.notificationConfig, ...settings.config };
+      }
+    },
+    retryFetch() {
+      this.error = null;
+      if (this.location) {
+        this.fetchPrayerTimes(this.location.latitude, this.location.longitude);
       }
     }
   },

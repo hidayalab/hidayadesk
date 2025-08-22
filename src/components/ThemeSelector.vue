@@ -1,5 +1,5 @@
 <template>
-  <div class="theme-selector-container">
+  <div class="theme-selector-container" data-testid="theme-selector">
     <!-- Compact Theme Selection Modal -->
     <Transition name="modal">
       <div 

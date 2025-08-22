@@ -19,18 +19,23 @@ class NotificationService {
       return;
     }
 
-    const notification = new Notification(title, {
-      tag: 'prayer-time',
-      requireInteraction: true,
-      ...options
-    });
+    try {
+      const notification = new Notification(title, {
+        tag: 'prayer-time',
+        requireInteraction: true,
+        ...options
+      });
 
-    // Auto close after 10 seconds
-    setTimeout(() => {
-      notification.close();
-    }, 10000);
+      // Auto close after 10 seconds
+      setTimeout(() => {
+        notification.close();
+      }, 10000);
 
-    return notification;
+      return notification;
+    } catch (error) {
+      console.error('Failed to create notification:', error);
+      return;
+    }
   }
 
   schedulePrayerNotification(prayerName, prayerTime, advanceMinutes = 0) {
@@ -58,7 +63,9 @@ class NotificationService {
       // Store the timeout ID to cancel later if needed
       const key = `${prayerName}-${advanceMinutes}`;
       this.scheduledNotifications.set(key, timeoutId);
+      return timeoutId;
     }
+    return null;
   }
 
   getPrayerIcon(prayerName) {

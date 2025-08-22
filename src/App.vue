@@ -1,5 +1,5 @@
 <template>
-  <div id="app" class="container-fluid" :class="[selectedTheme, selectedLayout, selectedCardSize]">
+  <div id="app" class="container-fluid" :class="[selectedTheme, selectedLayout, selectedCardSize]" data-testid="app-root">
     <a href="#main-content" class="skip-link">Skip to main content</a>
     <header class="header" role="banner">
       <div class="header-left">
