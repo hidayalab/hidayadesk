@@ -1,0 +1,53 @@
+pageInfo:
+  title: Faith-Note Test
+  description: Test configuration for Faith-Note
+  version: 1.0.0-test
+
+appConfig:
+  theme: cyber-glow
+  layout: grid
+  language: en
+  showFooter: true
+  enableNotifications: true
+  widgets:
+    prayer: true
+    quran: true
+    notes: false
+    hadith: false
+
+sections:
+  - name: Development
+    icon: fab fa-dev
+    items:
+      - title: GitHub
+        url: https://github.com
+        icon: fab fa-github
+        description: Code repository
+      - title: Stack Overflow
+        url: https://stackoverflow.com
+        icon: fab fa-stack-overflow
+        description: Developer Q&A
+
+  - name: Islamic Resources
+    icon: fas fa-moon
+    items:
+      - title: IslamicFinder
+        url: https://islamicfinder.org
+        icon: fas fa-moon
+        description: Prayer times and Islamic resources
+      - title: Quran.com
+        url: https://quran.com
+        icon: fas fa-book-quran
+        description: Online Quran reading
+
+  - name: Productivity
+    icon: fas fa-tasks
+    items:
+      - title: Gmail
+        url: https://gmail.com
+        icon: far fa-envelope
+        description: Email service
+      - title: Google Calendar
+        url: https://calendar.google.com
+        icon: far fa-calendar
+        description: Calendar and scheduling

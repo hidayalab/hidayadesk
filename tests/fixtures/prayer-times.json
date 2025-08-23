@@ -1,0 +1,24 @@
+{
+  "location": {
+    "city": "New York",
+    "country": "USA",
+    "latitude": 40.7128,
+    "longitude": -74.0060,
+    "timezone": "America/New_York"
+  },
+  "date": "2025-01-15",
+  "prayerTimes": {
+    "fajr": "05:30",
+    "sunrise": "06:45",
+    "dhuhr": "12:30",
+    "asr": "15:45",
+    "maghrib": "18:15",
+    "isha": "19:30"
+  },
+  "nextPrayer": {
+    "name": "Dhuhr",
+    "time": "12:30",
+    "timeUntil": "2h 15m"
+  },
+  "qiblaDirection": 58.5
+}
