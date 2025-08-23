@@ -1,13 +1,7 @@
 <template>
   <div class="prayer-time-widget">
     <div class="notification-controls">
-      <button 
-        v-if="!notificationsEnabled" 
-        @click="enableNotifications" 
-        class="notification-btn enable-btn"
-      >
-        🔔 Enable Prayer Notifications
-      </button>
+      <button v-if="!notificationsEnabled" @click="enableNotifications" class="notification-btn enable-btn">🔔 Enable Prayer Notifications</button>
       <div v-else class="notification-status">
         <span class="status-text">🔔 Notifications On</span>
         <button @click="toggleNotificationSettings" class="settings-btn">⚙️</button>
@@ -18,28 +12,16 @@
     <div v-if="showNotificationSettings" class="notification-settings">
       <div class="setting-row">
         <label>
-          <input 
-            type="checkbox" 
-            v-model="notificationConfig.exactTime"
-            @change="updateNotifications"
-          />
+          <input type="checkbox" v-model="notificationConfig.exactTime" @change="updateNotifications" />
           Notify at exact prayer time
         </label>
       </div>
       <div class="setting-row">
         <label>
-          <input 
-            type="checkbox" 
-            v-model="notificationConfig.advanceNotification"
-            @change="updateNotifications"
-          />
+          <input type="checkbox" v-model="notificationConfig.advanceNotification" @change="updateNotifications" />
           Notify in advance:
         </label>
-        <select 
-          v-model="notificationConfig.advanceMinutes"
-          @change="updateNotifications"
-          :disabled="!notificationConfig.advanceNotification"
-        >
+        <select v-model="notificationConfig.advanceMinutes" @change="updateNotifications" :disabled="!notificationConfig.advanceNotification">
           <option value="5">5 minutes</option>
           <option value="10">10 minutes</option>
           <option value="15">15 minutes</option>
@@ -50,13 +32,7 @@
 
     <div v-if="error" class="error-message" data-testid="prayer-error">
       <p>{{ error }}</p>
-      <button 
-        @click="retryFetch" 
-        class="retry-btn"
-        data-testid="prayer-retry-btn"
-      >
-        Retry
-      </button>
+      <button @click="retryFetch" class="retry-btn" data-testid="prayer-retry-btn">Retry</button>
     </div>
     <div v-else>
       <div class="next-prayer-container" data-testid="next-prayer">
@@ -65,18 +41,10 @@
         <p class="next-prayer-time" data-testid="next-prayer-time">{{ timeToNextPrayer }}</p>
       </div>
       <ul class="prayer-list">
-        <li 
-          v-for="prayer in filteredPrayerTimes" 
-          :key="prayer.name" 
-          class="prayer-item"
-          :data-testid="`prayer-time-item`"
-        >
+        <li v-for="prayer in filteredPrayerTimes" :key="prayer.name" class="prayer-item" :data-testid="`prayer-time-item`">
           <i :class="prayer.icon" class="prayer-icon"></i>
           <span class="prayer-name">{{ prayer.name }}</span>
-          <span 
-            class="prayer-time" 
-            :data-testid="`prayer-${prayer.name.toLowerCase()}`"
-          >{{ prayer.time }}</span>
+          <span class="prayer-time" :data-testid="`prayer-${prayer.name.toLowerCase()}`">{{ prayer.time }}</span>
         </li>
       </ul>
     </div>
@@ -95,6 +63,7 @@ export default {
   },
   data() {
     return {
+      location: null,
       prayerTimes: {},
       error: null,
       timeToNextPrayer: '--:--:--',
@@ -104,7 +73,7 @@ export default {
       notificationConfig: {
         exactTime: true,
         advanceNotification: false,
-        advanceMinutes: 10
+        advanceMinutes: 10,
       },
       prayerIcons: {
         Fajr: 'fas fa-cloud-sun',
@@ -142,12 +111,10 @@ export default {
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(
           (position) => {
-            const location = {
+            this.location = {
               latitude: position.coords.latitude,
               longitude: position.coords.longitude,
             };
-            // Emit event to parent to update location
-            this.$emit('location-updated', location);
           },
           (error) => {
             console.error('Error getting location:', error);
@@ -166,10 +133,10 @@ export default {
           this.startTimer();
           this.updateNotifications();
         } else {
-          this.error = "Could not retrieve prayer times.";
+          this.error = 'Could not retrieve prayer times.';
         }
       } catch (error) {
-        this.error = "Error fetching prayer times.";
+        this.error = 'Error fetching prayer times.';
       }
     },
     startTimer() {
@@ -192,7 +159,9 @@ export default {
           const hours = Math.floor(diff / (1000 * 60 * 60));
           const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
           const seconds = Math.floor((diff % (1000 * 60)) / 1000);
-          this.timeToNextPrayer = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+          this.timeToNextPrayer = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds
+            .toString()
+            .padStart(2, '0')}`;
           this.nextPrayerName = nextPrayerName;
         } else {
           this.timeToNextPrayer = 'Done for today';
@@ -206,11 +175,11 @@ export default {
         this.notificationsEnabled = true;
         this.saveNotificationSettings();
         this.updateNotifications();
-        
+
         // Show a test notification
         notificationService.showNotification('Prayer Notifications Enabled', {
           body: 'You will now receive notifications for prayer times.',
-          requireInteraction: false
+          requireInteraction: false,
         });
       } else {
         alert('Please allow notifications to receive prayer time reminders.');
@@ -227,25 +196,28 @@ export default {
       // Show confirmation notification
       notificationService.showNotification('Prayer Notifications Disabled', {
         body: 'You will no longer receive prayer time notifications.',
-        requireInteraction: false
+        requireInteraction: false,
       });
     },
     updateNotifications() {
       if (this.notificationsEnabled && Object.keys(this.prayerTimes).length > 0) {
         const settings = {
           exactTime: this.notificationConfig.exactTime,
-          advanceMinutes: this.notificationConfig.advanceNotification ? this.notificationConfig.advanceMinutes : 0
+          advanceMinutes: this.notificationConfig.advanceNotification ? this.notificationConfig.advanceMinutes : 0,
         };
-        
+
         notificationService.scheduleAllPrayerNotifications(this.prayerTimes, settings);
         this.saveNotificationSettings();
       }
     },
     saveNotificationSettings() {
-      localStorage.setItem('prayerNotificationConfig', JSON.stringify({
-        enabled: this.notificationsEnabled,
-        config: this.notificationConfig
-      }));
+      localStorage.setItem(
+        'prayerNotificationConfig',
+        JSON.stringify({
+          enabled: this.notificationsEnabled,
+          config: this.notificationConfig,
+        })
+      );
     },
     loadNotificationSettings() {
       const saved = localStorage.getItem('prayerNotificationConfig');
@@ -261,12 +233,12 @@ export default {
       if (this.location) {
         this.fetchPrayerTimes(this.location.latitude, this.location.longitude);
       }
-    }
+    },
   },
-  mounted(){
+  mounted() {
     this.getLocation();
     this.loadNotificationSettings();
-  }
+  },
 };
 </script>
 
