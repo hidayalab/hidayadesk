@@ -1,6 +1,10 @@
-# FaithNotes
+# HidayaDesk
 
-FaithNotes is a simple and elegant note-taking application designed to help you capture your thoughts, ideas, and reminders with ease. It's built with Vue.js and Vite, providing a fast and modern user experience.
+HidayaDesk is a simple and elegant dashboard application designed to help you organize your bookmarks, notes, and Islamic resources with ease. It's built with Vue.js and Vite, providing a fast and modern user experience.
+
+## 🚀 Live Demo
+
+Check out the live demo: [https://hidayalab.github.io/hidayadesk](https://hidayalab.github.io/hidayadesk)
 
 ## Features
 
@@ -10,15 +14,15 @@ FaithNotes is a simple and elegant note-taking application designed to help you 
 
 ## Installation
 
-To get started with FaithNotes, follow these simple steps:
+To get started with HidayaDesk, follow these simple steps:
 
 1.  **Clone the repository:**
     ```bash
-    git clone https://github.com/amana-fund/FaithNotes.git
+    git clone https://github.com/hidayalab/hidayadesk.git
     ```
 2.  **Navigate to the project directory:**
     ```bash
-    cd FaithNotes
+    cd hidayadesk
     ```
 3.  **Install the dependencies:**
     ```bash
@@ -42,25 +46,25 @@ This will create a `dist` directory with the production-ready files.
 
 ## Running with Docker
 
-You can also run FaithNotes using Docker. This is a convenient way to run the application in a containerized environment without needing to install Node.js or other dependencies on your local machine.
+You can also run HidayaDesk using Docker. This is a convenient way to run the application in a containerized environment without needing to install Node.js or other dependencies on your local machine.
 
 1.  **Build the Docker image:**
     ```bash
-    docker build -t faithnotes .
+    docker build -t hidayadesk .
     ```
 2.  **Run the Docker container:**
     ```bash
-    docker run -p 8080:80 faithnotes
+    docker run -p 8080:80 hidayadesk
     ```
     The application will be available at `http://localhost:8080`.
 
 ## Contributing
 
-We welcome contributions from the community! If you'd like to contribute to FaithNotes, please follow these guidelines:
+We welcome contributions from the community! If you'd like to contribute to HidayaDesk, please follow these guidelines:
 
 ### Bug Reports & Feature Requests
 
-If you encounter a bug or have a feature request, please [open an issue](https://github.com/amana-fund/FaithNotes/issues) on GitHub. Please provide as much detail as possible, including steps to reproduce the bug or a clear description of the requested feature.
+If you encounter a bug or have a feature request, please [open an issue](https://github.com/hidayalab/hidayadesk/issues) on GitHub. Please provide as much detail as possible, including steps to reproduce the bug or a clear description of the requested feature.
 
 ### Pull Requests
 
@@ -70,11 +74,11 @@ If you encounter a bug or have a feature request, please [open an issue](https:/
 4.  **Push your changes** to your fork.
 5.  **Create a pull request** to the `main` branch of the original repository.
 
-We appreciate your help in making FaithNotes even better!
+We appreciate your help in making HidayaDesk even better!
 
 ### Adding New Themes
 
-We encourage you to contribute new themes to FaithNotes! To add a new theme, follow these steps:
+We encourage you to contribute new themes to HidayaDesk! To add a new theme, follow these steps:
 
 1.  **Create a new CSS file** in the `src/assets/themes` directory. The filename should be the name of your theme in lowercase (e.g., `my-theme.css`).
 2.  **Define your theme's styles** in the new CSS file. You can use the existing themes as a reference. At a minimum, you should define styles for the `.notebook-header` and `.add-page-btn` classes, as well as their hover states.

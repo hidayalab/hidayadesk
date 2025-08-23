@@ -1,9 +1,9 @@
 {
-  "name": "bookmarks",
+  "name": "hidayadesk",
   "version": "0.0.0",
   "type": "module",
   "private": true,
-  "homepage": "https://amana-fund.github.io/faith-note",
+  "homepage": "https://hidayalab.github.io/hidayadesk",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
