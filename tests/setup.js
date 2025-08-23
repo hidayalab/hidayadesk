@@ -1,13 +1,13 @@
 import '@testing-library/jest-dom'
 import { vi } from 'vitest'
 
-// Global test setup for Faith-Note
+// Global test setup for HidayaDesk
 
 // Mock localStorage
 const localStorageMock = {
   getItem: vi.fn((key) => {
     const storage = {
-      'faith-note-config': JSON.stringify({
+      'hidayadesk-config': JSON.stringify({
         theme: 'cyber-glow',
         layout: 'grid',
         widgets: {
@@ -16,7 +16,7 @@ const localStorageMock = {
           notes: false
         }
       }),
-      'faith-note-bookmarks': JSON.stringify([
+      'hidayadesk-bookmarks': JSON.stringify([
         {
           id: 1,
           title: 'GitHub',
