@@ -33,6 +33,7 @@
               role="radio"
               :aria-checked="activeWidget === widget.id"
               :aria-label="widget.label"
+              :title="widget.label"
               class="widget-btn"
             >
               <i :class="widget.icon" aria-hidden="true"></i>
@@ -47,6 +48,7 @@
             class="edit-button"
             :class="{ 'active': isEditMode }"
             :aria-label="isEditMode ? 'Exit edit mode' : 'Enter edit mode'"
+            :title="isEditMode ? 'Exit edit mode' : 'Enter edit mode'"
           >
             <i class="fas fa-pencil-alt" aria-hidden="true"></i>
           </button>
@@ -59,6 +61,7 @@
             class="settings-btn"
             :class="{ 'active': showSettingsMenu }"
             aria-label="Settings menu"
+            title="Settings menu"
           >
             ⚙️
           </button>
@@ -71,6 +74,7 @@
                 class="settings-option-button" 
                 @click="openThemeModal"
                 aria-label="Select theme"
+                title="Select theme"
               >
                 <div class="option-info">
                   <span class="option-title">{{ currentThemeName }}</span>
@@ -86,6 +90,7 @@
                 class="settings-option-button" 
                 @click="openWidgetModal"
                 aria-label="Select visible widgets"
+                title="Select visible widgets"
               >
                 <div class="option-info">
                   <span class="option-title">{{ visibleWidgets.length }} {{ visibleWidgets.length === 1 ? 'Widget' : 'Widgets' }} Selected</span>
@@ -109,6 +114,7 @@
                     role="radio"
                     :aria-checked="selectedLayout === layout.value"
                     :aria-label="layout.name"
+                    :title="layout.name"
                   >
                     <i :class="['icon', layout.icon]" aria-hidden="true"></i>
                   </div>
@@ -130,6 +136,7 @@
                     role="radio"
                     :aria-checked="selectedCardSize === size.value"
                     :aria-label="size.name"
+                    :title="size.name"
                   >
                     <i :class="['icon', size.icon]" aria-hidden="true"></i>
                   </div>
@@ -169,7 +176,7 @@
       <div class="selection-modal widget-modal" @click.stop>
         <div class="modal-header">
           <h3>Select Widgets</h3>
-          <button class="modal-close" @click="closeWidgetModal" aria-label="Close modal">
+          <button class="modal-close" @click="closeWidgetModal" aria-label="Close modal" title="Close modal">
             <i class="fas fa-times"></i>
           </button>
         </div>
