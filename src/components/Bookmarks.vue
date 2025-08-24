@@ -23,7 +23,8 @@
                   :aria-label="`Open ${item.title}`"
                   rel="noopener noreferrer"
                 >
-                    <i :class="['icon', item.icon]" aria-hidden="true"></i>
+                    <i v-if="!item.iconType || item.iconType === 'font'" :class="['icon', item.icon]" aria-hidden="true"></i>
+                    <img v-else :src="item.icon" :alt="`${item.title} icon`" class="icon favicon" aria-hidden="true">
                     <p class="item-title">{{ item.title }}</p>
                 </a>
                 <button 
@@ -176,6 +177,52 @@ export default {
                 title: '',
                 url: '',
                 icon: '',
+                iconType: 'font'
+            },
+            iconMapping: {
+                // Social Media
+                'facebook.com': 'fab fa-facebook',
+                'twitter.com': 'fab fa-twitter',
+                'x.com': 'fab fa-x-twitter',
+                'instagram.com': 'fab fa-instagram',
+                'linkedin.com': 'fab fa-linkedin',
+                'youtube.com': 'fab fa-youtube',
+                'tiktok.com': 'fab fa-tiktok',
+                'whatsapp.com': 'fab fa-whatsapp',
+                
+                // Tech
+                'github.com': 'fab fa-github',
+                'stackoverflow.com': 'fab fa-stack-overflow',
+                'reddit.com': 'fab fa-reddit',
+                'discord.com': 'fab fa-discord',
+                'medium.com': 'fab fa-medium',
+                
+                // Islamic Sites
+                'islamqa.info': 'fas fa-mosque',
+                'quran.com': 'fas fa-book-quran',
+                'sunnah.com': 'fas fa-book-open',
+                'islamweb.net': 'fas fa-crescent',
+                'islamhouse.com': 'fas fa-mosque',
+                'islamicfinder.org': 'fas fa-compass',
+                
+                // Google Services
+                'gmail.com': 'fas fa-envelope',
+                'drive.google.com': 'fab fa-google-drive',
+                'docs.google.com': 'fas fa-file-alt',
+                'maps.google.com': 'fas fa-map-marked-alt',
+                
+                // E-commerce
+                'amazon.com': 'fab fa-amazon',
+                'ebay.com': 'fab fa-ebay',
+                
+                // Entertainment
+                'netflix.com': 'fas fa-film',
+                'spotify.com': 'fab fa-spotify',
+                'twitch.tv': 'fab fa-twitch',
+                
+                // Others
+                'wikipedia.org': 'fab fa-wikipedia-w',
+                'paypal.com': 'fab fa-paypal'
             },
             newSectionName: '',
             activeSection: null,
@@ -240,7 +287,52 @@ export default {
             
             return url;
         },
-        addItem() {
+        normalizeUrl(url) {
+            if (!url) return url;
+            url = url.trim();
+            if (!/^https?:\/\//i.test(url)) {
+                url = 'https://' + url;
+            }
+            return url;
+        },
+        
+        getIconForDomain(url) {
+            try {
+                const domain = new URL(this.normalizeUrl(url)).hostname.replace('www.', '');
+                if (this.iconMapping[domain]) return this.iconMapping[domain];
+                for (const [key, icon] of Object.entries(this.iconMapping)) {
+                    if (domain.includes(key)) return icon;
+                }
+                return 'fas fa-link';
+            } catch {
+                return 'fas fa-link';
+            }
+        },
+        
+        async fetchWebsiteIcon(url) {
+            const cleanUrl = this.normalizeUrl(url);
+            try {
+                const domain = new URL(cleanUrl).hostname;
+                const faviconServices = [
+                    `https://www.google.com/s2/favicons?domain=${domain}&sz=32`,
+                    `https://favicon.yandex.net/favicon/${domain}`
+                ];
+                
+                for (const service of faviconServices) {
+                    try {
+                        const response = await fetch(service, { mode: 'no-cors' });
+                        return service;
+                    } catch {
+                        continue;
+                    }
+                }
+            } catch (error) {
+                console.log('Error fetching favicon:', error);
+            }
+            return 'fas fa-link';
+        },
+        
+        async addItem() {
             if (!this.newItem.title || !this.newItem.url) {
                 alert('Title and URL are required.');
                 return;
@@ -249,17 +341,44 @@ export default {
             // Normalize the URL
             this.newItem.url = this.normalizeUrl(this.newItem.url);
 
+            this.newItem.url = this.normalizeUrl(this.newItem.url);
+            
+            if (!this.newItem.icon) {
+                const mappedIcon = this.getIconForDomain(this.newItem.url);
+                if (mappedIcon !== 'fas fa-link') {
+                    this.newItem.icon = mappedIcon;
+                    this.newItem.iconType = 'font';
+                } else {
+                    try {
+                        const faviconUrl = await this.fetchWebsiteIcon(this.newItem.url);
+                        if (faviconUrl.startsWith('http')) {
+                            this.newItem.iconType = 'image';
+                            this.newItem.icon = faviconUrl;
+                        } else {
+                            this.newItem.icon = faviconUrl;
+                            this.newItem.iconType = 'font';
+                        }
+                    } catch {
+                        this.newItem.icon = 'fas fa-link';
+                        this.newItem.iconType = 'font';
+                    }
+                }
+            } else {
+                this.newItem.iconType = 'font';
+            }
+
             if (this.activeSection) {
                 this.$emit('add-item', {
                     sectionName: this.activeSection.name,
                     item: {
                         ...this.newItem,
                         icon: this.newItem.icon || 'fas fa-link',
+                        iconType: this.newItem.iconType || 'font'
                     }
                 });
             }
 
-            this.newItem = { title: '', url: '', icon: '' };
+            this.newItem = { title: '', url: '', icon: '', iconType: 'font' };
             this.closeModal();
         },
         addSection() {
@@ -279,9 +398,37 @@ export default {
             this.closeEditModal();
         },
 
-        updateItem() {
+        async updateItem() {
             // Normalize the URL
             this.editableItem.url = this.normalizeUrl(this.editableItem.url);
+            
+            this.editableItem.url = this.normalizeUrl(this.editableItem.url);
+            
+            if (!this.editableItem.icon || this.editableItem.icon === 'fas fa-link') {
+                const mappedIcon = this.getIconForDomain(this.editableItem.url);
+                if (mappedIcon !== 'fas fa-link') {
+                    this.editableItem.icon = mappedIcon;
+                    this.editableItem.iconType = 'font';
+                } else {
+                    try {
+                        const faviconUrl = await this.fetchWebsiteIcon(this.editableItem.url);
+                        if (faviconUrl.startsWith('http')) {
+                            this.editableItem.iconType = 'image';
+                            this.editableItem.icon = faviconUrl;
+                        } else {
+                            this.editableItem.icon = faviconUrl;
+                            this.editableItem.iconType = 'font';
+                        }
+                    } catch {
+                        this.editableItem.icon = 'fas fa-link';
+                        this.editableItem.iconType = 'font';
+                    }
+                }
+            }
+            
+            if (!this.editableItem.iconType) {
+                this.editableItem.iconType = this.editableItem.icon?.startsWith('http') ? 'image' : 'font';
+            }
             
             this.$emit('update-item', {
                 sectionIndex: this.editableSectionIndex,
