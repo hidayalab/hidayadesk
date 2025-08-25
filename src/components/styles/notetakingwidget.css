@@ -146,6 +146,13 @@
     padding-bottom: 4px;
 }
 
+.page-title:focus {
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+    border-bottom: 1px dotted #d4b8b8 !important;
+}
+
 .page-title::placeholder {
     color: #a0a0a0;
     font-style: italic;
@@ -169,6 +176,12 @@
             #e8e5e0 21px,
             #e8e5e0 22px
         );
+}
+
+.page-textarea:focus {
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
 }
 
 .page-textarea::placeholder {

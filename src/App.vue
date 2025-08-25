@@ -333,12 +333,9 @@ export default {
     this.fetchConfig();
     // Add click outside listener to close dropdowns
     document.addEventListener('click', this.handleClickOutside);
-    // Add keyboard navigation
-    document.addEventListener('keydown', this.handleKeyNavigation);
   },
   beforeUnmount() {
     document.removeEventListener('click', this.handleClickOutside);
-    document.removeEventListener('keydown', this.handleKeyNavigation);
   },
   methods: {
     toggleEditMode() {
@@ -431,51 +428,6 @@ export default {
         this.selectedLayout = value;
       } else if (type === 'cardSize') {
         this.selectedCardSize = value;
-      }
-    },
-    
-    handleKeyNavigation(event) {
-      // Close dropdowns and modals with Escape key
-      if (event.key === 'Escape') {
-        this.showThemeDropdown = false;
-        this.showWidgetDropdown = false;
-        this.showThemeModal = false;
-        this.showWidgetModal = false;
-      }
-      
-      // Widget switching with number keys
-      if (!event.ctrlKey && !event.metaKey && !event.altKey) {
-        switch (event.key) {
-          case '1':
-            this.activeWidget = 'quran';
-            event.preventDefault();
-            break;
-          case '2':
-            if (this.showMoreWidgets) {
-              this.activeWidget = 'notes';
-              event.preventDefault();
-            }
-            break;
-          case '3':
-            if (this.showMoreWidgets) {
-              this.activeWidget = 'prayer';
-              event.preventDefault();
-            }
-            break;
-          case '4':
-            if (this.showMoreWidgets) {
-              this.activeWidget = 'hadith';
-              event.preventDefault();
-            }
-            break;
-          case 'e':
-          case 'E':
-            if (event.ctrlKey || event.metaKey) {
-              this.toggleEditMode();
-              event.preventDefault();
-            }
-            break;
-        }
       }
     },
     

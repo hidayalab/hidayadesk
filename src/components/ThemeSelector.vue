@@ -286,15 +286,6 @@ const handleKeyNavigation = (event) => {
   }
 }
 
-// Lifecycle
-onMounted(() => {
-  document.addEventListener('keydown', handleKeyNavigation)
-})
-
-onUnmounted(() => {
-  document.removeEventListener('keydown', handleKeyNavigation)
-})
-
 // Watchers
 watch(() => props.modelValue, (newValue) => {
   selectedTheme.value = newValue
