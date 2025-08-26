@@ -68,7 +68,7 @@
                 </div>
                 <div class="form-group">
                     <label for="item-url">URL:</label>
-                    <input type="url" id="item-url" v-model="newItem.url" required>
+                    <input type="text" id="item-url" v-model="newItem.url" required placeholder="e.g., https://example.com or example.com">
                 </div>
                 <div class="form-group">
                     <label for="item-icon">Icon (Font Awesome class, e.g., fas fa-star):</label>
@@ -130,7 +130,7 @@
                 </div>
                 <div class="form-group">
                     <label for="edit-item-url">URL:</label>
-                    <input type="url" id="edit-item-url" v-model="editableItem.url" required>
+                    <input type="text" id="edit-item-url" v-model="editableItem.url" required placeholder="e.g., https://example.com or example.com">
                 </div>
                 <div class="form-group">
                     <label for="edit-item-icon">Icon:</label>
@@ -227,11 +227,27 @@ export default {
             this.editableSectionIndex = null;
             this.editableItemIndex = null;
         },
+        normalizeUrl(url) {
+            if (!url) return url;
+            
+            // Remove whitespace
+            url = url.trim();
+            
+            // Add https:// if no protocol
+            if (!/^https?:\/\//i.test(url)) {
+                url = 'https://' + url;
+            }
+            
+            return url;
+        },
         addItem() {
             if (!this.newItem.title || !this.newItem.url) {
                 alert('Title and URL are required.');
                 return;
             }
+
+            // Normalize the URL
+            this.newItem.url = this.normalizeUrl(this.newItem.url);
 
             if (this.activeSection) {
                 this.$emit('add-item', {
@@ -264,6 +280,9 @@ export default {
         },
 
         updateItem() {
+            // Normalize the URL
+            this.editableItem.url = this.normalizeUrl(this.editableItem.url);
+            
             this.$emit('update-item', {
                 sectionIndex: this.editableSectionIndex,
                 itemIndex: this.editableItemIndex,
