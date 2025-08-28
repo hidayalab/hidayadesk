@@ -287,25 +287,28 @@ export default {
             
             return url;
         },
-        normalizeUrl(url) {
-            if (!url) return url;
-            url = url.trim();
-            if (!/^https?:\/\//i.test(url)) {
-                url = 'https://' + url;
-            }
-            return url;
-        },
         
         getIconForDomain(url) {
+            let result = null;
             try {
                 const domain = new URL(this.normalizeUrl(url)).hostname.replace('www.', '');
-                if (this.iconMapping[domain]) return this.iconMapping[domain];
-                for (const [key, icon] of Object.entries(this.iconMapping)) {
-                    if (domain.includes(key)) return icon;
+                if (this.iconMapping[domain]) {
+                    result = this.iconMapping[domain];
+                } else {
+                    for (const [key, icon] of Object.entries(this.iconMapping)) {
+                        if (domain.includes(key)) {
+                            result = icon;
+                            break;
+                        }
+                    }
+                    if (!result) {
+                        result = 'fas fa-link';
+                    }
                 }
-                return 'fas fa-link';
             } catch {
-                return 'fas fa-link';
+                result = 'fas fa-link';
+            } finally {
+                return result;
             }
         },
         
@@ -320,7 +323,7 @@ export default {
                 
                 for (const service of faviconServices) {
                     try {
-                        const response = await fetch(service, { mode: 'no-cors' });
+                        await fetch(service, { mode: 'no-cors' });
                         return service;
                     } catch {
                         continue;
@@ -339,8 +342,6 @@ export default {
             }
 
             // Normalize the URL
-            this.newItem.url = this.normalizeUrl(this.newItem.url);
-
             this.newItem.url = this.normalizeUrl(this.newItem.url);
             
             if (!this.newItem.icon) {
@@ -400,8 +401,6 @@ export default {
 
         async updateItem() {
             // Normalize the URL
-            this.editableItem.url = this.normalizeUrl(this.editableItem.url);
-            
             this.editableItem.url = this.normalizeUrl(this.editableItem.url);
             
             if (!this.editableItem.icon || this.editableItem.icon === 'fas fa-link') {
