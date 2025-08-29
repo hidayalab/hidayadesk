@@ -289,26 +289,19 @@ export default {
         },
         
         getIconForDomain(url) {
-            let result = null;
             try {
                 const domain = new URL(this.normalizeUrl(url)).hostname.replace('www.', '');
                 if (this.iconMapping[domain]) {
-                    result = this.iconMapping[domain];
+                    return this.iconMapping[domain];
                 } else {
                     for (const [key, icon] of Object.entries(this.iconMapping)) {
                         if (domain.includes(key)) {
-                            result = icon;
-                            break;
+                            return icon
                         }
-                    }
-                    if (!result) {
-                        result = 'fas fa-link';
                     }
                 }
             } catch {
-                result = 'fas fa-link';
-            } finally {
-                return result;
+                return null;
             }
         },
         
@@ -341,31 +334,27 @@ export default {
                 return;
             }
 
+            this.newItem.iconType = 'font';
+
             // Normalize the URL
             this.newItem.url = this.normalizeUrl(this.newItem.url);
             
             if (!this.newItem.icon) {
                 const mappedIcon = this.getIconForDomain(this.newItem.url);
-                if (mappedIcon !== 'fas fa-link') {
+                
+                if (mappedIcon) {
                     this.newItem.icon = mappedIcon;
-                    this.newItem.iconType = 'font';
                 } else {
                     try {
                         const faviconUrl = await this.fetchWebsiteIcon(this.newItem.url);
+                        this.newItem.icon = faviconUrl;
                         if (faviconUrl.startsWith('http')) {
                             this.newItem.iconType = 'image';
-                            this.newItem.icon = faviconUrl;
-                        } else {
-                            this.newItem.icon = faviconUrl;
-                            this.newItem.iconType = 'font';
                         }
                     } catch {
-                        this.newItem.icon = 'fas fa-link';
-                        this.newItem.iconType = 'font';
+                        this.newItem.icon = 'fas fa-link'
                     }
                 }
-            } else {
-                this.newItem.iconType = 'font';
             }
 
             if (this.activeSection) {
@@ -374,7 +363,6 @@ export default {
                     item: {
                         ...this.newItem,
                         icon: this.newItem.icon || 'fas fa-link',
-                        iconType: this.newItem.iconType || 'font'
                     }
                 });
             }
@@ -402,12 +390,11 @@ export default {
         async updateItem() {
             // Normalize the URL
             this.editableItem.url = this.normalizeUrl(this.editableItem.url);
-            
+            this.editableItem.iconType = 'font';
             if (!this.editableItem.icon || this.editableItem.icon === 'fas fa-link') {
                 const mappedIcon = this.getIconForDomain(this.editableItem.url);
-                if (mappedIcon !== 'fas fa-link') {
+                if (mappedIcon) {
                     this.editableItem.icon = mappedIcon;
-                    this.editableItem.iconType = 'font';
                 } else {
                     try {
                         const faviconUrl = await this.fetchWebsiteIcon(this.editableItem.url);
@@ -416,11 +403,9 @@ export default {
                             this.editableItem.icon = faviconUrl;
                         } else {
                             this.editableItem.icon = faviconUrl;
-                            this.editableItem.iconType = 'font';
                         }
                     } catch {
                         this.editableItem.icon = 'fas fa-link';
-                        this.editableItem.iconType = 'font';
                     }
                 }
             }
