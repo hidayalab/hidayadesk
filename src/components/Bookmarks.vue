@@ -184,294 +184,260 @@
 </template>
 
 <script setup>
-import { computed } from 'vue';
-import { useBookmarkModal } from '../composables/useBookmarkModal';
-import { useIconService } from '../composables/useIconService';
-import './styles/bookmark.css';
+import { computed } from 'vue'
+import { useBookmarkModal } from '../composables/useBookmarkModal'
+import { useIconService } from '../composables/useIconService'
+import './styles/bookmark.css'
+import './styles/bookmark-enhancements.css'
 
-export default {
-    props: {
-        sections: {
-            type: Array,
-            default: []
-        },
-        searchQuery: {
-            type: String,
-            default: ''
-        },
-        editMode: {
-            type: Boolean,
-            default: false
+// Props
+const props = defineProps({
+  sections: {
+    type: Array,
+    default: () => []
+  },
+  searchQuery: {
+    type: String,
+    default: ''
+  },
+  editMode: {
+    type: Boolean,
+    default: false
+  }
+})
+
+// Emits
+const emit = defineEmits([
+  'add-item',
+  'add-section', 
+  'update-section',
+  'update-item',
+  'delete-section',
+  'delete-item'
+])
+
+// Composables
+const { getIconForDomain, fetchWebsiteIcon, normalizeUrl } = useIconService()
+
+const {
+  showModal,
+  showAddSectionModal,
+  showEditSection,
+  showEditItem,
+  newItem,
+  newSectionName,
+  activeSection,
+  editableSection,
+  editableItem,
+  editableSectionIndex,
+  editableItemIndex,
+  isLoading,
+  error,
+  showAddItemModal,
+  closeModal,
+  showEditSectionModal: showEditSectionModalBase,
+  showEditItemModal: showEditItemModalBase,
+  closeEditModal,
+  clearError
+} = useBookmarkModal()
+
+// Wrapper functions to pass sections
+const showEditSectionModalWrapper = (sectionIndex) => {
+  showEditSectionModalBase(sectionIndex, props.sections)
+}
+
+const showEditItemModalWrapper = (sectionIndex, itemIndex) => {
+  showEditItemModalBase(sectionIndex, itemIndex, props.sections)
+}
+
+// Computed
+const filteredSections = computed(() => {
+  if (!props.searchQuery) {
+    return props.sections
+  }
+  const query = props.searchQuery.toLowerCase()
+  return props.sections
+    .map(section => {
+      const filteredItems = section.items.filter(item => 
+        item.title.toLowerCase().includes(query)
+      )
+      return { ...section, items: filteredItems }
+    })
+    .filter(section => section.items.length > 0)
+})
+
+// Validation functions
+const validateItem = (item) => {
+  if (!item.title?.trim()) return 'Title is required'
+  if (!item.url?.trim()) return 'URL is required'
+  return null
+}
+
+const validateSection = (name) => {
+  if (!name.trim()) return 'Section name is required'
+  return null
+}
+
+// Methods
+const addItem = async () => {
+  try {
+    clearError()
+    
+    const validation = validateItem(newItem.value)
+    if (validation) {
+      error.value = validation
+      return
+    }
+
+    isLoading.value = true
+    newItem.value.url = normalizeUrl(newItem.value.url)
+
+    if (!newItem.value.icon) {
+      const mappedIcon = getIconForDomain(newItem.value.url)
+      if (mappedIcon !== 'fas fa-link') {
+        newItem.value.icon = mappedIcon
+        newItem.value.iconType = 'font'
+      } else {
+        const faviconUrl = await fetchWebsiteIcon(newItem.value.url)
+        if (faviconUrl.startsWith('https')) {
+          newItem.value.iconType = 'image'
+          newItem.value.icon = faviconUrl
+        } else {
+          newItem.value.icon = faviconUrl
+          newItem.value.iconType = 'font'
         }
-    },
-    data() {
-        return {
-            showModal: false,
-            showAddSectionModal: false,
-            showEditSection: false,
-            showEditItem: false,
-            newItem: {
-                title: '',
-                url: '',
-                icon: '',
-                iconType: 'font'
-            },
-            iconMapping: {
-                // Social Media
-                'facebook.com': 'fab fa-facebook',
-                'twitter.com': 'fab fa-twitter',
-                'x.com': 'fab fa-x-twitter',
-                'instagram.com': 'fab fa-instagram',
-                'linkedin.com': 'fab fa-linkedin',
-                'youtube.com': 'fab fa-youtube',
-                'tiktok.com': 'fab fa-tiktok',
-                'whatsapp.com': 'fab fa-whatsapp',
-                
-                // Tech
-                'github.com': 'fab fa-github',
-                'stackoverflow.com': 'fab fa-stack-overflow',
-                'reddit.com': 'fab fa-reddit',
-                'discord.com': 'fab fa-discord',
-                'medium.com': 'fab fa-medium',
-                
-                // Islamic Sites
-                'islamqa.info': 'fas fa-mosque',
-                'quran.com': 'fas fa-book-quran',
-                'sunnah.com': 'fas fa-book-open',
-                'islamweb.net': 'fas fa-crescent',
-                'islamhouse.com': 'fas fa-mosque',
-                'islamicfinder.org': 'fas fa-compass',
-                
-                // Google Services
-                'gmail.com': 'fas fa-envelope',
-                'drive.google.com': 'fab fa-google-drive',
-                'docs.google.com': 'fas fa-file-alt',
-                'maps.google.com': 'fas fa-map-marked-alt',
-                
-                // E-commerce
-                'amazon.com': 'fab fa-amazon',
-                'ebay.com': 'fab fa-ebay',
-                
-                // Entertainment
-                'netflix.com': 'fas fa-film',
-                'spotify.com': 'fab fa-spotify',
-                'twitch.tv': 'fab fa-twitch',
-                
-                // Others
-                'wikipedia.org': 'fab fa-wikipedia-w',
-                'paypal.com': 'fab fa-paypal'
-            },
-            newSectionName: '',
-            activeSection: null,
-            editableSection: null,
-            editableItem: null,
-            editableSectionIndex: null,
-            editableItemIndex: null,
-        };
-    },
-    computed: {
-        filteredSections() {
-            if (!this.searchQuery) {
-                return this.sections;
-            }
-            const query = this.searchQuery.toLowerCase();
-            return this.sections.map(section => {
-                const filteredItems = section.items.filter(item => item.title.toLowerCase().includes(query));
-                return { ...section, items: filteredItems };
-            }).filter(section => section.items.length > 0);
+      }
+    } else {
+      newItem.value.iconType = 'font'
+    }
+
+    if (activeSection.value) {
+      emit('add-item', {
+        sectionName: activeSection.value.name,
+        item: {
+          ...newItem.value,
+          icon: newItem.value.icon || 'fas fa-link',
+          iconType: newItem.value.iconType || 'font',
+        },
+      })
+    }
+
+    newItem.value = { title: '', url: '', icon: '', iconType: 'font' }
+    closeModal()
+  } catch (err) {
+    error.value = err instanceof Error ? err.message : 'Failed to add item'
+  } finally {
+    isLoading.value = false
+  }
+}
+
+const addSection = () => {
+  try {
+    clearError()
+    
+    const validation = validateSection(newSectionName.value)
+    if (validation) {
+      error.value = validation
+      return
+    }
+    
+    emit('add-section', newSectionName.value)
+    newSectionName.value = ''
+    showAddSectionModal.value = false
+  } catch (err) {
+    error.value = err instanceof Error ? err.message : 'Failed to add section'
+  }
+}
+
+const updateSection = () => {
+  try {
+    clearError()
+    
+    if (!editableSection.value) return
+    
+    const validation = validateSection(editableSection.value.name)
+    if (validation) {
+      error.value = validation
+      return
+    }
+    
+    emit('update-section', {
+      index: editableSectionIndex.value,
+      section: editableSection.value,
+    })
+    closeEditModal()
+  } catch (err) {
+    error.value = err instanceof Error ? err.message : 'Failed to update section'
+  }
+}
+
+const updateItem = async () => {
+  try {
+    clearError()
+    
+    if (!editableItem.value) return
+    
+    const validation = validateItem(editableItem.value)
+    if (validation) {
+      error.value = validation
+      return
+    }
+
+    isLoading.value = true
+    editableItem.value.url = normalizeUrl(editableItem.value.url)
+    
+    if (!editableItem.value.icon || editableItem.value.icon === 'fas fa-link') {
+      const mappedIcon = getIconForDomain(editableItem.value.url)
+      if (mappedIcon !== 'fas fa-link') {
+        editableItem.value.icon = mappedIcon
+        editableItem.value.iconType = 'font'
+      } else {
+        try {
+          const faviconUrl = await fetchWebsiteIcon(editableItem.value.url)
+            editableItem.value.icon = faviconUrl
+          if (faviconUrl.startsWith('https')) {
+            editableItem.value.iconType = 'image'
+          } else {
+            editableItem.value.iconType = 'font'
+          }
+        } catch {
+          editableItem.value.icon = 'fas fa-link'
+          editableItem.value.iconType = 'font'
         }
-    },
-    methods: {
-        showAddItemModal(section) {
-            this.activeSection = section;
-            this.showModal = true;
-        },
-        closeModal() {
-            this.showModal = false;
-            this.activeSection = null;
-        },
-        showEditSectionModal(sectionIndex) {
-            this.editableSectionIndex = sectionIndex;
-            this.editableSection = { ...this.sections[sectionIndex] };
-            this.showEditSection = true;
-        },
+      }
+    }
 
-        showEditItemModal(sectionIndex, itemIndex) {
-            this.editableSectionIndex = sectionIndex;
-            this.editableItemIndex = itemIndex;
-            this.editableItem = { ...this.sections[sectionIndex].items[itemIndex] };
-            this.showEditItem = true;
-        },
+    if (!editableItem.value.iconType) {
+      editableItem.value.iconType = editableItem.value.icon?.startsWith('http') ? 'image' : 'font'
+    }
 
-        closeEditModal() {
-            this.showEditSection = false;
-            this.showEditItem = false;
-            this.editableSection = null;
-            this.editableItem = null;
-            this.editableSectionIndex = null;
-            this.editableItemIndex = null;
-        },
-        normalizeUrl(url) {
-            if (!url) return url;
-            
-            // Remove whitespace
-            url = url.trim();
-            
-            // Add https:// if no protocol
-            if (!/^https?:\/\//i.test(url)) {
-                url = 'https://' + url;
-            }
-            
-            return url;
-        },
-        
-        getIconForDomain(url) {
-            try {
-                const domain = new URL(this.normalizeUrl(url)).hostname.replace('www.', '');
-                if (this.iconMapping[domain]) {
-                    return this.iconMapping[domain];
-                } else {
-                    for (const [key, icon] of Object.entries(this.iconMapping)) {
-                        if (domain.includes(key)) {
-                            return icon
-                        }
-                    }
-                }
-            } catch {
-                return null;
-            }
-        },
-        
-        async fetchWebsiteIcon(url) {
-            const cleanUrl = this.normalizeUrl(url);
-            try {
-                const domain = new URL(cleanUrl).hostname;
-                const faviconServices = [
-                    `https://www.google.com/s2/favicons?domain=${domain}&sz=32`,
-                    `https://favicon.yandex.net/favicon/${domain}`
-                ];
-                
-                for (const service of faviconServices) {
-                    try {
-                        await fetch(service, { mode: 'no-cors' });
-                        return service;
-                    } catch {
-                        continue;
-                    }
-                }
-            } catch (error) {
-                console.log('Error fetching favicon:', error);
-            }
-            return 'fas fa-link';
-        },
-        
-        async addItem() {
-            if (!this.newItem.title || !this.newItem.url) {
-                alert('Title and URL are required.');
-                return;
-            }
+    emit('update-item', {
+      sectionIndex: editableSectionIndex.value,
+      itemIndex: editableItemIndex.value,
+      item: editableItem.value,
+    })
+    closeEditModal()
+  } catch (err) {
+    error.value = err instanceof Error ? err.message : 'Failed to update item'
+  } finally {
+    isLoading.value = false
+  }
+}
 
-            this.newItem.iconType = 'font';
-
-            // Normalize the URL
-            this.newItem.url = this.normalizeUrl(this.newItem.url);
-            
-            if (!this.newItem.icon) {
-                const mappedIcon = this.getIconForDomain(this.newItem.url);
-                
-                if (mappedIcon) {
-                    this.newItem.icon = mappedIcon;
-                } else {
-                    try {
-                        const faviconUrl = await this.fetchWebsiteIcon(this.newItem.url);
-                        this.newItem.icon = faviconUrl;
-                        if (faviconUrl.startsWith('http')) {
-                            this.newItem.iconType = 'image';
-                        }
-                    } catch {
-                        this.newItem.icon = 'fas fa-link'
-                    }
-                }
-            }
-
-            if (this.activeSection) {
-                this.$emit('add-item', {
-                    sectionName: this.activeSection.name,
-                    item: {
-                        ...this.newItem,
-                        icon: this.newItem.icon || 'fas fa-link',
-                    }
-                });
-            }
-
-            this.newItem = { title: '', url: '', icon: '', iconType: 'font' };
-            this.closeModal();
-        },
-        addSection() {
-            if (!this.newSectionName) {
-                alert('Section name is required.');
-                return;
-            }
-            this.$emit('add-section', this.newSectionName);
-            this.newSectionName = '';
-            this.showAddSectionModal = false;
-        },
-        updateSection() {
-            this.$emit('update-section', {
-                index: this.editableSectionIndex,
-                section: this.editableSection
-            });
-            this.closeEditModal();
-        },
-
-        async updateItem() {
-            // Normalize the URL
-            this.editableItem.url = this.normalizeUrl(this.editableItem.url);
-            this.editableItem.iconType = 'font';
-            if (!this.editableItem.icon || this.editableItem.icon === 'fas fa-link') {
-                const mappedIcon = this.getIconForDomain(this.editableItem.url);
-                if (mappedIcon) {
-                    this.editableItem.icon = mappedIcon;
-                } else {
-                    try {
-                        const faviconUrl = await this.fetchWebsiteIcon(this.editableItem.url);
-                        if (faviconUrl.startsWith('http')) {
-                            this.editableItem.iconType = 'image';
-                            this.editableItem.icon = faviconUrl;
-                        } else {
-                            this.editableItem.icon = faviconUrl;
-                        }
-                    } catch {
-                        this.editableItem.icon = 'fas fa-link';
-                    }
-                }
-            }
-            
-            if (!this.editableItem.iconType) {
-                this.editableItem.iconType = this.editableItem.icon?.startsWith('http') ? 'image' : 'font';
-            }
-            
-            this.$emit('update-item', {
-                sectionIndex: this.editableSectionIndex,
-                itemIndex: this.editableItemIndex,
-                item: this.editableItem
-            });
-            this.closeEditModal();
-        },
-        deleteSection() {
-            if (confirm('Are you sure you want to delete this section?')) {
-                this.$emit('delete-section', this.editableSectionIndex);
-                this.closeEditModal();
-            }
-        },
+const deleteSection = () => {
+  if (confirm('Are you sure you want to delete this section?')) {
+    emit('delete-section', editableSectionIndex.value)
+    closeEditModal()
+  }
+}
 
 const deleteItem = () => {
   if (confirm('Are you sure you want to delete this item?')) {
     emit('delete-item', {
       sectionIndex: editableSectionIndex.value,
       itemIndex: editableItemIndex.value,
-    });
-    closeEditModal();
+    })
+    closeEditModal()
   }
-};
+}
 </script>
