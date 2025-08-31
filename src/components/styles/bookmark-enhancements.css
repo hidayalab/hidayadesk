@@ -1,0 +1,84 @@
+/* Enhanced error handling styles */
+.error-message {
+  background-color: #fee2e2;
+  border: 1px solid #fecaca;
+  border-radius: 4px;
+  color: #dc2626;
+  padding: 12px;
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 14px;
+}
+
+.error-close {
+  background: none;
+  border: none;
+  color: #dc2626;
+  cursor: pointer;
+  font-size: 18px;
+  font-weight: bold;
+  padding: 0;
+  margin-left: 12px;
+  line-height: 1;
+}
+
+.error-close:hover {
+  color: #991b1b;
+}
+
+/* Loading state styles */
+button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+input:disabled {
+  background-color: #f9fafb;
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+/* Form enhancement styles */
+.form-group small {
+  display: block;
+  color: #6b7280;
+  font-size: 12px;
+  margin-top: 4px;
+}
+
+/* Dark theme support for error messages */
+[data-theme*="dark"] .error-message {
+  background-color: #7f1d1d;
+  border-color: #dc2626;
+  color: #fecaca;
+}
+
+[data-theme*="dark"] .error-close {
+  color: #fecaca;
+}
+
+[data-theme*="dark"] .error-close:hover {
+  color: #ffffff;
+}
+
+[data-theme*="dark"] input:disabled {
+  background-color: #374151;
+}
+
+/* Animation for error messages */
+.error-message {
+  animation: slideInDown 0.3s ease-out;
+}
+
+@keyframes slideInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
