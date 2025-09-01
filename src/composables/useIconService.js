@@ -91,7 +91,7 @@ export function useIconService() {
     } catch (error) {
       console.log('Error fetching favicon:', error)
     }
-    return 'fas fa-link'
+    return null
   }
 
   return {
