@@ -57,23 +57,18 @@ export function useIconService() {
   }
 
   const getIconForDomain = (url) => {
-    try {
-      const domain = new URL(normalizeUrl(url)).hostname.replace('www.', '')
-      
-      if (iconMapping[domain]) {
-        return iconMapping[domain]
-      }
-      
-      for (const [key, icon] of Object.entries(iconMapping)) {
-        if (domain.includes(key)) {
-          return icon
-        }
-      }
-      
-      return 'fas fa-link'
-    } catch {
-      return 'fas fa-link'
+    const domain = new URL(normalizeUrl(url)).hostname.replace('www.', '')
+
+    if (iconMapping[domain]) {
+      return iconMapping[domain]
     }
+
+    for (const [key, icon] of Object.entries(iconMapping)) {
+      if (domain.includes(key)) {
+        return icon
+      }
+    }
+    return null
   }
 
   const fetchWebsiteIcon = async (url) => {
@@ -81,7 +76,7 @@ export function useIconService() {
     try {
       const domain = new URL(cleanUrl).hostname
       const faviconServices = [
-        `https://www.google.com/s2/favicons?domain=${domain}&sz=32`, 
+        `https://www.google.com/s2/favicons?domain=${domain}&sz=32`,
         `https://favicon.yandex.net/favicon/${domain}`
       ]
 
