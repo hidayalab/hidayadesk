@@ -5,9 +5,10 @@
       <div 
         v-if="isVisible"
         class="modal-overlay" 
+        :class="currentThemeClass"
         @click="closeModal"
       >
-        <div class="theme-modal compact-modal" @click.stop role="dialog" aria-labelledby="theme-modal-title" aria-modal="true">
+        <div class="theme-modal compact-modal" :class="currentThemeClass" @click.stop role="dialog" aria-labelledby="theme-modal-title" aria-modal="true">
           <div class="modal-header">
             <h2 id="theme-modal-title" class="modal-title">Choose Your Theme</h2>
             <button 
@@ -143,6 +144,11 @@ const emit = defineEmits(['update:modelValue', 'close', 'apply'])
 const selectedTheme = ref(props.modelValue)
 const focusedTheme = ref(props.modelValue)
 
+// Computed properties
+const currentThemeClass = computed(() => {
+  return props.modelValue
+})
+
 // Enhanced theme data with WCAG AA compliant colors
 const enhancedThemes = ref([
   {
@@ -151,11 +157,11 @@ const enhancedThemes = ref([
     description: 'Futuristic cyan glow with high contrast',
     icon: 'fas fa-eye',
     colors: {
-      primary: '#00d4ff',    // WCAG AA: 7.2:1 contrast ratio on dark
-      secondary: '#004d66',  // WCAG AA: 4.8:1 contrast ratio
-      accent: '#66e6ff',     // WCAG AA: 5.1:1 contrast ratio
-      background: '#0a0e1a',
-      text: '#ffffff'
+      primary: '#0ff',       // Pure cyan - matches actual theme
+      secondary: '#1a1a1a',  // Dark gray hover state
+      accent: '#0ff',        // Same as primary for consistency
+      background: '#0a0a0a', // Matches actual theme background
+      text: '#0ff'          // Cyan text color
     },
     popularity: 'Most Popular'
   },
@@ -353,16 +359,11 @@ watch(() => props.isVisible, (isVisible) => {
 
 /* Theme Modal */
 .theme-modal {
-  background: #1a1a1a;
   border-radius: 16px;
-  box-shadow: 
-    0 25px 50px rgba(0, 0, 0, 0.5),
-    0 0 0 1px rgba(255, 255, 255, 0.1);
   max-width: 95vw;
   max-height: 95vh;
   width: 800px;
   overflow: hidden;
-  border: 2px solid rgba(255, 255, 255, 0.1);
   transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
@@ -467,7 +468,6 @@ watch(() => props.isVisible, (isVisible) => {
   border: 2px solid rgba(255, 255, 255, 0.08);
   border-radius: 12px;
   cursor: pointer;
-  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   overflow: hidden;
   backdrop-filter: blur(10px);
   height: 72px;
@@ -490,10 +490,7 @@ watch(() => props.isVisible, (isVisible) => {
     0 8px 16px rgba(0, 0, 0, 0.3);
 }
 
-.theme-row.focused {
-  outline: 2px solid #007acc;
-  outline-offset: 2px;
-}
+ 
 
 /* Theme Gradient Background */
 .theme-gradient-bg {
@@ -715,8 +712,6 @@ watch(() => props.isVisible, (isVisible) => {
   left: -2px;
   right: -2px;
   bottom: -2px;
-  border: 2px solid #007acc;
-  border-radius: 14px;
   pointer-events: none;
   animation: focusRing 0.2s ease-out;
 }
@@ -798,10 +793,7 @@ watch(() => props.isVisible, (isVisible) => {
 }
 
 @media (prefers-color-scheme: light) {
-  .theme-modal {
-    background: #ffffff;
-    border-color: rgba(0, 0, 0, 0.1);
-  }
+ 
   
   .modal-title {
     color: #000000;

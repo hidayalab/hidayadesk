@@ -560,3 +560,27 @@
   color: #333 !important;
   border-bottom: 1px dotted #d4b8b8 !important;
 }
+
+/* Theme Selector Modal Styling */
+.Square .theme-modal {
+  background: linear-gradient(135deg, #1e293b 0%, #334155 50%, #1e293b 100%);
+  border-color: rgba(0, 119, 182, 0.3);
+  box-shadow: 
+    0 25px 50px rgba(0, 119, 182, 0.1),
+    0 0 0 1px rgba(0, 119, 182, 0.2);
+}
+
+.Square .theme-modal .modal-header {
+  background: linear-gradient(135deg, rgba(0, 119, 182, 0.05), rgba(0, 119, 182, 0.02));
+  border-bottom-color: rgba(0, 119, 182, 0.2);
+}
+
+.Square .theme-modal .modal-title {
+  color: #90E0EF;
+}
+
+.Square .theme-modal .btn-primary {
+  background: #0077B6;
+  border-color: #0077B6;
+  box-shadow: 0 3px 8px rgba(0, 119, 182, 0.3);
+}

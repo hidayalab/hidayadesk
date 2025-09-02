@@ -295,3 +295,27 @@
   border-color: rgba(255, 100, 71, 0.4);
   background: rgba(255, 100, 71, 0.15);
 }
+
+/* Theme Selector Modal Styling */
+.Fire .theme-modal {
+  background: linear-gradient(135deg, #1a0b08 0%, #2d1612 50%, #1a0b08 100%);
+  border-color: rgba(255, 100, 71, 0.3);
+  box-shadow: 
+    0 25px 50px rgba(255, 100, 71, 0.1),
+    0 0 0 1px rgba(255, 100, 71, 0.2);
+}
+
+.Fire .theme-modal .modal-header {
+  background: linear-gradient(135deg, rgba(255, 100, 71, 0.05), rgba(255, 100, 71, 0.02));
+  border-bottom-color: rgba(255, 100, 71, 0.2);
+}
+
+.Fire .theme-modal .modal-title {
+  color: #ff6b35;
+}
+
+.Fire .theme-modal .btn-primary {
+  background: #ff6b35;
+  border-color: #ff6b35;
+  box-shadow: 0 3px 8px rgba(255, 107, 53, 0.3);
+}
