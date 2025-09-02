@@ -18,7 +18,7 @@
   box-shadow: 0 0 5px #0f0;
 }
 
-.Glow .item-link:hover {
+.Glow .add-item-button:hover {
   background-color: #1a1a1a;
   box-shadow: 0 0 15px #0f0, inset 0 0 3px #0f0;
   border-color: #0f0;
@@ -80,7 +80,7 @@
 }
 
 
-.Glow .add-item-button .item-link {
+.Glow .add-item-button {
   border: 1px dashed #0f0;
   box-shadow: 0 0 8px #0f0, inset 0 0 4px #0f0;
 }

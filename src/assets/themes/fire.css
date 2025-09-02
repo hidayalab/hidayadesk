@@ -17,7 +17,7 @@
   box-shadow: 0 0 5px rgba(255, 99, 71, 0.5), inset 0 0 2px rgba(255, 140, 0, 0.3);
 }
 
-.Fire .item-link:hover {
+.Fire .add-item-button:hover {
   background-color: rgba(255, 69, 0, 0.25);
   box-shadow: 0 0 15px rgba(255, 99, 71, 0.9), inset 0 0 3px rgba(255, 140, 0, 0.7);
   border-color: #ff6347;
@@ -88,7 +88,7 @@
 }
 
 
-.Fire .add-item-button .item-link {
+.Fire .add-item-button {
   border: 1px solid #ff6347;
   box-shadow: 0 0 8px #ff6347, inset 0 0 4px #ff6347;
 }

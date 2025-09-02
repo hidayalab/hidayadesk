@@ -17,7 +17,7 @@
   box-shadow: 0 0 5px #0ff;
 }
 
-.CyberGlow .item-link:hover {
+.CyberGlow .add-item-button:hover {
   background-color: #1a1a1a;
   box-shadow: 0 0 15px #0ff, inset 0 0 3px #0ff;
   border-color: #0ff;

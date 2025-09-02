@@ -29,7 +29,7 @@
   transition: all 0.2s ease;
 }
 
-.Square .item-link:hover {
+.Square .add-item-button:hover {
   background-color: rgba(255, 186, 8, 0.1);
   border-color: #FFBA08;
   color: #F0F9FF;
@@ -42,18 +42,10 @@
   transition: color 0.2s ease;
 }
 
-.Square .item-link:hover .icon {
-  color: #FFBA08;
-}
-
 .Square .item-title {
   color: #F0F9FF;
   font-weight: 600;
   transition: color 0.2s ease;
-}
-
-.Square .item-link:hover .item-title {
-  color: #F0F9FF;
 }
 
 .Square .title,
@@ -356,32 +348,32 @@
 }
 
 /* Add Item Buttons */
-.Square .add-item-button .item-link {
+.Square .add-item-button {
   border: 2px dashed #FFBA08;
   background-color: rgba(255, 255, 255, 0.03);
   border-radius: 0;
 }
 
-.Square .add-item-button .item-link:hover {
+.Square .add-item-button:hover {
   border-color: #90E0EF;
   background-color: rgba(255, 255, 255, 0.1);
   color: #90E0EF;
 }
 
-.Square .add-item-button .item-link .icon {
+.Square .add-item-button .icon {
   color: #FFBA08;
 }
 
-.Square .add-item-button .item-link:hover .icon {
+.Square .add-item-button:hover .icon {
   color: #90E0EF;
 }
 
-.Square .add-item-button .item-link .item-title {
+.Square .add-item-button .item-title {
   color: #FFBA08;
   font-weight: 600;
 }
 
-.Square .add-item-button .item-link:hover .item-title {
+.Square .add-item-button:hover .item-title {
   color: #90E0EF;
 }
 

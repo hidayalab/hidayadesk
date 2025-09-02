@@ -231,11 +231,6 @@ const enhancedThemes = ref([
   }
 ])
 
-// Computed properties
-const currentTheme = computed(() => 
-  enhancedThemes.value.find(theme => theme.id === selectedTheme.value)
-)
-
 // Methods
 const selectTheme = (themeId) => {
   selectedTheme.value = themeId
