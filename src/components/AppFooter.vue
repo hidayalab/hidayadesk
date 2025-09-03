@@ -23,10 +23,10 @@ export default {
   width: 100%;
   text-align: center;
   padding: 1rem 0;
-  font-size: 0.95rem;
-  color: #e0e0e0;
-  background-color: #1a1a1a;
-  border-top: 1px solid #2c3e50;
+  font-size: 0.9rem;
+  color: #888;
+  background-color: #1a1a1a; /* Match a dark theme */
+  border-top: 1px solid #333;
   z-index: 1000;
 }
 
