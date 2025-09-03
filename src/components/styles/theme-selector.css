@@ -7,20 +7,7 @@
   position: relative;
 }
 
-/* Modal Overlay */
-.modal-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.75);
-  backdrop-filter: blur(8px);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 9999;
-}
+/* Theme selector uses unified modal overlay from main.css */
 
 /* Vue Transition Classes */
 .modal-enter-active {
@@ -51,17 +38,7 @@
   backdrop-filter: blur(0px);
 }
 
-/* Theme Modal */
-.theme-modal {
-  border-radius: 16px;
-  max-width: 95vw;
-  max-height: 95vh;
-  width: 800px;
-  overflow: hidden;
-  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-  background: var(--color-background-modal);
-  border: 2px solid var(--color-border-secondary);
-}
+/* Theme modal base styles moved to unified modal system in main.css */
 
 /* Theme Modal Transitions */
 .modal-enter-from .theme-modal {
@@ -84,71 +61,7 @@
   opacity: 0;
 }
 
-/* Modal Header */
-.modal-header {
-  padding: 20px 28px 16px;
-  border-bottom: 1px solid var(--color-border-primary);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background: var(--color-background-secondary);
-}
-
-.modal-title {
-  font-size: 20px;
-  font-weight: 600;
-  color: var(--color-text-primary) !important;
-  margin: 0;
-  letter-spacing: -0.3px;
-}
-
-.modal-close-btn {
-  background: var(--color-button-background);
-  border: 1px solid var(--color-border-primary);
-  border-radius: 8px;
-  width: 36px;
-  height: 36px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--color-text-primary);
-  cursor: pointer;
-  transition: all 0.2s ease;
-  font-size: 14px;
-}
-
-.modal-close-btn:hover {
-  background: var(--color-button-hover);
-  border-color: var(--color-border-hover);
-  transform: scale(1.05);
-}
-
-.modal-close-btn:focus {
-  outline: 2px solid var(--color-accent);
-  outline-offset: 2px;
-}
-
-/* Modal Body */
-.modal-body {
-  padding: 24px;
-  max-height: 70vh;
-  overflow-y: auto;
-  scrollbar-width: thin;
-  scrollbar-color: rgba(255, 255, 255, 0.3) transparent;
-}
-
-.modal-body::-webkit-scrollbar {
-  width: 6px;
-}
-
-.modal-body::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-.modal-body::-webkit-scrollbar-thumb {
-  background: var(--color-border-primary);
-  border-radius: 3px;
-}
+/* Modal header and body styles moved to unified modal system in main.css */
 
 /* Compact Themes List */
 .themes-list {
@@ -342,61 +255,7 @@
   }
 }
 
-/* Modal Footer */
-.modal-footer {
-  padding: 16px 24px 20px;
-  display: flex;
-  gap: 10px;
-  justify-content: flex-end;
-  border-top: 1px solid var(--color-border-primary);
-  background: var(--color-background-secondary);
-}
-
-/* Buttons */
-.btn {
-  padding: 10px 20px;
-  border-radius: 6px;
-  font-size: 13px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  border: 1px solid;
-  min-width: 80px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.btn-secondary {
-  background: var(--color-button-background);
-  border-color: var(--color-border-primary);
-  color: var(--color-text-primary);
-}
-
-.btn-secondary:hover {
-  background: var(--color-button-hover);
-  border-color: var(--color-border-hover);
-  transform: translateY(-1px);
-}
-
-.btn-primary {
-  background: var(--color-accent);
-  border-color: var(--color-accent);
-  color: var(--color-text-on-accent);
-  box-shadow: var(--color-shadow);
-}
-
-.btn-primary:hover {
-  background: var(--color-accent-hover);
-  border-color: var(--color-accent-hover);
-  transform: translateY(-1px);
-  box-shadow: var(--color-shadow-hover);
-}
-
-.btn:focus {
-  outline: 2px solid var(--color-accent);
-  outline-offset: 2px;
-}
+/* Modal footer and button styles moved to unified modal system in main.css */
 
 /* Responsive Adjustments */
 @media (max-width: 768px) {

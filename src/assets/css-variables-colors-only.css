@@ -195,7 +195,7 @@
   /* Text Colors */
   --color-text-primary: #00ff88;
   --color-text-secondary: #ffffff;
-  --color-text-muted: #004d2a;
+  --color-text-muted: #66ffaa;
   
   /* Interactive Elements */
   --color-button-background: rgba(0, 255, 136, 0.1);
@@ -206,9 +206,9 @@
   --color-button-border-active: rgba(102, 255, 170, 0.6);
   
   /* Borders */
-  --color-border-primary: rgba(0, 255, 136, 0.2);
-  --color-border-secondary: rgba(0, 255, 136, 0.3);
-  --color-border-accent: rgba(102, 255, 170, 0.4);
+  --color-border-primary: #00ff88;
+  --color-border-secondary: rgba(0, 255, 136, 0.4);
+  --color-border-accent: rgba(102, 255, 170, 0.5);
   
   /* Cards */
   --color-card-background: rgba(0, 255, 136, 0.1);
@@ -221,12 +221,12 @@
   --color-background-card-active: rgba(0, 255, 136, 0.08);
   
   /* Text Color Variations */
-  --color-text-tertiary: rgba(0, 255, 136, 0.5);
+  --color-text-tertiary: rgba(0, 255, 136, 0.8);
   --color-text-on-accent: #000000;
   
   /* Hover States */
   --color-button-hover: rgba(0, 255, 136, 0.2);
-  --color-border-hover: rgba(102, 255, 170, 0.4);
+  --color-border-hover: #66ffaa;
   --color-accent-hover: #4dff99;
   
   /* Shadow Effects */
@@ -302,49 +302,49 @@
   --color-background-tertiary: rgba(255, 68, 68, 0.05);
   
   /* Accent Color - Red */
-  --color-accent: #ff4444;
+  --color-accent: #ff6666;
   
   /* Text Colors */
   --color-text-primary: #ffffff;
-  --color-text-secondary: #666666;
-  --color-text-muted: #666666;
+  --color-text-secondary: #cccccc;
+  --color-text-muted: #999999;
   
   /* Interactive Elements */
-  --color-button-background: rgba(255, 68, 68, 0.1);
-  --color-button-background-hover: rgba(255, 68, 68, 0.2);
-  --color-button-background-active: rgba(255, 68, 68, 0.3);
-  --color-button-border: rgba(255, 68, 68, 0.3);
-  --color-button-border-hover: rgba(255, 68, 68, 0.5);
-  --color-button-border-active: rgba(255, 68, 68, 0.7);
+  --color-button-background: rgba(255, 102, 102, 0.15);
+  --color-button-background-hover: rgba(255, 102, 102, 0.25);
+  --color-button-background-active: rgba(255, 102, 102, 0.20);
+  --color-button-border: rgba(255, 102, 102, 0.4);
+  --color-button-border-hover: rgba(255, 102, 102, 0.6);
+  --color-button-border-active: rgba(255, 102, 102, 0.8);
   
   /* Borders */
-  --color-border-primary: rgba(255, 68, 68, 0.3);
-  --color-border-secondary: rgba(102, 102, 102, 0.4);
-  --color-border-accent: rgba(255, 68, 68, 0.5);
+  --color-border-primary: rgba(255, 102, 102, 0.4);
+  --color-border-secondary: rgba(153, 153, 153, 0.5);
+  --color-border-accent: rgba(255, 102, 102, 0.6);
   
   /* Cards */
-  --color-card-background: rgba(255, 68, 68, 0.05);
-  --color-card-border: rgba(255, 68, 68, 0.3);
+  --color-card-background: rgba(255, 102, 102, 0.08);
+  --color-card-border: rgba(255, 102, 102, 0.4);
   
   /* Modal/Theme Selector Specific Colors */
   --color-background-modal: rgba(0, 0, 0, 0.95);
-  --color-background-card: rgba(255, 68, 68, 0.03);
-  --color-background-card-hover: rgba(255, 68, 68, 0.06);
-  --color-background-card-active: rgba(255, 68, 68, 0.08);
+  --color-background-card: rgba(255, 102, 102, 0.05);
+  --color-background-card-hover: rgba(255, 102, 102, 0.10);
+  --color-background-card-active: rgba(255, 102, 102, 0.15);
   
   /* Text Color Variations */
-  --color-text-tertiary: rgba(102, 102, 102, 0.8);
+  --color-text-tertiary: rgba(153, 153, 153, 0.9);
   --color-text-on-accent: #ffffff;
   
   /* Hover States */
-  --color-button-hover: rgba(255, 68, 68, 0.2);
-  --color-border-hover: rgba(255, 68, 68, 0.5);
-  --color-accent-hover: #ff6666;
+  --color-button-hover: rgba(255, 102, 102, 0.25);
+  --color-border-hover: rgba(255, 102, 102, 0.6);
+  --color-accent-hover: #ff8888;
   
   /* Shadow Effects */
   --color-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
   --color-shadow-active: 0 8px 16px rgba(0, 0, 0, 0.6);
-  --color-shadow-hover: 0 4px 12px rgba(255, 68, 68, 0.3);
+  --color-shadow-hover: 0 4px 12px rgba(255, 102, 102, 0.4);
 }
 
 /* ========================================
