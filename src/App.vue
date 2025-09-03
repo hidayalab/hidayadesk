@@ -230,12 +230,7 @@
 
 <script>
 import yaml from 'js-yaml';
-import './assets/themes/cyberglow.css';
-import './assets/themes/fire.css';
-import './assets/themes/glow.css';
-import './assets/themes/monofire.css';
-import './assets/themes/slate.css';
-import './assets/themes/square.css';
+import './assets/css-variables-colors-only.css';
 import Bookmarks from './components/Bookmarks.vue';
 import NoteTakingWidget from './components/NoteTakingWidget.vue';
 import QuranWidget from './components/QuranWidget.vue';
