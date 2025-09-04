@@ -71,9 +71,7 @@
     </header>
     <main id="main-content" class="dashboard-grid" role="main">
       <div class="bookmark-area">
-        <Bookmarks :sections="sections" :search-query="searchQuery" :edit-mode="isEditMode" @add-item="handleAddItem"
-          @add-section="handleAddSection" @update-section="handleUpdateSection" @update-item="handleUpdateItem"
-          @delete-section="handleDeleteSection" @delete-item="handleDeleteItem" />
+        <Bookmarks :initial-sections="sections" :search-query="searchQuery" :edit-mode="isEditMode" />
       </div>
       <!-- Widget Area Component -->
       <widget-area 
@@ -135,7 +133,7 @@ export default {
       visibleWidgets: ['quran', 'notes', 'prayer', 'hadith'], // User can customize this
       pageInfo: {},
       appConfig: {},
-      sections: [],
+      sections: [], // Initial sections loaded from config
       themes: [], // Will be loaded from JSON files
       layouts: [
         { name: 'Single Column', value: 'layout-compact', icon: 'fas fa-list' },
@@ -211,36 +209,6 @@ export default {
     toggleEditMode() {
       this.isEditMode = !this.isEditMode;
     },
-    handleAddItem(payload) {
-      const section = this.sections.find(s => s.name === payload.sectionName);
-      if (section) {
-        section.items.push(payload.item);
-        this.saveSectionsToLocalStorage();
-      }
-    },
-    handleAddSection(sectionName) {
-      this.sections.push({ name: sectionName, items: [] });
-      this.saveSectionsToLocalStorage();
-    },
-    handleUpdateSection(payload) {
-      this.sections[payload.index] = payload.section;
-      this.saveSectionsToLocalStorage();
-    },
-    handleUpdateItem(payload) {
-      this.sections[payload.sectionIndex].items[payload.itemIndex] = payload.item;
-      this.saveSectionsToLocalStorage();
-    },
-    handleDeleteSection(sectionIndex) {
-      this.sections.splice(sectionIndex, 1);
-      this.saveSectionsToLocalStorage();
-    },
-    handleDeleteItem(payload) {
-      this.sections[payload.sectionIndex].items.splice(payload.itemIndex, 1);
-      this.saveSectionsToLocalStorage();
-    },
-    saveSectionsToLocalStorage() {
-      localStorage.setItem('userSections', JSON.stringify(this.sections));
-    },
     async fetchConfig() {
       try {
         const configUrl = import.meta.env.BASE_URL + 'config.yml';
@@ -250,12 +218,8 @@ export default {
         this.pageInfo = config.pageInfo;
         this.appConfig = config.appConfig;
 
-        const savedSections = localStorage.getItem('userSections');
-        if (savedSections) {
-          this.sections = JSON.parse(savedSections);
-        } else {
-          this.sections = config.sections;
-        }
+        // Set initial sections from config (Bookmarks component handles localStorage)
+        this.sections = config.sections;
 
         // Initial theme and layout from config, overridden by localStorage if present
         this.selectedTheme = localStorage.getItem('selectedTheme') || this.appConfig.theme || 'CyberGlow';
