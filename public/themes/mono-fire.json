@@ -1,0 +1,9 @@
+{
+  "id": "MonoFire",
+  "name": "MonoFire",
+  "displayName": "Mono Fire",
+  "description": "Classic black and white",
+  "icon": "fas fa-fire-alt",
+  "color": "#fff",
+  "featured": false
+}

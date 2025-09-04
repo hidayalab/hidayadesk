@@ -1,0 +1,9 @@
+{
+  "id": "slate",
+  "name": "Slate",
+  "displayName": "Slate",
+  "description": "Professional gray palette",
+  "icon": "fas fa-square",
+  "color": "#fff",
+  "featured": false
+}

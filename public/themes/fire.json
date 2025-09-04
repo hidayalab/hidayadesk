@@ -1,0 +1,9 @@
+{
+  "id": "Fire",
+  "name": "Fire",
+  "displayName": "Fire",
+  "description": "Warm orange and red tones",
+  "icon": "fas fa-fire",
+  "color": "#ff6347",
+  "featured": true
+}

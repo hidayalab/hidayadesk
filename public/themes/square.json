@@ -1,0 +1,9 @@
+{
+  "id": "Square",
+  "name": "Square",
+  "displayName": "Square",
+  "description": "Clean minimal design",
+  "icon": "fas fa-th-large",
+  "color": "#1a1a1a",
+  "featured": false
+}

@@ -1,0 +1,9 @@
+{
+  "id": "Glow",
+  "name": "Glow",
+  "displayName": "Glow",
+  "description": "Vibrant green illumination", 
+  "icon": "fas fa-lightbulb",
+  "color": "#0f0",
+  "featured": true
+}

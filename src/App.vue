@@ -238,6 +238,7 @@ import PrayerTimeWidget from './components/PrayerTimeWidget.vue';
 import HadithWidget from './components/HadithWidget.vue';
 import AppFooter from './components/AppFooter.vue';
 import ThemeSelector from './components/ThemeSelector.vue';
+import themeService from './services/themeService.js';
 import './components/styles/notetakingwidget.css';
 import './components/styles/quranwidget.css';
 import './components/styles/hadithwidget.css';
@@ -264,14 +265,7 @@ export default {
       pageInfo: {},
       appConfig: {},
       sections: [],
-      themes: [
-        { name: 'Glow', value: 'Glow', icon: 'fas fa-lightbulb', color: '#0f0' },
-        { name: 'CyberGlow', value: 'CyberGlow', icon: 'fas fa-eye', color: '#0ff' },
-        { name: 'Fire', value: 'Fire', icon: 'fas fa-fire', color: '#ff6347' },
-        { name: 'Slate', value: 'slate', icon: 'fas fa-square', color: '#fff' },
-        { name: 'MonoFire', value: 'MonoFire', icon: 'fas fa-fire-alt', color: '#fff' },
-        { name: 'Square', value: 'Square', icon: 'fas fa-th-large', color: '#1a1a1a' },
-      ],
+      themes: [], // Will be loaded from JSON files
       layouts: [
         { name: 'Single Column', value: 'layout-compact', icon: 'fas fa-list' },
         { name: 'Two Column', value: 'layout-two-column', icon: 'fas fa-columns' },
@@ -294,7 +288,7 @@ export default {
   computed: {
     currentThemeName() {
       const theme = this.themes.find(t => t.value === this.selectedTheme);
-      return theme ? theme.name : '';
+      return theme ? theme.name : this.selectedTheme || 'Loading...';
     },
     currentThemeIcon() {
       const theme = this.themes.find(t => t.value === this.selectedTheme);
@@ -333,6 +327,7 @@ export default {
   },
   mounted() {
     this.fetchConfig();
+    this.loadThemes();
     // Add click outside listener to close dropdowns
     document.addEventListener('click', this.handleClickOutside);
   },
@@ -508,6 +503,26 @@ export default {
         'hadith': 'Islamic traditions and sayings'
       };
       return descriptions[widgetId] || '';
+    },
+
+    async loadThemes() {
+      try {
+        console.log('Starting to load themes...');
+        const loadedThemes = await themeService.loadThemes();
+        console.log('Raw loaded themes:', loadedThemes);
+        this.themes = themeService.convertToAppFormat(loadedThemes);
+        console.log('Converted themes for App.vue:', this.themes);
+        console.log('Current selected theme:', this.selectedTheme);
+        
+        // Force reactivity update
+        this.$forceUpdate();
+      } catch (error) {
+        console.error('Failed to load themes:', error);
+        // Use fallback themes from service
+        const fallbackThemes = themeService.getFallbackThemes();
+        this.themes = themeService.convertToAppFormat(fallbackThemes);
+        console.log('Using fallback themes:', this.themes);
+      }
     }
   },
 };

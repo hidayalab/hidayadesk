@@ -1,0 +1,9 @@
+{
+  "id": "CyberGlow",
+  "name": "CyberGlow", 
+  "displayName": "Cyber Glow",
+  "description": "Futuristic cyan glow effects",
+  "icon": "fas fa-eye",
+  "color": "#0ff",
+  "featured": true
+}
