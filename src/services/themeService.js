@@ -145,6 +145,66 @@ class ThemeService {
   }
 
   /**
+   * Apply theme CSS variables to the document root
+   * @param {string} themeId - Theme ID to apply
+   * @returns {boolean} True if theme was applied successfully
+   */
+  applyTheme(themeId) {
+    const theme = this.getTheme(themeId)
+    if (!theme || !theme.variables) {
+      console.warn(`Theme ${themeId} not found or has no variables`)
+      return false
+    }
+
+    const root = document.documentElement
+    
+    // Apply all CSS variables from the theme to the root element
+    Object.entries(theme.variables).forEach(([property, value]) => {
+      root.style.setProperty(property, value)
+    })
+    
+    console.log(`Applied theme: ${theme.displayName || theme.name}`)
+    return true
+  }
+
+  /**
+   * Remove theme CSS variables and restore defaults
+   * @param {string} themeId - Theme ID to remove (optional, removes all theme variables if not specified)
+   */
+  removeTheme(themeId = null) {
+    const root = document.documentElement
+    
+    if (themeId) {
+      const theme = this.getTheme(themeId)
+      if (theme && theme.variables) {
+        // Remove specific theme variables
+        Object.keys(theme.variables).forEach(property => {
+          root.style.removeProperty(property)
+        })
+      }
+    } else {
+      // Remove all theme variables from all themes
+      this.getAllThemes().forEach(theme => {
+        if (theme.variables) {
+          Object.keys(theme.variables).forEach(property => {
+            root.style.removeProperty(property)
+          })
+        }
+      })
+    }
+  }
+
+  /**
+   * Get all CSS variables for a theme
+   * @param {string} themeId - Theme ID
+   * @returns {Object|null} Object containing CSS variables or null if theme not found
+   */
+  getThemeVariables(themeId) {
+    const theme = this.getTheme(themeId)
+    return theme?.variables || null
+  }
+
+  /**
    * Convert theme data to the format expected by App.vue
    * @param {Array} themes - Array of theme objects from JSON
    * @returns {Array} Array of themes in App.vue format

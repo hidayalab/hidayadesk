@@ -3,7 +3,7 @@
     <p>
       Made with <span class="heart">❤️</span> by
       <a href="https://www.hidayalab.org/" target="_blank" class="badge">
-        <img src="/public/footer_logo.png" alt="logo" />
+        <img src="/footer_logo.png" alt="logo" />
         HidayaLab
       </a>
     </p>

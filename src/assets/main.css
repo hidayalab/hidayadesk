@@ -1,10 +1,3 @@
-/* Import individual theme files */
-@import url('./themes/CyberGlow.css');
-@import url('./themes/Fire.css');
-@import url('./themes/Glow.css');
-@import url('./themes/Slate.css');
-@import url('./themes/MonoFire.css');
-@import url('./themes/Square.css');
 
 /* ========================================
    HidayaDesk CSS Design Pattern - Colors Only
@@ -166,7 +159,6 @@ html {
 }
 
 #app {
-  padding: 1rem;
   padding-top: 100px;
   min-height: 100vh;
   box-sizing: border-box;

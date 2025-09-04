@@ -217,16 +217,10 @@
         </div>
       </div>
     </div>
+    <app-footer />
 
   </div>
-  <app-footer />
 </template>
-
-<style scoped>
-#app {
-  padding-bottom: 60px; /* Height of the footer */
-}
-</style>
 
 <script>
 import yaml from 'js-yaml';
@@ -309,6 +303,8 @@ export default {
   watch: {
     selectedTheme(newTheme) {
       localStorage.setItem('selectedTheme', newTheme);
+      // Apply theme CSS variables from JSON
+      themeService.applyTheme(newTheme);
     },
     selectedLayout(newLayout) {
       localStorage.setItem('selectedLayout', newLayout);
@@ -512,6 +508,11 @@ export default {
         this.themes = themeService.convertToAppFormat(loadedThemes);
         console.log('Converted themes for App.vue:', this.themes);
         console.log('Current selected theme:', this.selectedTheme);
+        
+        // Apply initial theme CSS variables
+        if (this.selectedTheme) {
+          themeService.applyTheme(this.selectedTheme);
+        }
         
         // Force reactivity update
         this.$forceUpdate();
