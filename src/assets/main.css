@@ -1360,6 +1360,196 @@ a:focus, i:focus {
   outline-offset: 2px;
 }
 
+/* Bookmark Modal Content (unified with existing modal system) */
+.modal-content {
+  background: var(--color-background-modal, rgba(0, 0, 0, 0.98));
+  border: 2px solid var(--color-border-primary, #333);
+  border-radius: 16px;
+  width: 100%;
+  max-width: 600px;
+  min-width: 480px;
+  max-height: 90vh;
+  overflow: hidden;
+  box-shadow: var(--shadow-hover, 0 6px 20px rgba(0, 0, 0, 0.4));
+  opacity: 0;
+  transform: scale(0.9) translateY(-20px);
+  animation: modalAppear 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+@media (max-width: 640px) {
+  .modal-content {
+    min-width: 320px;
+    max-width: 95vw;
+    margin: 1rem;
+  }
+}
+
+.modal-content h3 {
+  background: var(--color-background-secondary, #1a1a1a);
+  color: var(--color-text-primary, #fff) !important;
+  font-size: 20px;
+  font-weight: 600;
+  margin: 0 0 16px 0;
+  padding: 20px 28px 16px;
+  border-bottom: 1px solid var(--color-border-primary, #333);
+  border-radius: 14px 14px 0 0;
+}
+
+.modal-content .form-group {
+  margin-bottom: 20px;
+  padding: 0 24px;
+}
+
+.modal-content .form-group:first-of-type {
+  padding-top: 24px;
+}
+
+.modal-content label {
+  display: block;
+  margin-bottom: 8px;
+  color: var(--color-text-primary, #fff);
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.modal-content input[type="text"] {
+  width: 100%;
+  padding: 12px 16px;
+  background: var(--color-input-background, #333);
+  border: 1px solid var(--color-input-border, #555);
+  border-radius: 8px;
+  color: var(--color-text-primary, #fff);
+  font-size: 14px;
+  transition: all 0.2s ease;
+  box-sizing: border-box;
+}
+
+.modal-content input[type="text"]:focus {
+  background: var(--color-input-background-focus, #444);
+  border-color: var(--color-input-border-focus, var(--color-accent, #00ffff));
+  outline: none;
+  box-shadow: 0 0 0 3px var(--color-accent-glow, rgba(0, 255, 255, 0.2));
+}
+
+.modal-content input[type="text"]:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.modal-content input[type="text"]::placeholder {
+  color: var(--color-input-placeholder, #888);
+}
+
+.modal-content small {
+  display: block;
+  margin-top: 4px;
+  color: var(--color-text-muted, #888);
+  font-size: 12px;
+}
+
+.modal-content .modal-actions {
+  padding: 16px 24px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  border-top: 1px solid var(--color-border-primary, #333);
+  background: var(--color-background-secondary, #1a1a1a);
+  border-radius: 0 0 14px 14px;
+}
+
+.modal-content .modal-actions > div {
+  display: flex;
+  gap: 12px;
+}
+
+.modal-content .save-button,
+.modal-content .cancel-button,
+.modal-content .delete-button {
+  padding: 10px 20px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: 1px solid transparent;
+  min-width: 80px;
+  text-align: center;
+}
+
+.modal-content .save-button {
+  background: var(--color-accent, #00ffff);
+  color: var(--color-button-text, var(--color-text-on-accent, #000));
+  border-color: var(--color-accent, #00ffff);
+}
+
+.modal-content .save-button:hover:not(:disabled) {
+  background: var(--color-accent-hover, #00cccc);
+  border-color: var(--color-accent-hover, #00cccc);
+  color: var(--color-button-text-hover, var(--color-text-on-accent, #000));
+  transform: translateY(-1px);
+}
+
+.modal-content .cancel-button {
+  background: var(--color-button-background, #333);
+  border: 1px solid var(--color-border-primary, #555);
+  color: var(--color-button-text, var(--color-text-primary, #fff));
+}
+
+.modal-content .cancel-button:hover:not(:disabled) {
+  background: var(--color-button-background-hover, #444);
+  border-color: var(--color-border-hover, #666);
+  color: var(--color-button-text-hover, var(--color-text-primary, #fff));
+  transform: translateY(-1px);
+}
+
+.modal-content .delete-button {
+  background: #dc2626;
+  border-color: #dc2626;
+  color: #fff;
+}
+
+.modal-content .delete-button:hover:not(:disabled) {
+  background: #b91c1c;
+  border-color: #b91c1c;
+  transform: translateY(-1px);
+}
+
+.modal-content .save-button:disabled,
+.modal-content .cancel-button:disabled,
+.modal-content .delete-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.modal-content .error-message {
+  background: rgba(220, 38, 38, 0.1);
+  border: 1px solid #dc2626;
+  color: #fca5a5;
+  padding: 12px 16px;
+  border-radius: 8px;
+  margin: 0 24px 20px 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 14px;
+}
+
+.modal-content .error-close {
+  background: none;
+  border: none;
+  color: #fca5a5;
+  cursor: pointer;
+  font-size: 18px;
+  padding: 0;
+  margin-left: 12px;
+}
+
+.modal-content .error-close:hover {
+  color: #fff;
+}
+
 /* Widget Selection Specific Styles */
 .selection-list {
   display: flex;
