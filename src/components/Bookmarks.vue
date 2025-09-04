@@ -28,19 +28,15 @@
           <i class="fas fa-edit" aria-hidden="true"></i>
         </button>
       </li>
-      <li v-if="editMode" class="list-item add-item-button" role="listitem">
-        <button class="item-link add-button" @click="showAddItemModal(section)" :aria-label="`Add item to ${section.name}`">
-          <i class="icon fa fa-plus" aria-hidden="true"></i>
-          <p class="item-title">Add</p>
-        </button>
+      <li v-if="editMode" class="list-item add-item-button" role="listitem" @click="showAddItemModal(section)" :aria-label="`Add item to ${section.name}`" tabindex="0" @keydown.enter="showAddItemModal(section)" @keydown.space="showAddItemModal(section)">
+        <i class="icon fa fa-plus" aria-hidden="true"></i>
+        <p class="item-title">Add</p>
       </li>
     </ul>
   </div>
-  <div v-if="editMode" class="add-section-button">
-    <button class="item-link add-button" @click="showAddSectionModal = true" aria-label="Add new section">
-      <i class="icon fa fa-plus" aria-hidden="true"></i>
-      <p class="item-title">Add New Section</p>
-    </button>
+  <div v-if="editMode" class="add-section-button" @click="showAddSectionModal = true" aria-label="Add new section" tabindex="0" @keydown.enter="showAddSectionModal = true" @keydown.space="showAddSectionModal = true">
+    <i class="icon fa fa-plus" aria-hidden="true"></i>
+    <p class="item-title">Add New Section</p>
   </div>
   <!-- Add Item Modal -->
   <div v-if="showModal" class="modal-overlay" @click.self="closeModal">

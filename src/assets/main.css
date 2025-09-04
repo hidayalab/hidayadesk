@@ -1892,6 +1892,13 @@ html {
   margin-right: 0;
 }
 
+button:focus, div:focus,
+ul:focus, li:focus,
+a:focus, i:focus {
+  outline: none;
+  outline-offset: 0;
+}
+
 .item-title {
   font-size: 0.8rem;
   font-weight: 600;
@@ -1997,6 +2004,18 @@ html {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+/* Ensure add button has same height as other items in list view */
+.card-size-list .add-item-button {
+  flex: 1 1 calc(50% - 1rem);
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 0.75rem 1rem;
+  margin-bottom: 0.5rem;
+  aspect-ratio: unset !important;
+  min-height: 48px;
 }
 
 .layout-selector {
@@ -2177,29 +2196,38 @@ html {
   background-color: #c82333;
 }
 
-.add-item-button .item-link {
+.add-item-button {
   border-style: dashed;
+  background: none !important;
+  border: 1px solid rgba(255, 255, 255, 0.3) !important;
+  border-style: dashed !important;
+  transition: all 0.2s ease;
+  /* Ensure consistent height with other list items */
+  aspect-ratio: 1 / 1 !important;
+  /* Center the icon and title */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
 }
 
-.list-item.add-item-button > .item-link, .add-item-button .item-link:hover {
+.add-item-button .icon {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+.list-item.add-item-button {
   background-color: black;
 }
 
-
-.Card .add-item-button .item-link {
-  border: 1px solid #0ff;
-  box-shadow: 0 0 8px #0ff, inset 0 0 4px #0ff;
-}
-
-
-
-.add-item-button {
-  color: #fff;
-}
-
 .add-item-button:hover {
-  color: #000;
+  border-color: rgba(255, 255, 255, 0.6) !important;
+  background: rgba(255, 255, 255, 0.1) !important;
+  transform: translateY(-1px);
 }
+
+
 
 /* Edit buttons */
 .edit-icon-button {
@@ -2247,18 +2275,6 @@ html {
   opacity: 1;
 }
 
-.add-button {
-  background: none !important;
-  border: 1px solid rgba(255, 255, 255, 0.3) !important;
-  border-style: dashed !important;
-  transition: all 0.2s ease;
-}
-
-.add-button:hover {
-  border-color: rgba(255, 255, 255, 0.6) !important;
-  background: rgba(255, 255, 255, 0.1) !important;
-  transform: translateY(-1px);
-}
 
 /* Responsive Design */
 @media (max-width: 1200px) {
