@@ -54,97 +54,19 @@
           </button>
         </div>
 
-        <!-- Settings Menu Button -->
-        <div class="settings-menu">
-          <button 
-            @click="showSettingsMenu = !showSettingsMenu"
-            class="settings-btn"
-            :class="{ 'active': showSettingsMenu }"
-            aria-label="Settings menu"
-            title="Settings menu"
-          >
-            ⚙️
-          </button>
-
-          <!-- Expandable Settings Panel -->
-          <div class="settings-panel" v-show="showSettingsMenu">
-            <div class="settings-section">
-              <label>Theme</label>
-              <button 
-                class="settings-option-button" 
-                @click="openThemeModal"
-                aria-label="Select theme"
-                title="Select theme"
-              >
-                <div class="option-info">
-                  <span class="option-title">{{ currentThemeName }}</span>
-                  <span class="option-description">Change app appearance</span>
-                </div>
-                <i class="fas fa-chevron-right option-arrow" aria-hidden="true"></i>
-              </button>
-            </div>
-
-            <div class="settings-section">
-              <label>Visible Widgets</label>
-              <button 
-                class="settings-option-button" 
-                @click="openWidgetModal"
-                aria-label="Select visible widgets"
-                title="Select visible widgets"
-              >
-                <div class="option-info">
-                  <span class="option-title">{{ visibleWidgets.length }} {{ visibleWidgets.length === 1 ? 'Widget' : 'Widgets' }} Selected</span>
-                  <span class="option-description">Choose which widgets to display</span>
-                </div>
-                <i class="fas fa-chevron-right option-arrow" aria-hidden="true"></i>
-              </button>
-            </div>
-
-            <div class="settings-section">
-              <label>Layout</label>
-              <div class="layout-controls">
-                <div class="layout-icons" role="radiogroup" aria-label="Layout options">
-                  <div 
-                    v-for="layout in layouts" 
-                    :key="layout.name" 
-                    class="layout-icon"
-                    :class="{ 'selected': selectedLayout === layout.value }" 
-                    @click="selectOption('layout', layout.value)"
-                    tabindex="0"
-                    role="radio"
-                    :aria-checked="selectedLayout === layout.value"
-                    :aria-label="layout.name"
-                    :title="layout.name"
-                  >
-                    <i :class="['icon', layout.icon]" aria-hidden="true"></i>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="settings-section">
-              <label>Card Size</label>
-              <div class="card-size-controls">
-                <div class="layout-icons" role="radiogroup" aria-label="Card size options">
-                  <div 
-                    v-for="size in cardSizes" 
-                    :key="size.name" 
-                    class="layout-icon"
-                    :class="{ 'selected': selectedCardSize === size.value }" 
-                    @click="selectOption('cardSize', size.value)"
-                    tabindex="0"
-                    role="radio"
-                    :aria-checked="selectedCardSize === size.value"
-                    :aria-label="size.name"
-                    :title="size.name"
-                  >
-                    <i :class="['icon', size.icon]" aria-hidden="true"></i>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+        <!-- Settings Menu Component -->
+        <settings-menu 
+          :current-theme-name="currentThemeName"
+          :visible-widgets="visibleWidgets"
+          :selected-layout="selectedLayout"
+          :selected-card-size="selectedCardSize"
+          :layouts="layouts"
+          :card-sizes="cardSizes"
+          @open-theme-modal="openThemeModal"
+          @open-widget-modal="openWidgetModal"
+          @select-layout="value => selectOption('layout', value)"
+          @select-card-size="value => selectOption('cardSize', value)"
+        />
       </div>
     </header>
     <main id="main-content" class="dashboard-grid" role="main">
@@ -153,14 +75,11 @@
           @add-section="handleAddSection" @update-section="handleUpdateSection" @update-item="handleUpdateItem"
           @delete-section="handleDeleteSection" @delete-item="handleDeleteItem" />
       </div>
-      <div class="widget-area" role="region" :aria-label="`${activeWidget} widget`">
-        <keep-alive>
-          <quran-widget v-if="activeWidget === 'quran'"></quran-widget>
-          <note-taking-widget v-else-if="activeWidget === 'notes'" :theme="selectedTheme"></note-taking-widget>
-          <prayer-time-widget v-else-if="activeWidget === 'prayer'"></prayer-time-widget>
-          <hadith-widget v-else-if="activeWidget === 'hadith'" :theme="selectedTheme"></hadith-widget>
-        </keep-alive>
-      </div>
+      <!-- Widget Area Component -->
+      <widget-area 
+        :active-widget="activeWidget"
+        :theme="selectedTheme"
+      />
     </main>
 
     <!-- Enhanced Theme Selection Modal -->
@@ -171,52 +90,14 @@
       @apply="handleThemeApply"
     />
 
-    <!-- Widget Selection Modal -->
-    <div class="modal-overlay" v-show="showWidgetModal" @click="closeWidgetModal">
-      <div class="selection-modal widget-modal" @click.stop>
-        <div class="modal-header">
-          <h3>Select Widgets</h3>
-          <button class="modal-close" @click="closeWidgetModal" aria-label="Close modal" title="Close modal">
-            <i class="fas fa-times"></i>
-          </button>
-        </div>
-        <div class="modal-body">
-          <div class="selection-list">
-            <div 
-              v-for="widget in availableWidgets" 
-              :key="widget.id"
-              class="selection-item"
-              :class="{ 
-                'selected': visibleWidgets.includes(widget.id),
-                'permanent': widget.id === 'quran'
-              }"
-              @click="widget.id !== 'quran' ? toggleWidgetSelection(widget.id) : null"
-            >
-              <div class="item-content">
-                <div class="item-info">
-                  <span class="item-title">{{ widget.name }}</span>
-                  <span class="item-description">{{ getWidgetDescription(widget.id) }}</span>
-                </div>
-                <span v-if="widget.id === 'quran'" class="permanent-badge">Always Visible</span>
-              </div>
-              <div class="selection-checkbox">
-                <input 
-                  type="checkbox" 
-                  :checked="visibleWidgets.includes(widget.id)"
-                  :disabled="widget.id === 'quran'"
-                  readonly
-                >
-                <span class="checkmark"></span>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="modal-footer">
-          <button class="modal-button secondary" @click="closeWidgetModal">Cancel</button>
-          <button class="modal-button primary" @click="closeWidgetModal">Apply</button>
-        </div>
-      </div>
-    </div>
+    <!-- Widget Selection Modal Component -->
+    <widget-selection-modal 
+      :is-visible="showWidgetModal"
+      :available-widgets="availableWidgets"
+      :visible-widgets="visibleWidgets"
+      @close="closeWidgetModal"
+      @toggle-widget="toggleWidgetSelection"
+    />
     <app-footer />
 
   </div>
@@ -225,12 +106,11 @@
 <script>
 import yaml from 'js-yaml';
 import Bookmarks from './components/Bookmarks.vue';
-import NoteTakingWidget from './components/NoteTakingWidget.vue';
-import QuranWidget from './components/QuranWidget.vue';
-import PrayerTimeWidget from './components/PrayerTimeWidget.vue';
-import HadithWidget from './components/HadithWidget.vue';
 import AppFooter from './components/AppFooter.vue';
 import ThemeSelector from './components/ThemeSelector.vue';
+import WidgetSelectionModal from './components/WidgetSelectionModal.vue';
+import WidgetArea from './components/WidgetArea.vue';
+import SettingsMenu from './components/SettingsMenu.vue';
 import themeService from './services/themeService.js';
 import './components/styles/notetakingwidget.css';
 import './components/styles/quranwidget.css';
@@ -238,13 +118,12 @@ import './components/styles/hadithwidget.css';
 
 export default {
   components: {
-    NoteTakingWidget,
-    QuranWidget,
     Bookmarks,
-    PrayerTimeWidget,
-    HadithWidget,
     AppFooter,
-    ThemeSelector
+    ThemeSelector,
+    WidgetSelectionModal,
+    WidgetArea,
+    SettingsMenu
   },
 
   data() {
@@ -253,7 +132,6 @@ export default {
       activeWidget: 'quran',
       searchQuery: '',
       showMoreWidgets: false,
-      showSettingsMenu: false,
       visibleWidgets: ['quran', 'notes', 'prayer', 'hadith'], // User can customize this
       pageInfo: {},
       appConfig: {},
@@ -408,9 +286,6 @@ export default {
       if (!event.target.closest('.widget-multiselect')) {
         this.showWidgetDropdown = false;
       }
-      if (!event.target.closest('.settings-menu')) {
-        this.showSettingsMenu = false;
-      }
     },
     selectOption(type, value) {
       if (type === 'theme') {
@@ -452,7 +327,6 @@ export default {
     // Modal methods
     openThemeModal() {
       this.showThemeModal = true;
-      this.showSettingsMenu = false;
     },
     
     closeThemeModal() {
@@ -461,7 +335,6 @@ export default {
     
     openWidgetModal() {
       this.showWidgetModal = true;
-      this.showSettingsMenu = false;
     },
     
     closeWidgetModal() {
@@ -490,15 +363,6 @@ export default {
       return descriptions[themeValue] || '';
     },
     
-    getWidgetDescription(widgetId) {
-      const descriptions = {
-        'quran': 'Display verses from the Holy Quran',
-        'notes': 'Personal notes and thoughts',
-        'prayer': 'Prayer times and reminders',
-        'hadith': 'Islamic traditions and sayings'
-      };
-      return descriptions[widgetId] || '';
-    },
 
     async loadThemes() {
       try {
