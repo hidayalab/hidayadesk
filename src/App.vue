@@ -230,7 +230,6 @@
 
 <script>
 import yaml from 'js-yaml';
-import './assets/css-variables-colors-only.css';
 import Bookmarks from './components/Bookmarks.vue';
 import NoteTakingWidget from './components/NoteTakingWidget.vue';
 import QuranWidget from './components/QuranWidget.vue';

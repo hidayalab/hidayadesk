@@ -1,0 +1,55 @@
+/* ========================================
+   SQUARE THEME
+   ======================================== */
+
+.Square {
+  /* Background Colors */
+  --color-background-primary: #1E293B;
+  --color-background-secondary: rgba(0, 119, 182, 0.1);
+  --color-background-tertiary: rgba(0, 119, 182, 0.05);
+  
+  /* Accent Color - Golden yellow */
+  --color-accent: #FFBA08;
+  
+  /* Text Colors */
+  --color-text-primary: #F0F9FF;
+  --color-text-secondary: #0077B6;
+  --color-text-muted: #90E0EF;
+  
+  /* Interactive Elements */
+  --color-button-background: rgba(0, 119, 182, 0.1);
+  --color-button-background-hover: rgba(0, 119, 182, 0.2);
+  --color-button-background-active: rgba(255, 186, 8, 0.25);
+  --color-button-border: rgba(0, 119, 182, 0.3);
+  --color-button-border-hover: rgba(255, 186, 8, 0.5);
+  --color-button-border-active: rgba(255, 186, 8, 0.6);
+  
+  /* Borders */
+  --color-border-primary: #0077B6;
+  --color-border-secondary: rgba(144, 224, 239, 0.3);
+  --color-border-accent: rgba(255, 186, 8, 0.4);
+  
+  /* Cards */
+  --color-card-background: rgba(0, 119, 182, 0.1);
+  --color-card-border: #0077B6;
+  
+  /* Modal/Theme Selector Specific Colors */
+  --color-background-modal: rgba(30, 41, 59, 0.95);
+  --color-background-card: rgba(0, 119, 182, 0.03);
+  --color-background-card-hover: rgba(0, 119, 182, 0.06);
+  --color-background-card-active: rgba(0, 119, 182, 0.08);
+  
+  /* Text Color Variations */
+  --color-text-tertiary: rgba(144, 224, 239, 0.5);
+  --color-text-on-accent: #1E293B;
+  
+  /* Hover States */
+  --color-button-hover: rgba(0, 119, 182, 0.2);
+  --color-border-hover: rgba(255, 186, 8, 0.4);
+  --color-accent-hover: #E5A800;
+  
+  /* Shadow Effects */
+  --color-shadow: 0 8px 16px rgba(0, 119, 182, 0.2);
+  --color-shadow-active: 0 8px 16px rgba(0, 119, 182, 0.3);
+  --color-shadow-hover: 0 4px 12px rgba(255, 186, 8, 0.4);
+}

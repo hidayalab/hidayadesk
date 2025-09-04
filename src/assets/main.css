@@ -1,5 +1,79 @@
-/* Import the color variables */
-@import url('./css-variables-colors-only.css');
+/* Import individual theme files */
+@import url('./themes/CyberGlow.css');
+@import url('./themes/Fire.css');
+@import url('./themes/Glow.css');
+@import url('./themes/Slate.css');
+@import url('./themes/MonoFire.css');
+@import url('./themes/Square.css');
+
+/* ========================================
+   HidayaDesk CSS Design Pattern - Colors Only
+   Essential Color Variables for Theme Switching
+   ======================================== */
+
+:root {
+  /* ========================================
+     DEFAULT THEME COLORS
+     ======================================== */
+  
+  /* Background Colors */
+  --color-background-primary: #0a0a0a;
+  --color-background-secondary: #1e1e1e;
+  --color-background-tertiary: #2a2a2a;
+  
+  /* Text Colors */
+  --color-text-primary: #ffffff;
+  --color-text-secondary: rgba(255, 255, 255, 0.9);
+  --color-text-muted: rgba(255, 255, 255, 0.7);
+  --color-text-disabled: rgba(255, 255, 255, 0.5);
+  
+  /* Border Colors */
+  --color-border-primary: rgba(255, 255, 255, 0.1);
+  --color-border-secondary: rgba(255, 255, 255, 0.2);
+  --color-border-accent: rgba(255, 255, 255, 0.4);
+  
+  /* Interactive Colors */
+  --color-button-background: rgba(255, 255, 255, 0.05);
+  --color-button-background-hover: rgba(255, 255, 255, 0.15);
+  --color-button-background-active: rgba(255, 255, 255, 0.25);
+  --color-button-border: rgba(255, 255, 255, 0.1);
+  --color-button-border-hover: rgba(255, 255, 255, 0.2);
+  --color-button-border-active: rgba(255, 255, 255, 0.4);
+  
+  /* Input Colors */
+  --color-input-background: rgba(255, 255, 255, 0.05);
+  --color-input-background-focus: rgba(255, 255, 255, 0.1);
+  --color-input-border: rgba(255, 255, 255, 0.1);
+  --color-input-border-focus: rgba(255, 255, 255, 0.4);
+  --color-input-placeholder: rgba(255, 255, 255, 0.5);
+  
+  /* Card Colors */
+  --color-card-background: #1e1e1e;
+  --color-card-border: rgba(255, 255, 255, 0.1);
+  
+  /* Accent Color (Default - will be overridden by themes) */
+  --color-accent: #ffffff;
+  
+  /* Modal/Theme Selector Specific Colors */
+  --color-background-modal: #1a1a1a;
+  --color-background-card: rgba(255, 255, 255, 0.03);
+  --color-background-card-hover: rgba(255, 255, 255, 0.06);
+  --color-background-card-active: rgba(255, 255, 255, 0.08);
+  
+  /* Text Color Variations */
+  --color-text-tertiary: rgba(255, 255, 255, 0.5);
+  --color-text-on-accent: #ffffff;
+  
+  /* Hover States */
+  --color-button-hover: rgba(255, 255, 255, 0.2);
+  --color-border-hover: rgba(255, 255, 255, 0.3);
+  --color-accent-hover: #0066aa;
+  
+  /* Shadow Effects */
+  --color-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  --color-shadow-active: 0 8px 16px rgba(0, 0, 0, 0.3);
+  --color-shadow-hover: 0 4px 12px rgba(0, 122, 204, 0.4);
+}
 
 /* Search bar */
 .search-bar {
