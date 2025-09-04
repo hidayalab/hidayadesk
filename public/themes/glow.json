@@ -6,6 +6,14 @@
   "icon": "fas fa-lightbulb",
   "color": "#0f0",
   "featured": true,
+  "popularity": "Classic",
+  "uiColors": {
+    "primary": "#00ff88",
+    "secondary": "#004d2a",
+    "accent": "#66ffaa",
+    "background": "#0a1a0f",
+    "text": "#ffffff"
+  },
   "variables": {
     "--color-background-primary": "#0a1a0f",
     "--color-background-secondary": "rgba(0, 255, 136, 0.1)",

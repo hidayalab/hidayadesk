@@ -6,6 +6,14 @@
   "icon": "fas fa-square",
   "color": "#fff",
   "featured": false,
+  "popularity": "Professional",
+  "uiColors": {
+    "primary": "#64748b",
+    "secondary": "#334155",
+    "accent": "#94a3b8",
+    "background": "#0f172a",
+    "text": "#f1f5f9"
+  },
   "variables": {
     "--color-background-primary": "#0f172a",
     "--color-background-secondary": "rgba(100, 116, 139, 0.15)",

@@ -6,6 +6,14 @@
   "icon": "fas fa-fire-alt",
   "color": "#fff",
   "featured": false,
+  "popularity": "Minimal",
+  "uiColors": {
+    "primary": "#ffffff",
+    "secondary": "#666666",
+    "accent": "#ff4444",
+    "background": "#000000",
+    "text": "#ffffff"
+  },
   "variables": {
     "--color-background-primary": "#000000",
     "--color-background-secondary": "rgba(255, 68, 68, 0.1)",

@@ -6,6 +6,14 @@
   "icon": "fas fa-fire",
   "color": "#ff6347",
   "featured": true,
+  "popularity": "Trending",
+  "uiColors": {
+    "primary": "#ff6b35",
+    "secondary": "#cc2936",
+    "accent": "#ffab00",
+    "background": "#1a0b08",
+    "text": "#ffffff"
+  },
   "variables": {
     "--color-background-primary": "#1a0b08",
     "--color-background-secondary": "rgba(255, 107, 53, 0.15)",

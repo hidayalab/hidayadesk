@@ -6,6 +6,14 @@
   "icon": "fas fa-eye",
   "color": "#0ff",
   "featured": true,
+  "popularity": "Most Popular",
+  "uiColors": {
+    "primary": "#0ff",
+    "secondary": "#1a1a1a",
+    "accent": "#0ff",
+    "background": "#0a0a0a",
+    "text": "#0ff"
+  },
   "variables": {
     "--color-background-primary": "#0a0a0a",
     "--color-background-secondary": "rgba(0, 255, 255, 0.1)",

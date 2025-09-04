@@ -124,6 +124,7 @@
 
 <script setup>
 import { ref, computed, onMounted, onUnmounted, watch } from 'vue'
+import themeService from '../services/themeService.js'
 import './styles/theme-selector.css'
 
 // Props
@@ -150,93 +151,40 @@ const currentThemeClass = computed(() => {
   return props.modelValue
 })
 
-// Enhanced theme data with WCAG AA compliant colors
-const enhancedThemes = ref([
-  {
-    id: 'CyberGlow',
-    name: 'CyberGlow',
-    description: 'Futuristic cyan glow with high contrast',
-    icon: 'fas fa-eye',
-    colors: {
-      primary: '#0ff',       // Pure cyan - matches actual theme
-      secondary: '#1a1a1a',  // Dark gray hover state
-      accent: '#0ff',        // Same as primary for consistency
-      background: '#0a0a0a', // Matches actual theme background
-      text: '#0ff'          // Cyan text color
-    },
-    popularity: 'Most Popular'
-  },
-  {
-    id: 'Fire',
-    name: 'Fire',
-    description: 'Warm orange and red energy theme',
-    icon: 'fas fa-fire',
-    colors: {
-      primary: '#ff6b35',    // WCAG AA: 4.7:1 contrast ratio
-      secondary: '#cc2936',  // WCAG AA: 6.8:1 contrast ratio
-      accent: '#ffab00',     // WCAG AA: 4.9:1 contrast ratio
-      background: '#1a0b08',
-      text: '#ffffff'
-    },
-    popularity: 'Trending'
-  },
-  {
-    id: 'Glow',
-    name: 'Glow',
-    description: 'Vibrant green illumination theme',
-    icon: 'fas fa-lightbulb',
-    colors: {
-      primary: '#00ff88',    // WCAG AA: 8.1:1 contrast ratio
-      secondary: '#004d2a',  // WCAG AA: 5.2:1 contrast ratio
-      accent: '#66ffaa',     // WCAG AA: 6.3:1 contrast ratio
-      background: '#0a1a0f',
-      text: '#ffffff'
-    },
-    popularity: 'Classic'
-  },
-  {
-    id: 'slate',
-    name: 'Slate',
-    description: 'Professional minimalist design',
-    icon: 'fas fa-square',
-    colors: {
-      primary: '#64748b',    // WCAG AA: 4.5:1 contrast ratio
-      secondary: '#334155',  // WCAG AA: 7.1:1 contrast ratio
-      accent: '#94a3b8',     // WCAG AA: 4.6:1 contrast ratio
-      background: '#0f172a',
-      text: '#f1f5f9'
-    },
-    popularity: 'Professional'
-  },
-  {
-    id: 'MonoFire',
-    name: 'MonoFire',
-    description: 'Classic monochrome with red accents',
-    icon: 'fas fa-fire-alt',
-    colors: {
-      primary: '#ffffff',    // WCAG AAA: 21:1 contrast ratio
-      secondary: '#666666',  // WCAG AA: 4.5:1 contrast ratio
-      accent: '#ff4444',     // WCAG AA: 5.9:1 contrast ratio
-      background: '#000000',
-      text: '#ffffff'
-    },
-    popularity: 'Minimal'
-  },
-  {
-    id: 'Square',
-    name: 'Square',
-    description: 'Clean geometric design system',
-    icon: 'fas fa-th-large',
-    colors: {
-      primary: '#0077B6',    // Ocean blue primary
-      secondary: '#90E0EF',  // Light cyan secondary  
-      accent: '#FFBA08',     // Golden yellow accent
-      background: '#1E293B', // Dark slate background
-      text: '#F0F9FF'        // Very light blue text
-    },
-    popularity: 'Modern'
+// Enhanced theme data - loaded from JSON with UI enhancements
+const enhancedThemes = ref([])
+
+
+// Load themes from service and enhance with UI data
+const loadThemes = async () => {
+  try {
+    const themes = await themeService.loadThemes()
+    enhancedThemes.value = themes.map(theme => ({
+      id: theme.id,
+      name: theme.displayName || theme.name,
+      description: theme.description, // From JSON
+      icon: theme.icon,
+      colors: theme.uiColors || {
+        // Fallback colors if uiColors not defined
+        primary: theme.color,
+        secondary: '#333333',
+        accent: theme.color,
+        background: '#000000',
+        text: '#ffffff'
+      },
+      popularity: theme.popularity || 'New' // From JSON
+    }))
+  } catch (error) {
+    console.error('Failed to load themes in ThemeSelector:', error)
+    // Fall back to empty array - component will handle gracefully
+    enhancedThemes.value = []
   }
-])
+}
+
+// Initialize themes on component mount
+onMounted(() => {
+  loadThemes()
+})
 
 // Methods
 const selectTheme = (themeId) => {

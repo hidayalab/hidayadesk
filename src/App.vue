@@ -315,17 +315,6 @@ export default {
       this.closeThemeModal();
     },
     
-    getThemeDescription(themeValue) {
-      const descriptions = {
-        'CyberGlow': 'Futuristic cyan glow effects',
-        'Fire': 'Warm orange and red tones',
-        'Glow': 'Vibrant green illumination',
-        'slate': 'Professional gray palette',
-        'MonoFire': 'Classic black and white',
-        'Square': 'Clean minimal design'
-      };
-      return descriptions[themeValue] || '';
-    },
     
 
     async loadThemes() {
