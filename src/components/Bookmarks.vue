@@ -34,7 +34,7 @@
       </li>
     </ul>
   </div>
-  <div v-if="editMode" class="add-section-button" @click="showAddSectionModal = true" aria-label="Add new section" tabindex="0" @keydown.enter="showAddSectionModal = true" @keydown.space="showAddSectionModal = true">
+  <div class="add-section-button" @click="showAddSectionModal = true" aria-label="Add new section" tabindex="0" @keydown.enter="showAddSectionModal = true" @keydown.space="showAddSectionModal = true">
     <i class="icon fa fa-plus" aria-hidden="true"></i>
     <p class="item-title">Add New Section</p>
   </div>

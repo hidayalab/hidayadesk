@@ -18,6 +18,7 @@ export default {
 
 <style scoped>
 .app-footer {
+  position: absolute;
   bottom: 0;
   left: 0;
   width: 100%;

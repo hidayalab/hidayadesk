@@ -159,7 +159,9 @@ html {
 }
 
 #app {
+  position: relative;
   padding-top: 100px;
+  padding-bottom: 100px;
   min-height: 100vh;
   box-sizing: border-box;
 }
@@ -1494,7 +1496,7 @@ a:focus, i:focus {
   background: var(--color-input-background-focus, #444);
   border-color: var(--color-input-border-focus, var(--color-accent, #00ffff));
   outline: none;
-  box-shadow: 0 0 0 3px var(--color-accent-glow, rgba(0, 255, 255, 0.2));
+  box-shadow: none;
 }
 
 .modal-content input[type="text"]:disabled {
