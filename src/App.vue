@@ -54,113 +54,30 @@
           </button>
         </div>
 
-        <!-- Settings Menu Button -->
-        <div class="settings-menu">
-          <button 
-            @click="showSettingsMenu = !showSettingsMenu"
-            class="settings-btn"
-            :class="{ 'active': showSettingsMenu }"
-            aria-label="Settings menu"
-            title="Settings menu"
-          >
-            ⚙️
-          </button>
-
-          <!-- Expandable Settings Panel -->
-          <div class="settings-panel" v-show="showSettingsMenu">
-            <div class="settings-section">
-              <label>Theme</label>
-              <button 
-                class="settings-option-button" 
-                @click="openThemeModal"
-                aria-label="Select theme"
-                title="Select theme"
-              >
-                <div class="option-info">
-                  <span class="option-title">{{ currentThemeName }}</span>
-                  <span class="option-description">Change app appearance</span>
-                </div>
-                <i class="fas fa-chevron-right option-arrow" aria-hidden="true"></i>
-              </button>
-            </div>
-
-            <div class="settings-section">
-              <label>Visible Widgets</label>
-              <button 
-                class="settings-option-button" 
-                @click="openWidgetModal"
-                aria-label="Select visible widgets"
-                title="Select visible widgets"
-              >
-                <div class="option-info">
-                  <span class="option-title">{{ visibleWidgets.length }} {{ visibleWidgets.length === 1 ? 'Widget' : 'Widgets' }} Selected</span>
-                  <span class="option-description">Choose which widgets to display</span>
-                </div>
-                <i class="fas fa-chevron-right option-arrow" aria-hidden="true"></i>
-              </button>
-            </div>
-
-            <div class="settings-section">
-              <label>Layout</label>
-              <div class="layout-controls">
-                <div class="layout-icons" role="radiogroup" aria-label="Layout options">
-                  <div 
-                    v-for="layout in layouts" 
-                    :key="layout.name" 
-                    class="layout-icon"
-                    :class="{ 'selected': selectedLayout === layout.value }" 
-                    @click="selectOption('layout', layout.value)"
-                    tabindex="0"
-                    role="radio"
-                    :aria-checked="selectedLayout === layout.value"
-                    :aria-label="layout.name"
-                    :title="layout.name"
-                  >
-                    <i :class="['icon', layout.icon]" aria-hidden="true"></i>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="settings-section">
-              <label>Card Size</label>
-              <div class="card-size-controls">
-                <div class="layout-icons" role="radiogroup" aria-label="Card size options">
-                  <div 
-                    v-for="size in cardSizes" 
-                    :key="size.name" 
-                    class="layout-icon"
-                    :class="{ 'selected': selectedCardSize === size.value }" 
-                    @click="selectOption('cardSize', size.value)"
-                    tabindex="0"
-                    role="radio"
-                    :aria-checked="selectedCardSize === size.value"
-                    :aria-label="size.name"
-                    :title="size.name"
-                  >
-                    <i :class="['icon', size.icon]" aria-hidden="true"></i>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+        <!-- Settings Menu Component -->
+        <settings-menu 
+          :current-theme-name="currentThemeName"
+          :visible-widgets="visibleWidgets"
+          :selected-layout="selectedLayout"
+          :selected-card-size="selectedCardSize"
+          :layouts="layouts"
+          :card-sizes="cardSizes"
+          @open-theme-modal="openThemeModal"
+          @open-widget-modal="openWidgetModal"
+          @select-layout="value => selectOption('layout', value)"
+          @select-card-size="value => selectOption('cardSize', value)"
+        />
       </div>
     </header>
     <main id="main-content" class="dashboard-grid" role="main">
       <div class="bookmark-area">
-        <Bookmarks :sections="sections" :search-query="searchQuery" :edit-mode="isEditMode" @add-item="handleAddItem"
-          @add-section="handleAddSection" @update-section="handleUpdateSection" @update-item="handleUpdateItem"
-          @delete-section="handleDeleteSection" @delete-item="handleDeleteItem" />
+        <Bookmarks :initial-sections="sections" :search-query="searchQuery" :edit-mode="isEditMode" />
       </div>
-      <div class="widget-area" role="region" :aria-label="`${activeWidget} widget`">
-        <keep-alive>
-          <quran-widget v-if="activeWidget === 'quran'"></quran-widget>
-          <note-taking-widget v-else-if="activeWidget === 'notes'" :theme="selectedTheme"></note-taking-widget>
-          <prayer-time-widget v-else-if="activeWidget === 'prayer'"></prayer-time-widget>
-          <hadith-widget v-else-if="activeWidget === 'hadith'" :theme="selectedTheme"></hadith-widget>
-        </keep-alive>
-      </div>
+      <!-- Widget Area Component -->
+      <widget-area 
+        :active-widget="activeWidget"
+        :theme="selectedTheme"
+      />
     </main>
 
     <!-- Enhanced Theme Selection Modal -->
@@ -171,91 +88,40 @@
       @apply="handleThemeApply"
     />
 
-    <!-- Widget Selection Modal -->
-    <div class="modal-overlay" v-show="showWidgetModal" @click="closeWidgetModal">
-      <div class="selection-modal widget-modal" @click.stop>
-        <div class="modal-header">
-          <h3>Select Widgets</h3>
-          <button class="modal-close" @click="closeWidgetModal" aria-label="Close modal" title="Close modal">
-            <i class="fas fa-times"></i>
-          </button>
-        </div>
-        <div class="modal-body">
-          <div class="selection-list">
-            <div 
-              v-for="widget in availableWidgets" 
-              :key="widget.id"
-              class="selection-item"
-              :class="{ 
-                'selected': visibleWidgets.includes(widget.id),
-                'permanent': widget.id === 'quran'
-              }"
-              @click="widget.id !== 'quran' ? toggleWidgetSelection(widget.id) : null"
-            >
-              <div class="item-content">
-                <div class="item-info">
-                  <span class="item-title">{{ widget.name }}</span>
-                  <span class="item-description">{{ getWidgetDescription(widget.id) }}</span>
-                </div>
-                <span v-if="widget.id === 'quran'" class="permanent-badge">Always Visible</span>
-              </div>
-              <div class="selection-checkbox">
-                <input 
-                  type="checkbox" 
-                  :checked="visibleWidgets.includes(widget.id)"
-                  :disabled="widget.id === 'quran'"
-                  readonly
-                >
-                <span class="checkmark"></span>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="modal-footer">
-          <button class="modal-button secondary" @click="closeWidgetModal">Cancel</button>
-          <button class="modal-button primary" @click="closeWidgetModal">Apply</button>
-        </div>
-      </div>
-    </div>
+    <!-- Widget Selection Modal Component -->
+    <widget-selection-modal 
+      :is-visible="showWidgetModal"
+      :available-widgets="availableWidgets"
+      :visible-widgets="visibleWidgets"
+      @close="closeWidgetModal"
+      @toggle-widget="toggleWidgetSelection"
+    />
+    <app-footer />
 
   </div>
-  <app-footer />
 </template>
-
-<style scoped>
-#app {
-  padding-bottom: 60px; /* Height of the footer */
-}
-</style>
 
 <script>
 import yaml from 'js-yaml';
-import './assets/themes/cyberglow.css';
-import './assets/themes/fire.css';
-import './assets/themes/glow.css';
-import './assets/themes/monofire.css';
-import './assets/themes/slate.css';
-import './assets/themes/square.css';
 import Bookmarks from './components/Bookmarks.vue';
-import NoteTakingWidget from './components/NoteTakingWidget.vue';
-import QuranWidget from './components/QuranWidget.vue';
-import PrayerTimeWidget from './components/PrayerTimeWidget.vue';
-import HadithWidget from './components/HadithWidget.vue';
 import AppFooter from './components/AppFooter.vue';
 import ThemeSelector from './components/ThemeSelector.vue';
+import WidgetSelectionModal from './components/WidgetSelectionModal.vue';
+import WidgetArea from './components/WidgetArea.vue';
+import SettingsMenu from './components/SettingsMenu.vue';
+import themeService from './services/themeService.js';
 import './components/styles/notetakingwidget.css';
 import './components/styles/quranwidget.css';
 import './components/styles/hadithwidget.css';
 
 export default {
   components: {
-    NoteTakingWidget,
-    QuranWidget,
     Bookmarks,
-    PrayerTimeWidget,
-    HadithWidget,
     AppFooter,
-    ThemeSelector
+    ThemeSelector,
+    WidgetSelectionModal,
+    WidgetArea,
+    SettingsMenu
   },
 
   data() {
@@ -264,19 +130,11 @@ export default {
       activeWidget: 'quran',
       searchQuery: '',
       showMoreWidgets: false,
-      showSettingsMenu: false,
       visibleWidgets: ['quran', 'notes', 'prayer', 'hadith'], // User can customize this
       pageInfo: {},
       appConfig: {},
-      sections: [],
-      themes: [
-        { name: 'Glow', value: 'Glow', icon: 'fas fa-lightbulb', color: '#0f0' },
-        { name: 'CyberGlow', value: 'CyberGlow', icon: 'fas fa-eye', color: '#0ff' },
-        { name: 'Fire', value: 'Fire', icon: 'fas fa-fire', color: '#ff6347' },
-        { name: 'Slate', value: 'slate', icon: 'fas fa-square', color: '#fff' },
-        { name: 'MonoFire', value: 'MonoFire', icon: 'fas fa-fire-alt', color: '#fff' },
-        { name: 'Square', value: 'Square', icon: 'fas fa-th-large', color: '#1a1a1a' },
-      ],
+      sections: [], // Initial sections loaded from config
+      themes: [], // Will be loaded from JSON files
       layouts: [
         { name: 'Single Column', value: 'layout-compact', icon: 'fas fa-list' },
         { name: 'Two Column', value: 'layout-two-column', icon: 'fas fa-columns' },
@@ -299,7 +157,7 @@ export default {
   computed: {
     currentThemeName() {
       const theme = this.themes.find(t => t.value === this.selectedTheme);
-      return theme ? theme.name : '';
+      return theme ? theme.name : this.selectedTheme || 'Loading...';
     },
     currentThemeIcon() {
       const theme = this.themes.find(t => t.value === this.selectedTheme);
@@ -321,6 +179,8 @@ export default {
   watch: {
     selectedTheme(newTheme) {
       localStorage.setItem('selectedTheme', newTheme);
+      // Apply theme CSS variables from JSON
+      themeService.applyTheme(newTheme);
     },
     selectedLayout(newLayout) {
       localStorage.setItem('selectedLayout', newLayout);
@@ -338,6 +198,7 @@ export default {
   },
   mounted() {
     this.fetchConfig();
+    this.loadThemes();
     // Add click outside listener to close dropdowns
     document.addEventListener('click', this.handleClickOutside);
   },
@@ -348,36 +209,6 @@ export default {
     toggleEditMode() {
       this.isEditMode = !this.isEditMode;
     },
-    handleAddItem(payload) {
-      const section = this.sections.find(s => s.name === payload.sectionName);
-      if (section) {
-        section.items.push(payload.item);
-        this.saveSectionsToLocalStorage();
-      }
-    },
-    handleAddSection(sectionName) {
-      this.sections.push({ name: sectionName, items: [] });
-      this.saveSectionsToLocalStorage();
-    },
-    handleUpdateSection(payload) {
-      this.sections[payload.index] = payload.section;
-      this.saveSectionsToLocalStorage();
-    },
-    handleUpdateItem(payload) {
-      this.sections[payload.sectionIndex].items[payload.itemIndex] = payload.item;
-      this.saveSectionsToLocalStorage();
-    },
-    handleDeleteSection(sectionIndex) {
-      this.sections.splice(sectionIndex, 1);
-      this.saveSectionsToLocalStorage();
-    },
-    handleDeleteItem(payload) {
-      this.sections[payload.sectionIndex].items.splice(payload.itemIndex, 1);
-      this.saveSectionsToLocalStorage();
-    },
-    saveSectionsToLocalStorage() {
-      localStorage.setItem('userSections', JSON.stringify(this.sections));
-    },
     async fetchConfig() {
       try {
         const configUrl = import.meta.env.BASE_URL + 'config.yml';
@@ -387,12 +218,8 @@ export default {
         this.pageInfo = config.pageInfo;
         this.appConfig = config.appConfig;
 
-        const savedSections = localStorage.getItem('userSections');
-        if (savedSections) {
-          this.sections = JSON.parse(savedSections);
-        } else {
-          this.sections = config.sections;
-        }
+        // Set initial sections from config (Bookmarks component handles localStorage)
+        this.sections = config.sections;
 
         // Initial theme and layout from config, overridden by localStorage if present
         this.selectedTheme = localStorage.getItem('selectedTheme') || this.appConfig.theme || 'CyberGlow';
@@ -422,9 +249,6 @@ export default {
       }
       if (!event.target.closest('.widget-multiselect')) {
         this.showWidgetDropdown = false;
-      }
-      if (!event.target.closest('.settings-menu')) {
-        this.showSettingsMenu = false;
       }
     },
     selectOption(type, value) {
@@ -467,7 +291,6 @@ export default {
     // Modal methods
     openThemeModal() {
       this.showThemeModal = true;
-      this.showSettingsMenu = false;
     },
     
     closeThemeModal() {
@@ -476,7 +299,6 @@ export default {
     
     openWidgetModal() {
       this.showWidgetModal = true;
-      this.showSettingsMenu = false;
     },
     
     closeWidgetModal() {
@@ -493,26 +315,31 @@ export default {
       this.closeThemeModal();
     },
     
-    getThemeDescription(themeValue) {
-      const descriptions = {
-        'CyberGlow': 'Futuristic cyan glow effects',
-        'Fire': 'Warm orange and red tones',
-        'Glow': 'Vibrant green illumination',
-        'slate': 'Professional gray palette',
-        'MonoFire': 'Classic black and white',
-        'Square': 'Clean minimal design'
-      };
-      return descriptions[themeValue] || '';
-    },
     
-    getWidgetDescription(widgetId) {
-      const descriptions = {
-        'quran': 'Display verses from the Holy Quran',
-        'notes': 'Personal notes and thoughts',
-        'prayer': 'Prayer times and reminders',
-        'hadith': 'Islamic traditions and sayings'
-      };
-      return descriptions[widgetId] || '';
+
+    async loadThemes() {
+      try {
+        console.log('Starting to load themes...');
+        const loadedThemes = await themeService.loadThemes();
+        console.log('Raw loaded themes:', loadedThemes);
+        this.themes = themeService.convertToAppFormat(loadedThemes);
+        console.log('Converted themes for App.vue:', this.themes);
+        console.log('Current selected theme:', this.selectedTheme);
+        
+        // Apply initial theme CSS variables
+        if (this.selectedTheme) {
+          themeService.applyTheme(this.selectedTheme);
+        }
+        
+        // Force reactivity update
+        this.$forceUpdate();
+      } catch (error) {
+        console.error('Failed to load themes:', error);
+        // Use fallback themes from service
+        const fallbackThemes = themeService.getFallbackThemes();
+        this.themes = themeService.convertToAppFormat(fallbackThemes);
+        console.log('Using fallback themes:', this.themes);
+      }
     }
   },
 };

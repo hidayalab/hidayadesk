@@ -34,7 +34,7 @@
       </li>
     </ul>
   </div>
-  <div v-if="editMode" class="add-section-button" @click="showAddSectionModal = true" aria-label="Add new section" tabindex="0" @keydown.enter="showAddSectionModal = true" @keydown.space="showAddSectionModal = true">
+  <div class="add-section-button" @click="showAddSectionModal = true" aria-label="Add new section" tabindex="0" @keydown.enter="showAddSectionModal = true" @keydown.space="showAddSectionModal = true">
     <i class="icon fa fa-plus" aria-hidden="true"></i>
     <p class="item-title">Add New Section</p>
   </div>
@@ -180,7 +180,7 @@
 </template>
 
 <script setup>
-import { computed } from 'vue';
+import { computed, ref, onMounted, watch } from 'vue';
 import { useBookmarkModal } from '../composables/useBookmarkModal';
 import { useIconService } from '../composables/useIconService';
 import './styles/bookmark.css';
@@ -188,7 +188,7 @@ import './styles/bookmark-enhancements.css';
 
 // Props
 const props = defineProps({
-  sections: {
+  initialSections: {
     type: Array,
     default: () => [],
   },
@@ -202,8 +202,30 @@ const props = defineProps({
   },
 });
 
-// Emits
-const emit = defineEmits(['add-item', 'add-section', 'update-section', 'update-item', 'delete-section', 'delete-item']);
+// Internal state for sections
+const sections = ref([]);
+
+// Initialize sections from localStorage or initial prop
+onMounted(() => {
+  const savedSections = localStorage.getItem('userSections');
+  if (savedSections) {
+    sections.value = JSON.parse(savedSections);
+  } else {
+    sections.value = [...props.initialSections];
+  }
+});
+
+// Watch for changes in initialSections prop and update if no saved data
+watch(() => props.initialSections, (newInitialSections) => {
+  if (!localStorage.getItem('userSections') && newInitialSections.length > 0) {
+    sections.value = [...newInitialSections];
+  }
+}, { deep: true });
+
+// Function to save sections to localStorage
+const saveSectionsToLocalStorage = () => {
+  localStorage.setItem('userSections', JSON.stringify(sections.value));
+};
 
 // Composables
 const { getIconForDomain, fetchWebsiteIcon, normalizeUrl } = useIconService();
@@ -232,20 +254,20 @@ const {
 
 // Wrapper functions to pass sections
 const showEditSectionModalWrapper = (sectionIndex) => {
-  showEditSectionModalBase(sectionIndex, props.sections);
+  showEditSectionModalBase(sectionIndex, sections.value);
 };
 
 const showEditItemModalWrapper = (sectionIndex, itemIndex) => {
-  showEditItemModalBase(sectionIndex, itemIndex, props.sections);
+  showEditItemModalBase(sectionIndex, itemIndex, sections.value);
 };
 
 // Computed
 const filteredSections = computed(() => {
   if (!props.searchQuery) {
-    return props.sections;
+    return sections.value;
   }
   const query = props.searchQuery.toLowerCase();
-  return props.sections
+  return sections.value
     .map((section) => {
       const filteredItems = section.items.filter((item) => item.title.toLowerCase().includes(query));
       return { ...section, items: filteredItems };
@@ -299,14 +321,16 @@ const addItem = async () => {
     }
 
     if (activeSection.value) {
-      emit('add-item', {
-        sectionName: activeSection.value.name,
-        item: {
+      // Find the section and add the item directly
+      const section = sections.value.find(s => s.name === activeSection.value.name);
+      if (section) {
+        section.items.push({
           ...newItem.value,
           icon: newItem.value.icon || 'fas fa-link',
           iconType: newItem.value.iconType || 'font',
-        },
-      });
+        });
+        saveSectionsToLocalStorage();
+      }
     }
 
     newItem.value = { title: '', url: '', icon: '', iconType: 'font' };
@@ -328,7 +352,9 @@ const addSection = () => {
       return;
     }
 
-    emit('add-section', newSectionName.value);
+    // Add section directly to sections array
+    sections.value.push({ name: newSectionName.value, items: [] });
+    saveSectionsToLocalStorage();
     newSectionName.value = '';
     showAddSectionModal.value = false;
   } catch (err) {
@@ -348,10 +374,9 @@ const updateSection = () => {
       return;
     }
 
-    emit('update-section', {
-      index: editableSectionIndex.value,
-      section: editableSection.value,
-    });
+    // Update section directly
+    sections.value[editableSectionIndex.value] = editableSection.value;
+    saveSectionsToLocalStorage();
     closeEditModal();
   } catch (err) {
     error.value = err instanceof Error ? err.message : 'Failed to update section';
@@ -392,11 +417,9 @@ const updateItem = async () => {
       editableItem.value.iconType = editableItem.value.icon?.startsWith('http') ? 'image' : 'font';
     }
 
-    emit('update-item', {
-      sectionIndex: editableSectionIndex.value,
-      itemIndex: editableItemIndex.value,
-      item: editableItem.value,
-    });
+    // Update item directly
+    sections.value[editableSectionIndex.value].items[editableItemIndex.value] = editableItem.value;
+    saveSectionsToLocalStorage();
     closeEditModal();
   } catch (err) {
     error.value = err instanceof Error ? err.message : 'Failed to update item';
@@ -407,17 +430,18 @@ const updateItem = async () => {
 
 const deleteSection = () => {
   if (confirm('Are you sure you want to delete this section?')) {
-    emit('delete-section', editableSectionIndex.value);
+    // Delete section directly
+    sections.value.splice(editableSectionIndex.value, 1);
+    saveSectionsToLocalStorage();
     closeEditModal();
   }
 };
 
 const deleteItem = () => {
   if (confirm('Are you sure you want to delete this item?')) {
-    emit('delete-item', {
-      sectionIndex: editableSectionIndex.value,
-      itemIndex: editableItemIndex.value,
-    });
+    // Delete item directly
+    sections.value[editableSectionIndex.value].items.splice(editableItemIndex.value, 1);
+    saveSectionsToLocalStorage();
     closeEditModal();
   }
 };

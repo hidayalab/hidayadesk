@@ -39,11 +39,22 @@
 
 /* Favicon styling */
 .icon.favicon {
-  width: 20px;
-  height: 20px;
+  width: 2rem;
+  height: 2rem;
   object-fit: cover;
   border-radius: 3px;
   background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Responsive favicon sizes to match font awesome icons */
+.card-size-small .icon.favicon {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.card-size-list .icon.favicon {
+  width: 1.5rem;
+  height: 1.5rem;
 }
 
 .edit-icon {

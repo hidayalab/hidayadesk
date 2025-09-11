@@ -5,7 +5,7 @@
 
 .prayer-time-widget .next-prayer-label {
   font-size: 0.9rem;
-  color: #aaa;
+  color: var(--color-text-muted);
   margin-bottom: 0.5rem;
 }
 
@@ -13,9 +13,9 @@
   font-family: 'Orbitron', sans-serif;
   font-size: 2.5rem;
   font-weight: 700;
-  color: #fff;
+  color: var(--color-text-primary);
   letter-spacing: 2px;
-  text-shadow: 0 0 5px #007bff, 0 0 10px #007bff, 0 0 15px #007bff;
+  text-shadow: 0 0 2px var(--color-accent), 0 0 4px rgba(0, 0, 0, 0.3);
 }
 
 .prayer-time-widget {
@@ -40,7 +40,7 @@
   align-items: center;
   justify-content: space-between;
   padding: 1rem 0;
-  border-bottom: 1px solid #333;
+  border-bottom: 1px solid var(--color-border-primary);
 }
 
 .prayer-item:last-child {
@@ -50,7 +50,7 @@
 .prayer-icon {
   font-size: 1.5rem;
   margin-right: 1rem;
-  color: #007bff;
+  color: var(--color-accent);
 }
 
 .prayer-name {
@@ -70,15 +70,15 @@
 .notification-controls {
   margin-bottom: 1rem;
   padding-bottom: 1rem;
-  border-bottom: 1px solid #333;
+  border-bottom: 1px solid var(--color-border-primary);
 }
 
 .notification-btn {
   width: 100%;
   padding: 0.75rem;
-  border: 2px solid #007bff;
+  border: 2px solid var(--color-accent);
   background-color: transparent;
-  color: #007bff;
+  color: var(--color-accent);
   border-radius: 6px;
   cursor: pointer;
   font-size: 0.9rem;
@@ -87,7 +87,7 @@
 }
 
 .notification-btn:hover {
-  background-color: #007bff;
+  background-color: var(--color-accent);
   color: white;
   transform: translateY(-1px);
 }
@@ -97,20 +97,20 @@
   align-items: center;
   justify-content: space-between;
   padding: 0.5rem;
-  background-color: rgba(0, 123, 255, 0.1);
+  background-color: var(--color-button-background);
   border-radius: 6px;
-  border: 1px solid rgba(0, 123, 255, 0.3);
+  border: 1px solid var(--color-border-secondary);
 }
 
 .status-text {
-  color: #007bff;
+  color: var(--color-accent);
   font-weight: 500;
 }
 
 .settings-btn {
   background: transparent;
   border: none;
-  color: #007bff;
+  color: var(--color-accent);
   font-size: 1.2rem;
   cursor: pointer;
   padding: 0.25rem;
@@ -119,7 +119,7 @@
 }
 
 .settings-btn:hover {
-  background-color: rgba(0, 123, 255, 0.1);
+  background-color: var(--color-button-background);
 }
 
 .disable-btn {
@@ -141,11 +141,11 @@
 
 /* Notification Settings */
 .notification-settings {
-  background-color: rgba(42, 42, 42, 0.5);
+  background-color: var(--color-background-secondary);
   padding: 1rem;
   border-radius: 6px;
   margin-bottom: 1rem;
-  border: 1px solid #333;
+  border: 1px solid var(--color-border-primary);
 }
 
 .setting-row {
@@ -164,20 +164,20 @@
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  color: #fff;
+  color: var(--color-text-primary);
   font-size: 0.9rem;
   cursor: pointer;
 }
 
 .setting-row input[type="checkbox"] {
   margin: 0;
-  accent-color: #007bff;
+  accent-color: var(--color-accent);
 }
 
 .setting-row select {
-  background-color: #2a2a2a;
-  color: #fff;
-  border: 1px solid #333;
+  background-color: var(--color-background-tertiary);
+  color: var(--color-text-primary);
+  border: 1px solid var(--color-border-primary);
   border-radius: 4px;
   padding: 0.25rem 0.5rem;
   font-size: 0.9rem;
