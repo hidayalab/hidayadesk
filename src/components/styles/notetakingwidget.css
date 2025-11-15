@@ -281,3 +281,194 @@
         font-size: 10px;
     }
 }
+
+/* ========================================
+   MOBILE & TABLET RESPONSIVE ENHANCEMENTS
+   ======================================== */
+
+/* Mobile devices (< 768px) */
+@media (max-width: 767px) {
+  .note-widget {
+    padding: 1rem;
+    max-height: none;
+    height: auto;
+  }
+
+  .notebook-header {
+    padding: 0.75rem;
+    min-height: 52px;
+  }
+
+  .notebook-title {
+    font-size: 1rem;
+  }
+
+  /* Touch-friendly tab controls */
+  .page-tabs {
+    gap: 0.375rem;
+    overflow-x: auto;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .page-tabs::-webkit-scrollbar {
+    display: none;
+  }
+
+  .page-tab {
+    min-height: 44px;
+    padding: 0.625rem 0.875rem;
+    font-size: 0.875rem;
+    min-width: 60px;
+  }
+
+  .page-tab.active {
+    min-height: 48px;
+  }
+
+  /* Textarea optimization for mobile */
+  .page-content {
+    padding: 1rem;
+    min-height: 200px;
+  }
+
+  .page-content textarea {
+    font-size: 1rem; /* Prevent iOS zoom */
+    line-height: 1.6;
+    padding: 0.75rem;
+    min-height: 200px;
+  }
+
+  /* Touch-friendly buttons */
+  .add-page-btn,
+  .delete-page-btn,
+  .save-btn {
+    min-height: 44px;
+    min-width: 44px;
+    padding: 0.625rem 0.875rem;
+    font-size: 0.875rem;
+  }
+
+  .notebook-footer {
+    padding: 0.75rem;
+    font-size: 0.8125rem;
+    min-height: 48px;
+  }
+
+  /* Better textarea for mobile typing */
+  .note-textarea {
+    font-size: 1rem;
+    padding: 1rem;
+    line-height: 1.6;
+  }
+
+  .note-textarea::placeholder {
+    font-size: 0.9375rem;
+  }
+}
+
+/* Very small mobile (< 480px) */
+@media (max-width: 480px) {
+  .note-widget {
+    padding: 0.75rem;
+  }
+
+  .notebook-header {
+    padding: 0.625rem;
+    min-height: 48px;
+  }
+
+  .notebook-title {
+    font-size: 0.9375rem;
+  }
+
+  .page-tab {
+    min-height: 42px;
+    padding: 0.5rem 0.75rem;
+    font-size: 0.8125rem;
+    min-width: 50px;
+  }
+
+  .page-content {
+    padding: 0.75rem;
+    min-height: 180px;
+  }
+
+  .page-content textarea {
+    min-height: 180px;
+    padding: 0.625rem;
+  }
+
+  .add-page-btn,
+  .delete-page-btn {
+    min-height: 42px;
+    min-width: 42px;
+    padding: 0.5rem 0.75rem;
+    font-size: 0.8125rem;
+  }
+}
+
+/* Touch device specific */
+@media (pointer: coarse) {
+  .page-tab,
+  .add-page-btn,
+  .delete-page-btn {
+    -webkit-tap-highlight-color: rgba(255, 255, 255, 0.1);
+    tap-highlight-color: rgba(255, 255, 255, 0.1);
+  }
+
+  /* Larger touch targets for tabs */
+  .page-tab {
+    min-height: 48px;
+    min-width: 64px;
+  }
+
+  /* Better spacing for touch */
+  .page-tabs {
+    gap: 0.5rem;
+  }
+
+  /* Textarea touch optimization */
+  .page-content textarea {
+    -webkit-tap-highlight-color: transparent;
+    tap-highlight-color: transparent;
+  }
+}
+
+/* Landscape orientation optimization */
+@media (orientation: landscape) and (max-height: 500px) {
+  .note-widget {
+    max-height: none;
+  }
+
+  .page-content {
+    min-height: 160px;
+  }
+
+  .page-content textarea {
+    min-height: 160px;
+  }
+}
+
+/* Tablet portrait (768px - 1023px) */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .note-widget {
+    padding: 1.25rem;
+    max-height: none;
+  }
+
+  .page-content {
+    padding: 1.25rem;
+    min-height: 240px;
+  }
+
+  .page-content textarea {
+    min-height: 240px;
+  }
+
+  .page-tab {
+    min-height: 44px;
+    padding: 0.75rem 1rem;
+    font-size: 0.9375rem;
+  }
+}

@@ -1,10 +1,22 @@
 <template>
   <div id="app" class="container-fluid" :class="[selectedTheme, selectedLayout, selectedCardSize]" data-testid="app-root">
     <a href="#main-content" class="skip-link">Skip to main content</a>
-    <header class="header" role="banner">
+
+    <!-- Mobile Header (< 768px) -->
+    <mobile-header
+      v-if="isMobileView"
+      :title="pageInfo.title || 'FaithNotes'"
+      :logo="baseUrl + 'logo.png'"
+      :menu-open="showMobileMenu"
+      @toggle-menu="toggleMobileMenu"
+      @toggle-theme="openThemeModal"
+    />
+
+    <!-- Desktop Header (>= 768px) -->
+    <header v-else class="header" role="banner">
       <div class="header-left">
         <div class="logo-and-title">
-          <img src="/logo.png" alt="HidayaDesk Logo" class="logo">
+          <img :src="baseUrl + 'logo.png'" alt="HidayaDesk Logo" class="logo">
           <h1 class="title">{{ pageInfo.title }}</h1>
         </div>
       </div>
@@ -73,11 +85,13 @@
       <div class="bookmark-area">
         <Bookmarks :initial-sections="sections" :search-query="searchQuery" :edit-mode="isEditMode" />
       </div>
-      <!-- Widget Area Component -->
-      <widget-area 
-        :active-widget="activeWidget"
-        :theme="selectedTheme"
-      />
+      <!-- Widget Area Component with swipe support -->
+      <div ref="widgetAreaContainer" class="widget-area-wrapper">
+        <widget-area
+          :active-widget="activeWidget"
+          :theme="selectedTheme"
+        />
+      </div>
     </main>
 
     <!-- Enhanced Theme Selection Modal -->
@@ -89,13 +103,54 @@
     />
 
     <!-- Widget Selection Modal Component -->
-    <widget-selection-modal 
+    <widget-selection-modal
       :is-visible="showWidgetModal"
       :available-widgets="availableWidgets"
       :visible-widgets="visibleWidgets"
       @close="closeWidgetModal"
       @toggle-widget="toggleWidgetSelection"
     />
+
+    <!-- Mobile Components -->
+    <!-- Hamburger Menu -->
+    <hamburger-menu
+      :is-open="showMobileMenu"
+      :app-title="pageInfo.title || 'FaithNotes'"
+      :subtitle="'Your Islamic Dashboard'"
+      :logo="baseUrl + 'logo.png'"
+      :search-query="searchQuery"
+      :is-edit-mode="isEditMode"
+      @close="closeMobileMenu"
+      @toggle-edit="toggleEditMode"
+      @open-settings="openSettingsFromMenu"
+      @update:search-query="searchQuery = $event"
+    />
+
+    <!-- Settings Drawer -->
+    <settings-drawer
+      :is-open="showMobileSettings"
+      :current-theme-name="currentThemeName"
+      :visible-widgets="visibleWidgets"
+      :selected-layout="selectedLayout"
+      :selected-card-size="selectedCardSize"
+      :layouts="layouts"
+      :card-sizes="cardSizes"
+      @close="closeMobileSettings"
+      @open-theme-modal="openThemeModal"
+      @open-widget-modal="openWidgetModal"
+      @select-layout="value => selectOption('layout', value)"
+      @select-card-size="value => selectOption('cardSize', value)"
+    />
+
+    <!-- Bottom Navigation (Mobile only) -->
+    <bottom-navigation
+      v-if="isMobileView"
+      :active-widget="activeWidget"
+      :available-widgets="availableWidgets"
+      :visible-widget-ids="visibleWidgets"
+      @switch-widget="switchWidget"
+    />
+
     <app-footer />
 
   </div>
@@ -103,12 +158,19 @@
 
 <script>
 import yaml from 'js-yaml';
+import { ref, onMounted, onBeforeUnmount } from 'vue';
 import Bookmarks from './components/Bookmarks.vue';
 import AppFooter from './components/AppFooter.vue';
 import ThemeSelector from './components/ThemeSelector.vue';
 import WidgetSelectionModal from './components/WidgetSelectionModal.vue';
 import WidgetArea from './components/WidgetArea.vue';
 import SettingsMenu from './components/SettingsMenu.vue';
+import MobileHeader from './components/mobile/MobileHeader.vue';
+import HamburgerMenu from './components/mobile/HamburgerMenu.vue';
+import BottomNavigation from './components/mobile/BottomNavigation.vue';
+import SettingsDrawer from './components/mobile/SettingsDrawer.vue';
+import { useViewport } from './composables/useViewport';
+import { useTouchGestures } from './composables/useTouchGestures';
 import themeService from './services/themeService.js';
 import './components/styles/notetakingwidget.css';
 import './components/styles/quranwidget.css';
@@ -121,11 +183,16 @@ export default {
     ThemeSelector,
     WidgetSelectionModal,
     WidgetArea,
-    SettingsMenu
+    SettingsMenu,
+    MobileHeader,
+    HamburgerMenu,
+    BottomNavigation,
+    SettingsDrawer
   },
 
   data() {
     return {
+      baseUrl: import.meta.env.BASE_URL,
       isEditMode: true,
       activeWidget: 'quran',
       searchQuery: '',
@@ -152,6 +219,18 @@ export default {
       showWidgetDropdown: false,
       showThemeModal: false,
       showWidgetModal: false,
+      // Mobile-specific state
+      showMobileMenu: false,
+      showMobileSettings: false,
+      isMobile: false,
+      widgetAreaRef: null,
+    };
+  },
+  setup() {
+    const { isMobile, isTablet } = useViewport();
+    return {
+      isMobileView: isMobile,
+      isTabletView: isTablet
     };
   },
   computed: {
@@ -201,6 +280,11 @@ export default {
     this.loadThemes();
     // Add click outside listener to close dropdowns
     document.addEventListener('click', this.handleClickOutside);
+
+    // Setup swipe gestures for widget switching on mobile
+    this.$nextTick(() => {
+      this.setupSwipeGestures();
+    });
   },
   beforeUnmount() {
     document.removeEventListener('click', this.handleClickOutside);
@@ -325,12 +409,12 @@ export default {
         this.themes = themeService.convertToAppFormat(loadedThemes);
         console.log('Converted themes for App.vue:', this.themes);
         console.log('Current selected theme:', this.selectedTheme);
-        
+
         // Apply initial theme CSS variables
         if (this.selectedTheme) {
           themeService.applyTheme(this.selectedTheme);
         }
-        
+
         // Force reactivity update
         this.$forceUpdate();
       } catch (error) {
@@ -339,6 +423,68 @@ export default {
         const fallbackThemes = themeService.getFallbackThemes();
         this.themes = themeService.convertToAppFormat(fallbackThemes);
         console.log('Using fallback themes:', this.themes);
+      }
+    },
+
+    // Mobile-specific methods
+    toggleMobileMenu() {
+      this.showMobileMenu = !this.showMobileMenu;
+    },
+
+    closeMobileMenu() {
+      this.showMobileMenu = false;
+    },
+
+    toggleMobileSettings() {
+      this.showMobileSettings = !this.showMobileSettings;
+    },
+
+    closeMobileSettings() {
+      this.showMobileSettings = false;
+    },
+
+    openSettingsFromMenu() {
+      this.showMobileSettings = true;
+    },
+
+    switchWidget(widgetId) {
+      this.activeWidget = widgetId;
+    },
+
+    setupSwipeGestures() {
+      const widgetArea = this.$refs.widgetAreaContainer;
+      if (!widgetArea || !this.isMobileView) return;
+
+      useTouchGestures(widgetArea, {
+        onSwipeLeft: () => {
+          this.swipeToNextWidget();
+        },
+        onSwipeRight: () => {
+          this.swipeToPrevWidget();
+        },
+        threshold: 80
+      });
+    },
+
+    swipeToNextWidget() {
+      const currentIndex = this.visibleWidgets.indexOf(this.activeWidget);
+      if (currentIndex < this.visibleWidgets.length - 1) {
+        this.activeWidget = this.visibleWidgets[currentIndex + 1];
+        // Haptic feedback
+        if (navigator.vibrate) {
+          navigator.vibrate(10);
+        }
+      }
+    },
+
+    swipeToPrevWidget() {
+      const currentIndex = this.visibleWidgets.indexOf(this.activeWidget);
+      if (currentIndex > 0) {
+        this.activeWidget = this.visibleWidgets[currentIndex - 1];
+        // Haptic feedback
+        if (navigator.vibrate) {
+          navigator.vibrate(10);
+        }
       }
     }
   },

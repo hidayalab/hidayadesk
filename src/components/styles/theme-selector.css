@@ -357,3 +357,207 @@
     border: 2px solid var(--color-text-on-accent);
   }
 }
+
+/* ========================================
+   MOBILE & TABLET RESPONSIVE ENHANCEMENTS
+   ======================================== */
+
+/* Mobile devices (< 768px) */
+@media (max-width: 767px) {
+  /* Theme modal as bottom sheet on mobile */
+  .theme-modal {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    top: auto;
+    width: 100vw;
+    max-width: 100vw;
+    max-height: 85vh;
+    border-radius: 20px 20px 0 0;
+    margin: 0;
+    transform: translateY(100%);
+    animation: slideUpFromBottom 0.3s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  }
+
+  @keyframes slideUpFromBottom {
+    to {
+      transform: translateY(0);
+    }
+  }
+
+  .modal-header {
+    padding: var(--spacing-md) var(--spacing-lg);
+    border-bottom: 2px solid var(--color-border-primary);
+  }
+
+  .modal-title {
+    font-size: var(--font-size-lg);
+  }
+
+  .modal-close-btn {
+    min-width: var(--touch-target-min);
+    min-height: var(--touch-target-min);
+  }
+
+  .modal-body {
+    padding: var(--spacing-lg);
+    max-height: calc(85vh - 120px);
+  }
+
+  /* Theme grid mobile optimization */
+  .themes-grid {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-md);
+  }
+
+  /* Larger theme cards for touch */
+  .theme-card {
+    padding: var(--spacing-lg);
+    min-height: 100px;
+  }
+
+  .theme-card.compact {
+    padding: var(--spacing-md);
+    min-height: 80px;
+  }
+
+  .theme-preview-container {
+    height: 80px;
+  }
+
+  .theme-info h4 {
+    font-size: var(--font-size-lg);
+  }
+
+  .theme-description {
+    font-size: var(--font-size-sm);
+  }
+
+  /* Touch-friendly selection indicator */
+  .selection-indicator {
+    width: 32px;
+    height: 32px;
+    font-size: 1.125rem;
+  }
+
+  /* Footer buttons */
+  .modal-footer {
+    padding: var(--spacing-md) var(--spacing-lg);
+    gap: var(--spacing-sm);
+  }
+
+  .modal-footer .btn {
+    min-height: var(--touch-target-comfortable);
+    font-size: var(--font-size-base);
+    padding: var(--spacing-sm) var(--spacing-lg);
+    flex: 1;
+  }
+}
+
+/* Very small mobile (< 480px) */
+@media (max-width: 480px) {
+  .theme-modal {
+    max-height: 90vh;
+    border-radius: 16px 16px 0 0;
+  }
+
+  .modal-header {
+    padding: var(--spacing-sm) var(--spacing-md);
+  }
+
+  .modal-title {
+    font-size: var(--font-size-base);
+  }
+
+  .modal-body {
+    padding: var(--spacing-md);
+    max-height: calc(90vh - 100px);
+  }
+
+  .themes-grid {
+    gap: var(--spacing-sm);
+  }
+
+  .theme-card {
+    padding: var(--spacing-md);
+    min-height: 80px;
+  }
+
+  .theme-card.compact {
+    padding: var(--spacing-sm);
+    min-height: 72px;
+  }
+
+  .theme-preview-container {
+    height: 64px;
+  }
+
+  .theme-info h4 {
+    font-size: var(--font-size-base);
+  }
+
+  .theme-description {
+    font-size: var(--font-size-xs);
+  }
+
+  .selection-indicator {
+    width: 28px;
+    height: 28px;
+    font-size: 1rem;
+  }
+
+  .modal-footer {
+    padding: var(--spacing-sm) var(--spacing-md);
+  }
+
+  .modal-footer .btn {
+    min-height: 44px;
+    font-size: var(--font-size-sm);
+    padding: var(--spacing-xs) var(--spacing-md);
+  }
+}
+
+/* Touch device specific */
+@media (pointer: coarse) {
+  .theme-card {
+    -webkit-tap-highlight-color: rgba(255, 255, 255, 0.1);
+    tap-highlight-color: rgba(255, 255, 255, 0.1);
+  }
+
+  /* Ensure cards are easy to tap */
+  .theme-card {
+    min-height: 88px;
+  }
+
+  .theme-card.compact {
+    min-height: 72px;
+  }
+
+  /* Better spacing for touch */
+  .themes-grid {
+    gap: var(--spacing-md);
+  }
+}
+
+/* Tablet portrait (768px - 1023px) */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .theme-modal {
+    width: 90vw;
+    max-width: 600px;
+    max-height: 85vh;
+  }
+
+  .themes-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--spacing-md);
+  }
+
+  .theme-card {
+    padding: var(--spacing-lg);
+  }
+
+  .theme-preview-container {
+    height: 100px;
+  }
+}
