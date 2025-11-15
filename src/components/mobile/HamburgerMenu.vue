@@ -153,18 +153,6 @@ const handleSettingsClick = () => {
   closeMenu()
 }
 
-// Setup swipe-to-close gesture
-watch(() => props.isOpen, (isOpen) => {
-  if (isOpen && menuDrawer.value) {
-    useTouchGestures(menuDrawer, {
-      onSwipeLeft: () => {
-        closeMenu()
-      },
-      threshold: 50
-    })
-  }
-})
-
 // Focus trap: Keep focus within menu when open
 const focusableElements = ref([])
 const firstFocusableElement = ref(null)
@@ -211,12 +199,36 @@ const handleEscapeKey = (e) => {
   }
 }
 
-// Watch for menu open state changes
+// Track gesture cleanup function
+let gestureCleanup = null
+
+// Consolidated watch for menu open state changes - prevents memory leaks
 watch(() => props.isOpen, (isOpen) => {
+  // Clean up previous gesture handler if exists
+  if (gestureCleanup) {
+    gestureCleanup()
+    gestureCleanup = null
+  }
+
   if (isOpen) {
+    // Setup focus trap
     setupFocusTrap()
+
+    // Prevent body scroll
     document.body.style.overflow = 'hidden'
+
+    // Setup swipe-to-close gesture with cleanup
+    if (menuDrawer.value) {
+      const { cleanup } = useTouchGestures(menuDrawer, {
+        onSwipeLeft: () => {
+          closeMenu()
+        },
+        threshold: 50
+      })
+      gestureCleanup = cleanup
+    }
   } else {
+    // Restore body scroll
     document.body.style.overflow = ''
   }
 })
@@ -231,6 +243,12 @@ onBeforeUnmount(() => {
   document.removeEventListener('keydown', handleTabKey)
   document.removeEventListener('keydown', handleEscapeKey)
   document.body.style.overflow = ''
+
+  // Clean up gesture handlers
+  if (gestureCleanup) {
+    gestureCleanup()
+    gestureCleanup = null
+  }
 })
 </script>
 

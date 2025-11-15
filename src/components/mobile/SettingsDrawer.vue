@@ -173,18 +173,6 @@ const handleBackdropClick = () => {
   closeDrawer()
 }
 
-// Setup swipe-to-close gesture
-watch(() => props.isOpen, (isOpen) => {
-  if (isOpen && drawerContent.value) {
-    useTouchGestures(drawerContent, {
-      onSwipeRight: () => {
-        closeDrawer()
-      },
-      threshold: 50
-    })
-  }
-})
-
 // Focus trap implementation
 const focusableElements = ref([])
 const firstFocusableElement = ref(null)
@@ -230,12 +218,36 @@ const handleEscapeKey = (e) => {
   }
 }
 
-// Watch for drawer open/close
+// Track gesture cleanup function
+let gestureCleanup = null
+
+// Consolidated watch for drawer open/close - prevents memory leaks
 watch(() => props.isOpen, (isOpen) => {
+  // Clean up previous gesture handler if exists
+  if (gestureCleanup) {
+    gestureCleanup()
+    gestureCleanup = null
+  }
+
   if (isOpen) {
+    // Setup focus trap
     setupFocusTrap()
+
+    // Prevent body scroll
     document.body.style.overflow = 'hidden'
+
+    // Setup swipe-to-close gesture with cleanup
+    if (drawerContent.value) {
+      const { cleanup } = useTouchGestures(drawerContent, {
+        onSwipeRight: () => {
+          closeDrawer()
+        },
+        threshold: 50
+      })
+      gestureCleanup = cleanup
+    }
   } else {
+    // Restore body scroll
     document.body.style.overflow = ''
   }
 })
@@ -250,6 +262,12 @@ onBeforeUnmount(() => {
   document.removeEventListener('keydown', handleTabKey)
   document.removeEventListener('keydown', handleEscapeKey)
   document.body.style.overflow = ''
+
+  // Clean up gesture handlers
+  if (gestureCleanup) {
+    gestureCleanup()
+    gestureCleanup = null
+  }
 })
 </script>
 

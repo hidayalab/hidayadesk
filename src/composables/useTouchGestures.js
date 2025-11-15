@@ -32,6 +32,7 @@ export function useTouchGestures(elementRef, options = {}) {
   const isSwiping = ref(false)
 
   let longPressTimer = null
+  let isSetup = false
 
   const handleTouchStart = (e) => {
     const touch = e.changedTouches[0]
@@ -110,23 +111,13 @@ export function useTouchGestures(elementRef, options = {}) {
     isSwiping.value = false
   }
 
-  onMounted(() => {
+  /**
+   * Manual cleanup function to remove all event listeners
+   * Call this when you need to clean up gestures manually (e.g., in a watch)
+   */
+  const cleanup = () => {
     const element = elementRef?.value || elementRef
-    if (!element) {
-      console.warn('useTouchGestures: No element provided')
-      return
-    }
-
-    // Add touch event listeners with passive flag for better performance
-    element.addEventListener('touchstart', handleTouchStart, { passive: !preventScroll })
-    element.addEventListener('touchmove', handleTouchMove, { passive: !preventScroll })
-    element.addEventListener('touchend', handleTouchEnd, { passive: true })
-    element.addEventListener('touchcancel', handleTouchCancel, { passive: true })
-  })
-
-  onUnmounted(() => {
-    const element = elementRef?.value || elementRef
-    if (!element) return
+    if (!element || !isSetup) return
 
     element.removeEventListener('touchstart', handleTouchStart)
     element.removeEventListener('touchmove', handleTouchMove)
@@ -136,14 +127,67 @@ export function useTouchGestures(elementRef, options = {}) {
     // Clean up timer
     if (longPressTimer) {
       clearTimeout(longPressTimer)
+      longPressTimer = null
     }
+
+    isSetup = false
+  }
+
+  /**
+   * Setup function to add event listeners
+   * Can be called manually or will be called automatically in onMounted
+   */
+  const setup = () => {
+    const element = elementRef?.value || elementRef
+    if (!element) {
+      console.warn('useTouchGestures: No element provided')
+      return
+    }
+
+    // Don't setup twice
+    if (isSetup) {
+      cleanup()
+    }
+
+    // Add touch event listeners with passive flag for better performance
+    element.addEventListener('touchstart', handleTouchStart, { passive: !preventScroll })
+    element.addEventListener('touchmove', handleTouchMove, { passive: !preventScroll })
+    element.addEventListener('touchend', handleTouchEnd, { passive: true })
+    element.addEventListener('touchcancel', handleTouchCancel, { passive: true })
+
+    isSetup = true
+  }
+
+  // Auto-setup in mounted if used within a component
+  onMounted(() => {
+    setup()
   })
+
+  // Auto-cleanup in unmounted if used within a component
+  onUnmounted(() => {
+    cleanup()
+  })
+
+  // If called outside component lifecycle (e.g., in watch), setup immediately
+  if (typeof window !== 'undefined') {
+    const element = elementRef?.value || elementRef
+    if (element && !isSetup) {
+      // Use setTimeout to allow for immediate ref resolution
+      setTimeout(() => {
+        if (!isSetup) {
+          setup()
+        }
+      }, 0)
+    }
+  }
 
   return {
     touchStartX,
     touchStartY,
     touchEndX,
     touchEndY,
-    isSwiping
+    isSwiping,
+    cleanup,
+    setup
   }
 }
