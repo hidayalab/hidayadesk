@@ -26,7 +26,6 @@
         <i class="fas fa-edit" aria-hidden="true"></i>
       </button>
     </h2>
-    <div class="widget-grid"></div>
     <Transition name="collapse">
       <ul
         v-show="isSectionExpanded(section.name)"
