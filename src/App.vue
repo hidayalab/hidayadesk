@@ -449,6 +449,11 @@ export default {
 
     switchWidget(widgetId) {
       this.activeWidget = widgetId;
+
+      // Auto-scroll to widget area on mobile
+      if (this.isMobileView) {
+        this.scrollToWidget();
+      }
     },
 
     setupSwipeGestures() {
@@ -474,6 +479,8 @@ export default {
         if (navigator.vibrate) {
           navigator.vibrate(10);
         }
+        // Ensure widget is in view
+        this.scrollToWidget();
       }
     },
 
@@ -485,7 +492,22 @@ export default {
         if (navigator.vibrate) {
           navigator.vibrate(10);
         }
+        // Ensure widget is in view
+        this.scrollToWidget();
       }
+    },
+
+    scrollToWidget() {
+      this.$nextTick(() => {
+        const widgetArea = this.$refs.widgetAreaContainer;
+        if (widgetArea) {
+          widgetArea.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start',
+            inline: 'nearest'
+          });
+        }
+      });
     }
   },
 };
