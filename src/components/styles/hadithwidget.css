@@ -674,3 +674,192 @@
   }
 }
 
+/* ========================================
+   MOBILE & TABLET RESPONSIVE ENHANCEMENTS
+   ======================================== */
+
+/* Mobile devices (< 768px) */
+@media (max-width: 767px) {
+  .hadith-widget {
+    padding: 1rem;
+    max-height: none;
+    height: auto;
+  }
+
+  .hadith-widget-header {
+    padding-bottom: 0.75rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .hadith-widget h3 {
+    font-size: 1.125rem;
+  }
+
+  /* Touch-friendly buttons */
+  .hadith-widget button,
+  .control-btn {
+    min-height: 44px;
+    min-width: 44px;
+    padding: 0.625rem 0.875rem;
+    font-size: 0.875rem;
+  }
+
+  .control-btn.icon-only {
+    min-width: 44px;
+    min-height: 44px;
+    padding: 0.625rem;
+  }
+
+  /* Larger text for better mobile readability */
+  .hadith-arabic {
+    font-size: 1.375rem !important;
+    line-height: 2 !important;
+    padding: 1rem 0;
+  }
+
+  .hadith-translation {
+    font-size: 1rem !important;
+    line-height: 1.75 !important;
+    padding: 0.75rem 0;
+  }
+
+  .hadith-info {
+    font-size: 0.875rem;
+    padding: 0.75rem;
+  }
+
+  /* Navigation controls */
+  .hadith-controls {
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+
+  .hadith-controls button {
+    flex: 1;
+    min-width: 44px;
+  }
+
+  /* Collection selector */
+  .collection-selector {
+    width: 100%;
+    min-height: 44px;
+    font-size: 1rem;
+    padding: 0.625rem;
+  }
+
+  /* API key input */
+  .api-key-input {
+    min-height: 48px;
+    font-size: 1rem;
+    padding: 0.75rem;
+  }
+
+  .api-key-container {
+    gap: 0.5rem;
+  }
+
+  .api-key-container button {
+    min-height: 48px;
+    min-width: 48px;
+  }
+}
+
+/* Very small mobile (< 480px) */
+@media (max-width: 480px) {
+  .hadith-widget {
+    padding: 0.75rem;
+  }
+
+  .hadith-widget h3 {
+    font-size: 1rem;
+  }
+
+  .hadith-arabic {
+    font-size: 1.125rem !important;
+    line-height: 1.8 !important;
+    padding: 0.75rem 0;
+  }
+
+  .hadith-translation {
+    font-size: 0.9375rem !important;
+    line-height: 1.6 !important;
+  }
+
+  .hadith-widget button,
+  .control-btn {
+    min-height: 42px;
+    min-width: 42px;
+    padding: 0.5rem 0.75rem;
+    font-size: 0.8125rem;
+  }
+
+  .control-btn.icon-only {
+    min-width: 42px;
+    min-height: 42px;
+    padding: 0.5rem;
+  }
+
+  .hadith-info {
+    font-size: 0.8125rem;
+    padding: 0.625rem;
+  }
+}
+
+/* Touch device specific */
+@media (pointer: coarse) {
+  .hadith-widget button,
+  .control-btn {
+    -webkit-tap-highlight-color: rgba(255, 255, 255, 0.1);
+    tap-highlight-color: rgba(255, 255, 255, 0.1);
+  }
+
+  /* Ensure buttons are always easy to tap */
+  .hadith-controls button,
+  .random-hadith-btn,
+  .settings-btn {
+    min-height: 48px;
+    min-width: 48px;
+  }
+
+  /* Better spacing for touch */
+  .hadith-controls {
+    gap: 0.75rem;
+  }
+}
+
+/* Landscape orientation optimization */
+@media (orientation: landscape) and (max-height: 500px) {
+  .hadith-widget {
+    max-height: none;
+    overflow-y: auto;
+  }
+
+  .hadith-content {
+    max-height: none;
+  }
+}
+
+/* Tablet portrait (768px - 1023px) */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .hadith-widget {
+    padding: 1.25rem;
+    max-height: none;
+  }
+
+  .hadith-arabic {
+    font-size: 1.5rem !important;
+    line-height: 2.25 !important;
+  }
+
+  .hadith-translation {
+    font-size: 1.0625rem !important;
+    line-height: 1.8 !important;
+  }
+
+  .hadith-widget button,
+  .control-btn {
+    min-height: 44px;
+    padding: 0.75rem 1rem;
+  }
+}
+

@@ -80,3 +80,469 @@
   margin-left: 10px;
   position: static;
 }
+
+/* ========================================
+   MOBILE RESPONSIVE ENHANCEMENTS
+   ======================================== */
+
+/* Mobile devices (< 768px) */
+@media (max-width: 767px) {
+  .search-bar {
+    margin-bottom: 0;
+  }
+
+  .search-bar input {
+    width: 100%;
+    padding: 0.75rem;
+    font-size: 16px; /* Prevent iOS zoom on focus */
+    border-radius: 8px;
+  }
+
+  /* Improve section spacing on mobile */
+  .section {
+    margin-bottom: var(--spacing-md, 1rem);
+    transition: margin-bottom 0.25s ease-out;
+  }
+
+  /* Collapsed sections have VERY minimal spacing - even less than before */
+  .section:has(.section-title[aria-expanded="false"]) {
+    margin-bottom: 0.375rem; /* Reduced from 0.5rem to 0.375rem (6px) */
+  }
+
+  /* Ensure smooth transitions without overlap - fix background issue */
+  .section-title[aria-expanded="false"] {
+    margin-bottom: 0;
+    padding-bottom: 0; /* Remove padding to prevent overlap */
+  }
+
+  .section-title[aria-expanded="true"] {
+    margin-bottom: var(--spacing-md, 1rem);
+  }
+
+  .add-section-button {
+    min-height: 100px;
+    padding: 1.5rem;
+    border-radius: 12px;
+    border-width: 2px;
+    margin-top: 1rem;
+  }
+
+  .add-section-button .icon {
+    font-size: 2.5rem;
+    margin-bottom: 0.75rem;
+  }
+
+  /* Touch-friendly edit icons */
+  .edit-icon {
+    min-width: 44px;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 1;
+    top: 0.25rem;
+    right: 0.25rem;
+    padding: 0.5rem;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 6px;
+  }
+
+  .edit-icon:hover {
+    opacity: 1;
+    background: rgba(0, 0, 0, 0.5);
+  }
+
+  .section-title .edit-icon {
+    margin-left: 0.5rem;
+    position: relative;
+    top: 0;
+    right: 0;
+  }
+
+  /* Favicon responsive sizing - SMALLER on mobile */
+  .icon.favicon {
+    width: 1.5rem; /* Reduced from 2rem */
+    height: 1.5rem;
+    border-radius: 3px; /* Reduced from 4px */
+  }
+
+  .card-size-small .icon.favicon {
+    width: 1.4rem; /* Reduced from 1.75rem */
+    height: 1.4rem;
+  }
+
+  .card-size-list .icon.favicon {
+    width: 1.5rem; /* Reduced from 2rem */
+    height: 1.5rem;
+  }
+
+  /* FIX: Prevent section-title background from overlapping with content below */
+  .section-title.collapsible {
+    padding: 0.5rem;
+    margin: -0.5rem -0.5rem 0 -0.5rem; /* Remove negative bottom margin */
+    background: transparent;
+    isolation: isolate; /* Create new stacking context */
+  }
+
+  /* When collapsed, ensure no overlap */
+  .section-title.collapsible[aria-expanded="false"] {
+    margin-bottom: 0; /* Ensure no extra spacing */
+  }
+
+  /* When expanded, add proper spacing */
+  .section-title.collapsible[aria-expanded="true"] {
+    margin-bottom: 0.5rem; /* Add spacing between title and content */
+  }
+}
+
+/* Very small mobile (< 480px) */
+@media (max-width: 480px) {
+  .add-section-button {
+    min-height: 80px;
+    padding: 1rem;
+  }
+
+  .add-section-button .icon {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .edit-icon {
+    min-width: 40px;
+    min-height: 40px;
+    padding: 0.375rem;
+  }
+
+  .icon.favicon {
+    width: 1.4rem; /* Reduced from 1.75rem */
+    height: 1.4rem;
+  }
+
+  /* Extra tight spacing for very small screens */
+  .section {
+    margin-bottom: var(--spacing-sm, 0.5rem);
+  }
+
+  .section:has(.section-title[aria-expanded="false"]) {
+    margin-bottom: var(--spacing-xs, 0.25rem);
+  }
+
+  /* Fix section title background overlap on very small screens */
+  .section-title.collapsible {
+    padding: 0.375rem;
+    margin: -0.375rem -0.375rem 0 -0.375rem;
+  }
+}
+
+/* Touch-specific improvements */
+@media (pointer: coarse) {
+  /* Coarse pointer = touch device */
+  .list-item {
+    -webkit-tap-highlight-color: rgba(255, 255, 255, 0.1);
+    tap-highlight-color: rgba(255, 255, 255, 0.1);
+  }
+
+  .edit-icon,
+  .add-section-button,
+  .add-item-button {
+    -webkit-tap-highlight-color: rgba(255, 255, 255, 0.2);
+    tap-highlight-color: rgba(255, 255, 255, 0.2);
+  }
+
+  /* Always show edit icons on touch devices */
+  .edit-icon {
+    opacity: 1;
+  }
+
+  /* Larger touch targets */
+  .search-bar input {
+    min-height: 48px;
+  }
+}
+
+/* ========================================
+   COLLAPSIBLE SECTIONS
+   ======================================== */
+
+.section-title.collapsible {
+  cursor: pointer;
+  user-select: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--spacing-sm);
+  margin: calc(var(--spacing-sm) * -1);
+  border-radius: 8px;
+  transition: background-color 0.2s ease;
+  min-height: var(--touch-target-min);
+  position: relative;
+  z-index: 1;
+  background: transparent; /* Ensure background starts transparent */
+}
+
+.section-title.collapsible:hover {
+  background: var(--color-button-background-hover);
+}
+
+.section-title.collapsible:active {
+  background: var(--color-button-background-active);
+}
+
+.section-title-content {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  flex: 1;
+  min-width: 0;
+}
+
+.section-toggle-icon {
+  font-size: 0.875rem;
+  color: var(--color-text-muted);
+  transition: transform 0.2s ease;
+  flex-shrink: 0;
+}
+
+.section-title.collapsible[aria-expanded="true"] .section-toggle-icon {
+  transform: rotate(0deg);
+}
+
+.section-title.collapsible[aria-expanded="false"] .section-toggle-icon {
+  transform: rotate(0deg);
+}
+
+/* Collapse transition - improved for mobile */
+.collapse-enter-active,
+.collapse-leave-active {
+  transition: opacity 0.25s cubic-bezier(0.4, 0, 0.2, 1),
+              max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+              margin 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow: hidden;
+  will-change: max-height, opacity, margin;
+}
+
+.collapse-enter-from,
+.collapse-leave-to {
+  opacity: 0;
+  max-height: 0 !important;
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+}
+
+.collapse-enter-to,
+.collapse-leave-from {
+  opacity: 1;
+  max-height: 3000px;
+}
+
+/* Smooth transition end states */
+.collapse-enter-active {
+  transition-timing-function: cubic-bezier(0.0, 0.0, 0.2, 1);
+}
+
+.collapse-leave-active {
+  transition-timing-function: cubic-bezier(0.4, 0.0, 1, 1);
+}
+
+/* Item list specific collapse handling */
+.item-list {
+  will-change: max-height, opacity;
+  margin: 0;
+  padding: 0;
+  position: relative;
+  backface-visibility: hidden;
+  transform: translateZ(0);
+}
+
+/* Prevent layout shift during transitions */
+.section {
+  contain: layout style;
+  transform: translateZ(0);
+}
+
+/* Ensure proper stacking context */
+.section-title {
+  position: relative;
+  z-index: 1;
+  transform: translateZ(0);
+}
+
+.item-list {
+  position: relative;
+  z-index: 0;
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .collapse-enter-active,
+  .collapse-leave-active {
+    transition: none;
+  }
+
+  .section-toggle-icon {
+    transition: none;
+  }
+}
+
+/* ========================================
+   CONTEXT MENU (Mobile Long-Press)
+   ======================================== */
+
+.context-menu-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
+  z-index: 4000;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.context-menu {
+  background: var(--color-background-primary);
+  border-radius: 20px 20px 0 0;
+  padding: var(--spacing-lg);
+  padding-bottom: calc(var(--spacing-lg) + var(--safe-area-bottom, 0px));
+  width: 100%;
+  max-width: 100vw;
+  box-shadow: 0 -4px 30px rgba(0, 0, 0, 0.5);
+  will-change: transform;
+}
+
+.context-menu-title {
+  font-size: var(--font-size-lg);
+  font-weight: 600;
+  color: var(--color-text-primary);
+  margin: 0 0 var(--spacing-md) 0;
+  text-align: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  padding: 0 var(--spacing-md);
+}
+
+.context-menu-actions {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+
+.context-menu-btn {
+  background: var(--color-button-background);
+  border: 1px solid var(--color-button-border);
+  border-radius: 12px;
+  color: var(--color-text-primary);
+  cursor: pointer;
+  padding: var(--spacing-md) var(--spacing-lg);
+  font-size: var(--font-size-base);
+  font-weight: 500;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: var(--spacing-md);
+  min-height: var(--touch-target-comfortable);
+  font-family: inherit;
+  text-align: left;
+}
+
+.context-menu-btn:hover,
+.context-menu-btn:active {
+  background: var(--color-button-background-hover);
+  border-color: var(--color-button-border-hover);
+  transform: translateX(4px);
+}
+
+.context-menu-btn i {
+  font-size: 1.125rem;
+  width: 24px;
+  text-align: center;
+  flex-shrink: 0;
+}
+
+.context-menu-btn span {
+  flex: 1;
+}
+
+.context-menu-btn.delete {
+  border-color: rgba(220, 38, 38, 0.3);
+  color: #fca5a5;
+}
+
+.context-menu-btn.delete:hover,
+.context-menu-btn.delete:active {
+  background: rgba(220, 38, 38, 0.1);
+  border-color: #dc2626;
+  color: #fca5a5;
+}
+
+.context-menu-btn.cancel {
+  background: transparent;
+  border-color: var(--color-border-secondary);
+}
+
+.context-menu-btn.cancel:hover,
+.context-menu-btn.cancel:active {
+  background: var(--color-button-background);
+}
+
+/* Context menu transitions */
+.context-menu-enter-active,
+.context-menu-leave-active {
+  transition: opacity 0.3s ease;
+}
+
+.context-menu-enter-active .context-menu,
+.context-menu-leave-active .context-menu {
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.context-menu-enter-from,
+.context-menu-leave-to {
+  opacity: 0;
+}
+
+.context-menu-enter-from .context-menu {
+  transform: translateY(100%);
+}
+
+.context-menu-leave-to .context-menu {
+  transform: translateY(100%);
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .context-menu-enter-active,
+  .context-menu-leave-active,
+  .context-menu-enter-active .context-menu,
+  .context-menu-leave-active .context-menu,
+  .context-menu-btn {
+    transition: none;
+  }
+
+  .context-menu-btn:hover,
+  .context-menu-btn:active {
+    transform: none;
+  }
+}
+
+/* Desktop context menu */
+@media (min-width: 768px) {
+  .context-menu {
+    max-width: 400px;
+    border-radius: 16px;
+    padding: var(--spacing-lg);
+    margin: auto;
+  }
+
+  .context-menu-overlay {
+    align-items: center;
+    padding: var(--spacing-lg);
+  }
+}

@@ -1,20 +1,51 @@
 <template>
   <div v-for="(section, sectionIndex) in filteredSections" :key="section.name" class="section">
-    <h2 class="section-title">
-      {{ section.name }}
+    <h2
+      class="section-title collapsible"
+      @click="toggleSection(section.name)"
+      :aria-expanded="isSectionExpanded(section.name)"
+      role="button"
+      tabindex="0"
+      @keydown.enter="toggleSection(section.name)"
+      @keydown.space.prevent="toggleSection(section.name)"
+    >
+      <span class="section-title-content">
+        <i
+          class="fas section-toggle-icon"
+          :class="isSectionExpanded(section.name) ? 'fa-chevron-down' : 'fa-chevron-right'"
+          aria-hidden="true"
+        ></i>
+        {{ section.name }}
+      </span>
       <button
         v-if="editMode"
         class="edit-icon-button"
-        @click="showEditSectionModalWrapper(sectionIndex)"
+        @click.stop="showEditSectionModalWrapper(sectionIndex)"
         :aria-label="`Edit ${section.name} section`"
       >
         <i class="fas fa-edit" aria-hidden="true"></i>
       </button>
     </h2>
-    <div class="widget-grid"></div>
-    <ul class="item-list" role="list">
-      <li v-for="(item, itemIndex) in section.items" :key="item.title" class="list-item" role="listitem">
-        <a :href="item.url" target="_blank" class="item-link" :aria-label="`Open ${item.title}`" rel="noopener noreferrer">
+    <Transition name="collapse">
+      <ul
+        v-show="isSectionExpanded(section.name)"
+        class="item-list"
+        role="list"
+      >
+      <li
+        v-for="(item, itemIndex) in section.items"
+        :key="item.title"
+        class="list-item"
+        role="listitem"
+        :ref="el => itemRefs[`${sectionIndex}-${itemIndex}`] = el"
+      >
+        <a
+          :href="item.url"
+          target="_blank"
+          class="item-link"
+          :aria-label="`Open ${item.title}`"
+          rel="noopener noreferrer"
+        >
           <i v-if="!item.iconType || item.iconType === 'font'" :class="['icon', item.icon]" aria-hidden="true"></i>
           <img v-else :src="item.icon" :alt="`${item.title} icon`" class="icon favicon" aria-hidden="true" />
           <p class="item-title">{{ item.title }}</p>
@@ -33,7 +64,59 @@
         <p class="item-title">Add</p>
       </li>
     </ul>
+    </Transition>
   </div>
+
+  <!-- Long-press Context Menu -->
+  <Teleport to="body">
+    <Transition name="context-menu">
+      <div
+        v-if="showContextMenu"
+        class="context-menu-overlay"
+        @click="closeContextMenu"
+      >
+        <div
+          class="context-menu"
+          :style="contextMenuStyle"
+          @click.stop
+        >
+          <h3 class="context-menu-title">{{ contextMenuItem?.title }}</h3>
+          <div class="context-menu-actions">
+            <button
+              class="context-menu-btn"
+              @click="openInNewTab"
+            >
+              <i class="fas fa-external-link-alt" aria-hidden="true"></i>
+              <span>Open in New Tab</span>
+            </button>
+            <button
+              v-if="editMode"
+              class="context-menu-btn"
+              @click="editContextItem"
+            >
+              <i class="fas fa-edit" aria-hidden="true"></i>
+              <span>Edit</span>
+            </button>
+            <button
+              v-if="editMode"
+              class="context-menu-btn delete"
+              @click="deleteContextItem"
+            >
+              <i class="fas fa-trash" aria-hidden="true"></i>
+              <span>Delete</span>
+            </button>
+            <button
+              class="context-menu-btn cancel"
+              @click="closeContextMenu"
+            >
+              <i class="fas fa-times" aria-hidden="true"></i>
+              <span>Cancel</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </Transition>
+  </Teleport>
   <div class="add-section-button" @click="showAddSectionModal = true" aria-label="Add new section" tabindex="0" @keydown.enter="showAddSectionModal = true" @keydown.space="showAddSectionModal = true">
     <i class="icon fa fa-plus" aria-hidden="true"></i>
     <p class="item-title">Add New Section</p>
@@ -180,9 +263,11 @@
 </template>
 
 <script setup>
-import { computed, ref, onMounted, watch } from 'vue';
+import { computed, ref, onMounted, watch, onBeforeUnmount } from 'vue';
 import { useBookmarkModal } from '../composables/useBookmarkModal';
 import { useIconService } from '../composables/useIconService';
+import { useViewport } from '../composables/useViewport';
+import { useTouchGestures } from '../composables/useTouchGestures';
 import './styles/bookmark.css';
 import './styles/bookmark-enhancements.css';
 
@@ -205,6 +290,21 @@ const props = defineProps({
 // Internal state for sections
 const sections = ref([]);
 
+// Collapsible sections state
+const collapsedSections = ref(new Set());
+const COLLAPSED_SECTIONS_KEY = 'collapsedSections';
+
+// Context menu state
+const showContextMenu = ref(false);
+const contextMenuItem = ref(null);
+const contextMenuSectionIndex = ref(null);
+const contextMenuItemIndex = ref(null);
+const contextMenuStyle = ref({});
+const itemRefs = ref({});
+
+// Viewport detection
+const { isMobile } = useViewport();
+
 // Initialize sections from localStorage or initial prop
 onMounted(() => {
   const savedSections = localStorage.getItem('userSections');
@@ -213,6 +313,19 @@ onMounted(() => {
   } else {
     sections.value = [...props.initialSections];
   }
+
+  // Load collapsed sections state
+  const savedCollapsed = localStorage.getItem(COLLAPSED_SECTIONS_KEY);
+  if (savedCollapsed) {
+    collapsedSections.value = new Set(JSON.parse(savedCollapsed));
+  }
+
+  // Setup long-press for bookmark items on mobile
+  setupLongPressGestures();
+});
+
+onBeforeUnmount(() => {
+  // Cleanup is handled by composable
 });
 
 // Watch for changes in initialSections prop and update if no saved data
@@ -445,4 +558,100 @@ const deleteItem = () => {
     closeEditModal();
   }
 };
+
+// Collapsible sections functions
+const toggleSection = (sectionName) => {
+  if (collapsedSections.value.has(sectionName)) {
+    collapsedSections.value.delete(sectionName);
+  } else {
+    collapsedSections.value.add(sectionName);
+  }
+  // Save to localStorage
+  localStorage.setItem(COLLAPSED_SECTIONS_KEY, JSON.stringify([...collapsedSections.value]));
+};
+
+const isSectionExpanded = (sectionName) => {
+  return !collapsedSections.value.has(sectionName);
+};
+
+// Long-press context menu functions
+const setupLongPressGestures = () => {
+  // Wait for next tick to ensure DOM is ready
+  setTimeout(() => {
+    sections.value.forEach((section, sectionIndex) => {
+      section.items.forEach((_item, itemIndex) => {
+        const key = `${sectionIndex}-${itemIndex}`;
+        const element = itemRefs.value[key];
+
+        if (element && isMobile.value) {
+          useTouchGestures(element, {
+            onLongPress: (e) => {
+              e.preventDefault();
+              openContextMenu(sectionIndex, itemIndex);
+
+              // Haptic feedback if available
+              if (navigator.vibrate) {
+                navigator.vibrate(50);
+              }
+            },
+            longPressDuration: 500
+          });
+        }
+      });
+    });
+  }, 100);
+};
+
+const openContextMenu = (sectionIndex, itemIndex) => {
+  contextMenuSectionIndex.value = sectionIndex;
+  contextMenuItemIndex.value = itemIndex;
+  contextMenuItem.value = sections.value[sectionIndex].items[itemIndex];
+
+  // Position context menu at bottom of screen (mobile sheet style)
+  contextMenuStyle.value = {
+    bottom: '0',
+    left: '0',
+    right: '0'
+  };
+
+  showContextMenu.value = true;
+};
+
+const closeContextMenu = () => {
+  showContextMenu.value = false;
+  contextMenuItem.value = null;
+  contextMenuSectionIndex.value = null;
+  contextMenuItemIndex.value = null;
+};
+
+const openInNewTab = () => {
+  if (contextMenuItem.value) {
+    window.open(contextMenuItem.value.url, '_blank', 'noopener,noreferrer');
+  }
+  closeContextMenu();
+};
+
+const editContextItem = () => {
+  if (contextMenuSectionIndex.value !== null && contextMenuItemIndex.value !== null) {
+    showEditItemModalWrapper(contextMenuSectionIndex.value, contextMenuItemIndex.value);
+  }
+  closeContextMenu();
+};
+
+const deleteContextItem = () => {
+  if (contextMenuSectionIndex.value !== null && contextMenuItemIndex.value !== null) {
+    if (confirm(`Are you sure you want to delete "${contextMenuItem.value.title}"?`)) {
+      sections.value[contextMenuSectionIndex.value].items.splice(contextMenuItemIndex.value, 1);
+      saveSectionsToLocalStorage();
+    }
+  }
+  closeContextMenu();
+};
+
+// Re-setup gestures when sections change
+watch(() => sections.value, () => {
+  if (isMobile.value) {
+    setTimeout(() => setupLongPressGestures(), 100);
+  }
+}, { deep: true });
 </script>

@@ -187,3 +187,164 @@
   opacity: 0.5;
   cursor: not-allowed;
 }
+
+/* ========================================
+   MOBILE & TABLET RESPONSIVE ENHANCEMENTS
+   ======================================== */
+
+/* Mobile devices (< 768px) */
+@media (max-width: 767px) {
+  .prayer-widget {
+    padding: 1rem;
+    max-height: none;
+    height: auto;
+  }
+
+  .prayer-widget-header {
+    padding-bottom: 0.75rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .prayer-widget h3 {
+    font-size: 1.125rem;
+  }
+
+  /* Touch-friendly buttons */
+  .prayer-widget button {
+    min-height: 44px;
+    min-width: 44px;
+    padding: 0.625rem 0.875rem;
+    font-size: 0.875rem;
+  }
+
+  /* Prayer times list */
+  .prayer-times-list {
+    gap: 0.5rem;
+  }
+
+  .prayer-time-item {
+    padding: 0.875rem;
+    min-height: 52px;
+  }
+
+  .prayer-name {
+    font-size: 1rem;
+  }
+
+  .prayer-time {
+    font-size: 1rem;
+    font-weight: 600;
+  }
+
+  /* Settings panel */
+  .settings-toggle-btn {
+    min-height: 44px;
+    min-width: 44px;
+  }
+
+  .settings-panel {
+    padding: 1rem;
+  }
+
+  .setting-row {
+    padding: 0.75rem 0;
+    min-height: 48px;
+  }
+
+  .setting-row select,
+  .setting-row input {
+    min-height: 44px;
+    font-size: 1rem;
+    padding: 0.5rem;
+  }
+
+  .setting-row label {
+    font-size: 0.9375rem;
+  }
+
+  /* Notification controls */
+  .notification-controls {
+    gap: 0.75rem;
+  }
+
+  .notification-controls button {
+    min-height: 48px;
+    padding: 0.75rem 1rem;
+  }
+
+  /* Location selector */
+  .location-input {
+    min-height: 48px;
+    font-size: 1rem;
+    padding: 0.75rem;
+  }
+}
+
+/* Very small mobile (< 480px) */
+@media (max-width: 480px) {
+  .prayer-widget {
+    padding: 0.75rem;
+  }
+
+  .prayer-widget h3 {
+    font-size: 1rem;
+  }
+
+  .prayer-time-item {
+    padding: 0.75rem;
+    min-height: 48px;
+  }
+
+  .prayer-name,
+  .prayer-time {
+    font-size: 0.9375rem;
+  }
+
+  .prayer-widget button {
+    min-height: 42px;
+    min-width: 42px;
+    padding: 0.5rem 0.75rem;
+    font-size: 0.8125rem;
+  }
+}
+
+/* Touch device specific */
+@media (pointer: coarse) {
+  .prayer-widget button,
+  .prayer-time-item {
+    -webkit-tap-highlight-color: rgba(255, 255, 255, 0.1);
+    tap-highlight-color: rgba(255, 255, 255, 0.1);
+  }
+
+  /* Larger touch targets */
+  .settings-toggle-btn,
+  .notification-toggle {
+    min-height: 48px;
+    min-width: 48px;
+  }
+
+  /* Checkbox touch targets */
+  .setting-row input[type="checkbox"] {
+    min-width: 24px;
+    min-height: 24px;
+    transform: scale(1.2);
+  }
+}
+
+/* Tablet portrait (768px - 1023px) */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .prayer-widget {
+    padding: 1.25rem;
+    max-height: none;
+  }
+
+  .prayer-time-item {
+    padding: 1rem;
+    min-height: 56px;
+  }
+
+  .prayer-name,
+  .prayer-time {
+    font-size: 1.0625rem;
+  }
+}
